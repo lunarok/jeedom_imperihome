@@ -5,42 +5,36 @@
             {
                 "Description": "Login to access camera image",
                 "type": "text",
-                "equivalent": "",
                 "value": "",
                 "key": "login"
             },
             {
                 "Description": "Password to access camera image",
                 "type": "text",
-                "equivalent": "",
                 "value": "",
                 "key": "password"
             },
             {
                 "Description": "Local URL to the JPEG snapshot of the camera",
                 "type": "text",
-                "equivalent": "",
                 "value": "",
                 "key": "localjpegurl"
             },
             {
                 "Description": "Local URL to the camera's MJPEG stream",
                 "type": "text",
-                "equivalent": "",
                 "value": "",
                 "key": "localmjpegurl"
             },
             {
                 "Description": "Remote URL to the JPEG snapshot of the camera",
                 "type": "text",
-                "equivalent": "",
                 "value": "",
                 "key": "remotejpegurl"
             },
             {
                 "Description": "Remote URL to the camera's MJPEG stream",
                 "type": "text",
-                "equivalent": "",
                 "value": "",
                 "key": "remotemjpegurl"
             }
@@ -53,7 +47,6 @@
                 "Description": "CO2 value",
                 "unit": "ppm",
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "value"
             }
@@ -65,7 +58,6 @@
             {
                 "Description": "Current status : 1 = On \/ 0 = Off",
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "status"
             },
@@ -75,7 +67,6 @@
                 "type": "infoNumeric",
                 "min": "0",
                 "max": "100",
-                "equivalent": "",
                 "value": "0",
                 "key": "level"
             },
@@ -83,7 +74,6 @@
                 "Description": "Energy value (number)",
                 "unit": "Watts",
                 "type": "infoNumeric",
-                "equivalent": "Puissance;Consommation",
                 "value": "",
                 "key": "energy"
             }
@@ -95,25 +85,21 @@
             {
                 "Description": "Ability to stop shutter: 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "1",
                 "key": "stopable"
             },
             {
                 "Description": "Ability to send pulse commands to shutter: 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "1",
                 "key": "pulseable"
             },
             {
                 "Description": "Current dim level (0-100)",
                 "unit": "%",
-                
                 "type": "infoNumeric",
                 "min": "0",
                 "max": "100",
-                "equivalent": "",
                 "value": "0",
                 "key": "level"
             }
@@ -125,29 +111,24 @@
             {
                 "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "armable"
             },
             {
                 "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "ackable"
             },
             {
                 "Description": "Current arming status : 1 = On \/ 0 = Off",
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "armed"
             },
             {
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
-                
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "tripped"
             }
@@ -159,21 +140,18 @@
             {
                 "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "armable"
             },
             {
                 "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "ackable"
             },
             {
                 "Description": "Current arming status : 1 = On \/ 0 = Off",
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "armed"
             },
@@ -181,7 +159,6 @@
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
                 
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "tripped"
             }
@@ -193,21 +170,18 @@
             {
                 "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "armable"
             },
             {
                 "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "ackable"
             },
             {
                 "Description": "Current arming status : 1 = On \/ 0 = Off",
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "armed"
             },
@@ -215,7 +189,6 @@
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
                 
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "tripped"
             }
@@ -227,21 +200,18 @@
             {
                 "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "armable"
             },
             {
                 "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "ackable"
             },
             {
                 "Description": "Current arming status : 1 = On \/ 0 = Off",
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "armed"
             },
@@ -249,7 +219,6 @@
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
                 
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "tripped"
             }
@@ -261,29 +230,24 @@
             {
                 "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "armable"
             },
             {
                 "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "ackable"
             },
             {
                 "Description": "Current arming status : 1 = On \/ 0 = Off",
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "armed"
             },
             {
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
-                
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "tripped"
             }
@@ -296,9 +260,7 @@
                 "Description": "Current consumption",
                 "unit": "Watts",
                 "graphable": "false",
-                
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "watts"
             },
@@ -307,7 +269,6 @@
                 "unit": "kWh",
                 "graphable": "false",
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "consototal"
             }
@@ -320,11 +281,9 @@
                 "Description": "Current hygro value",
                 "unit": "%",
                 "graphable": "false",
-                
                 "type": "infoNumeric",
                 "min": "0",
                 "max": "100",
-                "equivalent": "",
                 "value": "0",
                 "key": "value"
             }
@@ -335,9 +294,7 @@
         "params": [
             {
                 "Description": "Current status (0 = opened \/ 1 = closed)",
-                
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "status"
             }
@@ -350,9 +307,7 @@
                 "Description": "Current lum value",
                 "unit": "lux",
                 "graphable": "false",
-                
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "value"
             }
@@ -364,14 +319,12 @@
             {
                 "Description": "Current value",
                 "type": "infoText",
-                "equivalent": "",
                 "value": "",
                 "key": "value"
             },
             {
                 "Description": "Comma-separated list of possible values",
                 "type": "text",
-                "equivalent": "",
                 "value": "",
                 "key": "choices"
             }
@@ -385,7 +338,6 @@
                 "unit": "dB",
                 "graphable": "false",
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "value"
             }
@@ -399,7 +351,6 @@
                 "unit": "mbar",
                 "graphable": "false",
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "value"
             }
@@ -412,9 +363,7 @@
                 "Description": "Current instant rain value",
                 "unit": "mm\/h",
                 "graphable": "false",
-                
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "value"
             },
@@ -423,7 +372,6 @@
                 "unit": "mm",
                 "graphable": "false",
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "accumulation"
             }
@@ -434,7 +382,6 @@
         "params": [
             {
                 "Description": "Date of last run",
-                "equivalent": "",
                 "type": "infoNumeric",
                 "value": "",
                 "key": "lastrun"
@@ -447,7 +394,6 @@
             {
                 "Description": "Current status : 1 = On \/ 0 = Off",
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "status"
             },
@@ -455,7 +401,6 @@
                 "Description": "Energy value (number)",
                 "unit": "Watts",
                 "type": "infoNumeric",
-                "equivalent": "Puissance;Consommation",
                 "value": "0",
                 "key": "energy"
             }
@@ -469,9 +414,7 @@
                 "Description": "Current temperature",
                 "unit": "°C",
                 "graphable": "false",
-                
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0"
             }
         ]
@@ -482,7 +425,6 @@
             {
                 "Description": "Current thermostat mode from available modes (see availablemodes)",
                 "type": "infoText",
-                "equivalent": "",
                 "value": "",
                 "key": "curmode"
             },
@@ -490,28 +432,24 @@
                 "Description": "Current ambient temperature",
                 "unit": "°C",
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "curtemp"
             },
             {
                 "Description": "Current thermostat setpoint (same unit as curtemp)",
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "cursetpoint"
             },
             {
                 "Description": "The setpoint step between 2 values (default 0.5)",
                 "type": "numeric",
-                "equivalent": "",
                 "value": "0.5",
                 "key": "step"
             },
             {
                 "Description": "Comma-separated list of possible values for thermostat mode",
                 "type": "text",
-                "equivalent": "",
                 "value": "",
                 "key": "availablemodes"
             }
@@ -524,9 +462,7 @@
                 "Description": "Current wind speed",
                 "unit": "km\/h",
                 "graphable": "false",
-                
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "speed"
             },
@@ -534,7 +470,6 @@
                 "Description": "Wind direction",
                 "unit": "Degrees",
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "direction"
             }
@@ -547,9 +482,7 @@
                 "Description": "Current UV index",
                 "unit": "index",
                 "graphable": "false",
-                
                 "type": "infoNumeric",
-                "equivalent": "",
                 "value": "0",
                 "key": "value"
             }
@@ -562,9 +495,7 @@
                 "Description": "Current value",
                 "unit": "",
                 "graphable": "false",
-                
                 "type": "infoText",
-                "equivalent": "",
                 "value": "",
                 "key": "value"
             }
@@ -575,9 +506,7 @@
         "params": [
             {
                 "Description": "Current status : 1 = On \/ 0 = Off",
-                
                 "type": "infoBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "status"
             },
@@ -585,38 +514,32 @@
                 "Description": "Energy value (number)",
                 "unit": "Watts",
                 "type": "infoNumeric",
-                "equivalent": "Puissance;Consommation",
                 "value": "0",
                 "key": "energy"
             },
             {
                 "Description": "If dimmable, current dim level (0-100)",
-                
                 "type": "infoNumeric",
                 "min": "0",
                 "max": "100",
-                "equivalent": "",
                 "value": "0",
                 "key": "level"
             },
             {
                 "Description": "Ability to control luminosity : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "dimmable"
             },
             {
                 "Description": "Does the light has a white channel : 1 = Yes \/ 0 = No",
                 "type": "optionBinary",
-                "equivalent": "",
                 "value": "0",
                 "key": "whitechannel"
             },
             {
                 "Description": "Color code in 8 hex characters : AARRGGBB",
                 "type": "infoColor",
-                "equivalent": "",
                 "value": "",
                 "key": "color"
             }
@@ -629,9 +552,7 @@
                 "Description": "Current temperature",
                 "unit": "°C",
                 "graphable": "false",
-                
                 "type": "infoNumeric",
-                "equivalent": "Temperature",
                 "value": "0",
                 "key": "temp"
             },
@@ -640,7 +561,6 @@
                 "unit": "%",
                 "graphable": "false",
                 "type": "infoNumeric",
-                "equivalent": "Humidité",
                 "value": "0",
                 "key": "hygro"
             }

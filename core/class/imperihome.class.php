@@ -165,11 +165,25 @@ class imperihome {
 			if (isset($param['graphable'])) {
 				$param['graphable'] = ($cmd->getIsHistorized() == 1) ? true : false;
 			}
-			if ($cmdType == 'DevSwitch' && $param['key'] == 'energy') {
+			if (($cmdType == 'DevSwitch' || $cmdType == 'DevRGBLight' || $cmdType == 'DevDimmer') && $param['key'] == 'energy') {
 				$param['value'] = 0;
 				foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
-					if ($info->getUnite() == 'W' || $info->getUnite() == 'w') {
+					if (strtolower($info->getUnite()) == 'w') {
+						$param['unit'] = $info->getUnite();
 						$param['value'] = '#' . $info->getId() . '#';
+						$param['graphable'] = false;
+						break;
+					}
+				}
+			}
+			if ($cmdType == 'DevElectricity' && $param['key'] == 'consototal') {
+				$param['value'] = 0;
+				foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
+					if (strtolower($info->getUnite()) == 'kwh') {
+						$param['unit'] = $info->getUnite();
+						$param['value'] = '#' . $info->getId() . '#';
+						$param['graphable'] = false;
+						break;
 					}
 				}
 			}
@@ -284,6 +298,15 @@ class imperihome {
 
 	public function system() {
 		return json_encode(array('id' => config::byKey('api'), 'apiversion' => "1"));
+	}
+
+	public function history($_cmd_id, $_paramKey, $_startdate, $_enddate) {
+		$cmd = cmd::byId($_cmd_id);
+		$history = array();
+		foreach ($cmd->getHistory(date('Y-m-d H:i:s', ($_startdate / 1000)), date('Y-m-d H:i:s', ($_enddate / 1000))) as $histoItem) {
+			$history[] = array('value' => floatval($histoItem->getValue()), 'date' => strtotime($histoItem->getDatetime()) * 1000);
+		}
+		return array('values' => $history);
 	}
 
 /*     * **********************Getteur Setteur*************************** */

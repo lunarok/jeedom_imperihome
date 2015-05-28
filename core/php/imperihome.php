@@ -37,7 +37,7 @@ switch ($args[2]) {
 				//echo json_encode($this->action($args[3], $args[5]));
 			}
 		} elseif ($args[5] == 'histo') {
-			//echo json_encode($this->histo($args[3], $args[4], $args[6], $args[7]));
+			echo json_encode(imperihome::history($args[3], $args[4], $args[6], $args[7]));
 		} else {
 			http_response_code(404);
 			echo json_encode(array("success" => false, "errormsg" => "Format inconnu"));
