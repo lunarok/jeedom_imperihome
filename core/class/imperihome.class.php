@@ -77,7 +77,15 @@ class imperihome {
 
 	public static function devices() {
 		$cache = cache::byKey('issTemplate');
-		return cmd::cmdToValue($cache->getValue('{}'), false, true);
+		$return = json_decode(cmd::cmdToValue($cache->getValue('{}'), false, true), true);
+		foreach ($return['devices'] as &$device) {
+			foreach ($device['params'] as &$param) {
+				if ($param['type'] == 'infoBinary' && ($param['value'] > 0 || $param['value'])) {
+					$param['value'] = 1;
+				}
+			}
+		}
+		return json_encode($return);
 	}
 
 	public static function action($_cmd_id, $_action, $_value) {
@@ -139,20 +147,12 @@ class imperihome {
 		$eqLogic = $cmd->getEqLogic();
 		$return = array('params' => $ISSStructure[$cmdType]['params'], 'cmd_id' => array());
 		foreach ($return['params'] as $paramKey => &$param) {
-			if (isset($param['potentialJeeDomState'])) {
-				$param['value'] = ($cmd->getType() == 'info') ? '#' . $cmd->getId() . '#' : '';
-				if (isset($param['unit'])) {
-					$param['unit'] = $cmd->getUnite();
-				}
-				if (isset($param['graphable'])) {
-					$param['graphable'] = ($cmd->getIsHistorized() == 1) ? true : false;
-				}
-			} else {
-				$eq = explode(";", $param['equivalent']);
-				foreach (explode(";", $param['equivalent']) as $eq) {
-					$cmd_eq = $eqLogic->getCmd(null, $eq);
-				}
-
+			$param['value'] = ($cmd->getType() == 'info') ? '#' . $cmd->getId() . '#' : '';
+			if (isset($param['unit'])) {
+				$param['unit'] = $cmd->getUnite();
+			}
+			if (isset($param['graphable'])) {
+				$param['graphable'] = ($cmd->getIsHistorized() == 1) ? true : false;
 			}
 		}
 		return $return;

@@ -54,6 +54,6 @@ switch ($args[2]) {
 		echo json_encode(array("success" => false, "errormsg" => "Format inconnu"));
 		break;
 }
-//$out = ob_get_clean();
-//echo trim(substr($out, strpos($out, '{')));
+$out = ob_get_clean();
+echo trim(substr($out, strpos($out, '{')));
 ?>
