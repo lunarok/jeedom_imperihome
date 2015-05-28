@@ -80,7 +80,7 @@ class imperihome {
 
 	public static function devices() {
 		$cache = cache::byKey('issTemplate');
-		$return = json_decode(cmd::cmdToValue($cache->getValue('{}'), false, true), true);
+		$return = cmd::cmdToValue(json_decode($cache->getValue('{}'), true), false, true);
 		foreach ($return['devices'] as &$device) {
 			foreach ($device['params'] as &$param) {
 				if ($param['type'] == 'infoBinary' && ($param['value'] > 0 || $param['value'])) {
@@ -128,7 +128,10 @@ class imperihome {
 	public static function generateParam($cmd, $cmdType, $ISSStructure) {
 		$eqLogic = $cmd->getEqLogic();
 		$return = array('params' => $ISSStructure[$cmdType]['params'], 'cmd_id' => array());
-		foreach ($return['params'] as $paramKey => &$param) {
+		foreach ($return['params'] as &$param) {
+			if ($param['type'] == 'optionBinary') {
+				continue;
+			}
 			$param['value'] = ($cmd->getType() == 'info') ? '#' . $cmd->getId() . '#' : '';
 			if (isset($param['unit'])) {
 				$param['unit'] = $cmd->getUnite();
@@ -177,6 +180,9 @@ class imperihome {
 		}
 		if (strpos(strtolower($cmd->getName()), 'humidi') !== false) {
 			return 'DevHygrometry';
+		}
+		if (strtolower($cmd->getName()) == 'uv') {
+			return 'DevUV';
 		}
 
 		switch ($cmd->getSubtype()) {
