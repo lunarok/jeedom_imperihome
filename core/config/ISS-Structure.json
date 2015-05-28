@@ -1,4 +1,4 @@
-﻿{
+{
     "DevCamera": {
         "Description": "MJPEG IP Camera",
         "params": [
@@ -53,7 +53,6 @@
             {
                 "Description": "CO2 value",
                 "unit": "ppm",
-                "potentialJeeDomState": "true",
                 "type": "infoNumeric",
                 "equivalent": "",
                 "value": "0",
@@ -67,7 +66,6 @@
         "params": [
             {
                 "Description": "Current status : 1 = On \/ 0 = Off",
-                "potentialJeeDomState": "true",
                 "type": "infoBinary",
                 "equivalent": "",
                 "value": "0",
@@ -76,7 +74,6 @@
             {
                 "Description": "Current dim level (0-100)",
                 "unit": "%",
-                "potentialJeeDomState": "true",
                 "type": "infoNumeric",
                 "min": "0",
                 "max": "100",
@@ -127,7 +124,7 @@
             {
                 "Description": "Current dim level (0-100)",
                 "unit": "%",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoNumeric",
                 "min": "0",
                 "max": "100",
@@ -180,7 +177,7 @@
             },
             {
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoBinary",
                 "equivalent": "",
                 "value": "0",
@@ -227,7 +224,7 @@
             },
             {
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoBinary",
                 "equivalent": "",
                 "value": "0",
@@ -274,7 +271,7 @@
             },
             {
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoBinary",
                 "equivalent": "",
                 "value": "0",
@@ -321,7 +318,7 @@
             },
             {
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoBinary",
                 "equivalent": "",
                 "value": "0",
@@ -368,7 +365,7 @@
             },
             {
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoBinary",
                 "equivalent": "",
                 "value": "0",
@@ -384,7 +381,7 @@
                 "Description": "Current consumption",
                 "unit": "Watts",
                 "graphable": "false",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoNumeric",
                 "equivalent": "",
                 "value": "0",
@@ -409,7 +406,7 @@
                 "Description": "Current hygro value",
                 "unit": "%",
                 "graphable": "false",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoNumeric",
                 "min": "0",
                 "max": "100",
@@ -425,7 +422,7 @@
         "params": [
             {
                 "Description": "Current status (0 = opened \/ 1 = closed)",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoBinary",
                 "equivalent": "",
                 "value": "0",
@@ -449,7 +446,7 @@
                 "Description": "Current lum value",
                 "unit": "lux",
                 "graphable": "false",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoNumeric",
                 "equivalent": "",
                 "value": "0",
@@ -463,7 +460,6 @@
         "params": [
             {
                 "Description": "Current value",
-                "potentialJeeDomState": "true",
                 "type": "infoText",
                 "equivalent": "",
                 "value": "",
@@ -491,7 +487,6 @@
                 "Description": "Current noise level",
                 "unit": "dB",
                 "graphable": "false",
-                "potentialJeeDomState": "true",
                 "type": "infoNumeric",
                 "equivalent": "",
                 "value": "0",
@@ -507,7 +502,6 @@
                 "Description": "Current pressure",
                 "unit": "mbar",
                 "graphable": "false",
-                "potentialJeeDomState": "true",
                 "type": "infoNumeric",
                 "equivalent": "",
                 "value": "0",
@@ -523,7 +517,7 @@
                 "Description": "Current instant rain value",
                 "unit": "mm\/h",
                 "graphable": "false",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoNumeric",
                 "equivalent": "",
                 "value": "0",
@@ -564,7 +558,7 @@
         "params": [
             {
                 "Description": "Current status : 1 = On \/ 0 = Off",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoBinary",
                 "equivalent": "",
                 "value": "0",
@@ -597,7 +591,7 @@
                 "Description": "Current temperature",
                 "unit": "°C",
                 "graphable": "false",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoNumeric",
                 "equivalent": "",
                 "value": "0"
@@ -663,7 +657,7 @@
                 "Description": "Current wind speed",
                 "unit": "km\/h",
                 "graphable": "false",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoNumeric",
                 "equivalent": "",
                 "value": "0",
@@ -687,7 +681,7 @@
                 "Description": "Current UV index",
                 "unit": "index",
                 "graphable": "false",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoNumeric",
                 "equivalent": "",
                 "value": "0",
@@ -703,7 +697,7 @@
                 "Description": "Current value",
                 "unit": "",
                 "graphable": "false",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoText",
                 "equivalent": "",
                 "value": "",
@@ -717,7 +711,7 @@
         "params": [
             {
                 "Description": "Current status : 1 = On \/ 0 = Off",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoBinary",
                 "equivalent": "",
                 "value": "0",
@@ -733,7 +727,7 @@
             },
             {
                 "Description": "If dimmable, current dim level (0-100)",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoNumeric",
                 "min": "0",
                 "max": "100",
@@ -788,7 +782,7 @@
                 "Description": "Current temperature",
                 "unit": "°C",
                 "graphable": "false",
-                "potentialJeeDomState": "true",
+                
                 "type": "infoNumeric",
                 "equivalent": "Temperature",
                 "value": "0",

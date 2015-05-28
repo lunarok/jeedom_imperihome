@@ -25,6 +25,7 @@ class imperihome {
 	/*     * ***********************Methode static*************************** */
 
 	public static function generateISSTemplate() {
+		$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
 		$template = array('devices' => array());
 		$cache = cache::byKey('issConfig');
 		$alreadyUsed = array();
@@ -50,20 +51,22 @@ class imperihome {
 			}
 			$object = $eqLogic->getObject();
 
-			$info_device = array(
-				"id" => $cmd->getId(),
-				"name" => $eqLogic->getName() . ' ' . $cmd->getName(),
-				"room" => (is_object($object)) ? $object->getId() : 99999,
-				"type" => self::convertType($cmd),
-				'params' => array(),
-			);
-			$info_device['type'] = self::convertType($cmd);
-
-			$cmd_params = self::generateParam($cmd, $info_device['type']);
-			$info_device['params'] = $cmd_params['params'];
-
-			foreach ($cmd_params['cmd_id'] as $cmd_used_id) {
-				$alreadyUsed[$cmd_used_id] = true;
+			if (method_exists($cmd, 'generateImperihome')) {
+				$info_device = $cmd->generateImperihome($ISSStructure, $alreadyUsed);
+			} else {
+				$info_device = array(
+					"id" => $cmd->getId(),
+					"name" => $eqLogic->getName() . ' ' . $cmd->getName(),
+					"room" => (is_object($object)) ? $object->getId() : 99999,
+					"type" => self::convertType($cmd),
+					'params' => array(),
+				);
+				$info_device['type'] = self::convertType($cmd);
+				$cmd_params = self::generateParam($cmd, $info_device['type'], $ISSStructure);
+				$info_device['params'] = $cmd_params['params'];
+				foreach ($cmd_params['cmd_id'] as $cmd_used_id) {
+					$alreadyUsed[$cmd_used_id] = true;
+				}
 			}
 
 			$template['devices'][] = $info_device;
@@ -120,30 +123,9 @@ class imperihome {
 				}
 			}
 		}
-		$cmd = cmd::byId($_cmd_id);
-		if (!is_object($_cmd)) {
-			return;
-		}
-		$eqLogic = $cmd->getEqLogic();
-		$on = null;
-		$off = null;
-		$slider = null;
-		foreach ($eqLogic->getCmd('action') as $action) {
-			if ($action->getSubtype() == 'slider') {
-				$slider = $action;
-				continue;
-			}
-		}
 	}
 
-	public static function generateParam($cmd, $cmdType, $confMode = false) {
-		if (method_exists($cmd, 'generateImperihome')) {
-			return $cmd->generateImperihome();
-		}
-		$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
-		if (!isset($ISSStructure[$cmdType])) {
-			return array('params' => array(), 'cmd_id' => array());
-		}
+	public static function generateParam($cmd, $cmdType, $ISSStructure) {
 		$eqLogic = $cmd->getEqLogic();
 		$return = array('params' => $ISSStructure[$cmdType]['params'], 'cmd_id' => array());
 		foreach ($return['params'] as $paramKey => &$param) {
@@ -160,8 +142,6 @@ class imperihome {
 
 	public function convertType($cmd) {
 		switch ($cmd->getEqType()) {
-			case "alarm":
-				return 'DevMotion';
 			case "thermostat":
 				return 'DevThermostat';
 			case "presence":
@@ -198,26 +178,31 @@ class imperihome {
 		if (strpos(strtolower($cmd->getName()), 'humidi') !== false) {
 			return 'DevHygrometry';
 		}
+
 		switch ($cmd->getSubtype()) {
 			case 'numeric':
-				switch ($cmd->getUnite()) {
-				case '°C':
+				switch (strtolower($cmd->getUnite())) {
+				case '°c':
 						return 'DevTemperature';
 				case '%':
 						return 'DevDimmer';
-				case 'Pa':
+				case 'pa':
 						return 'DevPressure';
+				case 'db':
+						return 'DevNoise';
 				case 'km/h':
 						return 'DevWind';
 				case 'mm/h':
 						return 'DevRain';
 				case 'mm':
 						return 'DevRain';
-				case 'Lux':
+				case 'ppm':
+						return 'DevCO2';
+				case 'lux':
 						return 'DevLuminosity';
-				case 'W':
+				case 'w':
 						return 'DevElectricity';
-				case 'KwH':
+				case 'kwH':
 						return 'DevElectricity';
 				}
 				return 'DevGenericSensor';
