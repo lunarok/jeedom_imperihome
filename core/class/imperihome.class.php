@@ -97,6 +97,16 @@ class imperihome {
 					$param['value'] = 1;
 				}
 			}
+			if ($device['type'] == 'DevMultiSwitch') {
+				$value = $device['params'][0]['value'];
+				$choice = $device['params'][1]['value'];
+				if (strpos($choice, $value) === false) {
+					$choices = explode(',', $choice);
+					if (isset($choices[$device['params'][0]['value'] - 1])) {
+						$device['params'][0]['value'] = $choices[$device['params'][0]['value'] - 1];
+					}
+				}
+			}
 		}
 		return json_encode($return);
 	}
@@ -154,6 +164,7 @@ class imperihome {
 	public static function generateParam($cmd, $cmdType, $ISSStructure) {
 		$eqLogic = $cmd->getEqLogic();
 		$return = array('params' => $ISSStructure[$cmdType]['params']);
+
 		foreach ($return['params'] as &$param) {
 			if ($param['type'] == 'optionBinary') {
 				continue;
@@ -187,12 +198,14 @@ class imperihome {
 					}
 				}
 			}
+			if ($cmd->getEqType() == 'presence' && $param['key'] == 'choices') {
+				$param['value'] = 'Présent,Absent,Nuit,Travail,Vacances';
+			}
 		}
 		return $return;
 	}
 
 	public function convertType($cmd) {
-		$eqlogic = $cmd->getEqLogic();
 		switch ($cmd->getEqType()) {
 			case "thermostat":
 				return 'DevThermostat';
@@ -233,6 +246,7 @@ class imperihome {
 		if (strtolower($cmd->getName()) == __('uv', __FILE__)) {
 			return 'DevUV';
 		}
+		$eqlogic = $cmd->getEqLogic();
 		if (strpos(strtolower($cmd->getName()), __('etat', __FILE__)) !== false) {
 			if (strpos(strtolower($eqlogic->getName()), __('fenêtre', __FILE__)) !== false || strpos(strtolower($eqlogic->getName()), __('fenetre', __FILE__)) !== false || strpos(strtolower($eqlogic->getName()), __('porte', __FILE__)) !== false) {
 				return 'DevDoor';
