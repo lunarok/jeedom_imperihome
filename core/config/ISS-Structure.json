@@ -1,0 +1,809 @@
+﻿{
+    "DevCamera": {
+        "Description": "MJPEG IP Camera",
+        "params": [
+            {
+                "Description": "Login to access camera image",
+                "type": "text",
+                "equivalent": "",
+                "value": "",
+                "key": "login"
+            },
+            {
+                "Description": "Password to access camera image",
+                "type": "text",
+                "equivalent": "",
+                "value": "",
+                "key": "password"
+            },
+            {
+                "Description": "Local URL to the JPEG snapshot of the camera",
+                "type": "text",
+                "equivalent": "",
+                "value": "",
+                "key": "localjpegurl"
+            },
+            {
+                "Description": "Local URL to the camera's MJPEG stream",
+                "type": "text",
+                "equivalent": "",
+                "value": "",
+                "key": "localmjpegurl"
+            },
+            {
+                "Description": "Remote URL to the JPEG snapshot of the camera",
+                "type": "text",
+                "equivalent": "",
+                "value": "",
+                "key": "remotejpegurl"
+            },
+            {
+                "Description": "Remote URL to the camera's MJPEG stream",
+                "type": "text",
+                "equivalent": "",
+                "value": "",
+                "key": "remotemjpegurl"
+            }
+        ],
+        "actions": []
+    },
+    "DevCO2": {
+        "Description": "CO2 sensor",
+        "params": [
+            {
+                "Description": "CO2 value",
+                "unit": "ppm",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "value"
+            }
+        ],
+        "actions": []
+    },
+    "DevDimmer": {
+        "Description": "Dimmable light",
+        "params": [
+            {
+                "Description": "Current status : 1 = On \/ 0 = Off",
+                "potentialJeeDomState": "true",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "status"
+            },
+            {
+                "Description": "Current dim level (0-100)",
+                "unit": "%",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "min": "0",
+                "max": "100",
+                "equivalent": "",
+                "value": "0",
+                "key": "level"
+            },
+            {
+                "Description": "Energy value (number)",
+                "unit": "Watts",
+                "type": "infoNumeric",
+                "equivalent": "Puissance;Consommation",
+                "value": "",
+                "key": "energy"
+            }
+        ],
+        "actions": {
+            "setStatus": {
+                "type": "item",
+                "item": [
+                    "off;eteindre",
+                    "on;allumer"
+                ]
+            },
+            "setLevel": {
+                "type": "direct",
+                "equivalent": "level;Niveau;Puissance;Intensité"
+            }
+        }
+    },
+    "DevShutter": {
+        "Description": "Shutter actuator",
+        "params": [
+            {
+                "Description": "Ability to stop shutter: 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "1",
+                "key": "stopable"
+            },
+            {
+                "Description": "Ability to send pulse commands to shutter: 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "1",
+                "key": "pulseable"
+            },
+            {
+                "Description": "Current dim level (0-100)",
+                "unit": "%",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "min": "0",
+                "max": "100",
+                "equivalent": "",
+                "value": "0",
+                "key": "level"
+            }
+        ],
+        "actions": {
+            "setLevel": {
+                "type": "direct",
+                "equivalent": "level;Positionnement"
+            },
+            "stopShutter": {
+                "type": "direct",
+                "equivalent": "stop"
+            },
+            "pulseShutter": {
+                "type": "item",
+                "item": {
+                    "up": "up;ouvre;ouverture;monte;monter",
+                    "down": "down;ferme;fermeture;descend;descendre"
+                }
+            }
+        }
+    },
+    "DevDoor": {
+        "Description": "Door \/ window security sensor",
+        "params": [
+            {
+                "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "armable"
+            },
+            {
+                "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "ackable"
+            },
+            {
+                "Description": "Current arming status : 1 = On \/ 0 = Off",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "armed"
+            },
+            {
+                "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
+                "potentialJeeDomState": "true",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "tripped"
+            }
+        ],
+        "actions": {
+            "setArmed": {
+                "type": "item",
+                "item": [
+                    "disarm;desarmer;desarmement",
+                    "arm;armer;armement"
+                ]
+            },
+            "setAck": {
+                "type": "direct",
+                "equivalent": "ack;acquitter;acquitte"
+            }
+        }
+    },
+    "DevFlood": {
+        "Description": "Flood security sensor",
+        "params": [
+            {
+                "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "armable"
+            },
+            {
+                "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "ackable"
+            },
+            {
+                "Description": "Current arming status : 1 = On \/ 0 = Off",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "armed"
+            },
+            {
+                "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
+                "potentialJeeDomState": "true",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "tripped"
+            }
+        ],
+        "actions": {
+            "setArmed": {
+                "type": "item",
+                "item": [
+                    "disarm;desarmer;desarmement",
+                    "arm;armer;armement"
+                ]
+            },
+            "setAck": {
+                "type": "direct",
+                "equivalent": "ack;acquitter;acquitte"
+            }
+        }
+    },
+    "DevMotion": {
+        "Description": "Motion security sensor",
+        "params": [
+            {
+                "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "armable"
+            },
+            {
+                "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "ackable"
+            },
+            {
+                "Description": "Current arming status : 1 = On \/ 0 = Off",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "armed"
+            },
+            {
+                "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
+                "potentialJeeDomState": "true",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "tripped"
+            }
+        ],
+        "actions": {
+            "setArmed": {
+                "type": "item",
+                "item": [
+                    "disarm;desarmer;desarmement;unlock",
+                    "arm;armer;armement;lock"
+                ]
+            },
+            "setAck": {
+                "type": "direct",
+                "equivalent": "ack;acquitter;acquitte"
+            }
+        }
+    },
+    "DevSmoke": {
+        "Description": "Smoke security sensor",
+        "params": [
+            {
+                "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "armable"
+            },
+            {
+                "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "ackable"
+            },
+            {
+                "Description": "Current arming status : 1 = On \/ 0 = Off",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "armed"
+            },
+            {
+                "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
+                "potentialJeeDomState": "true",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "tripped"
+            }
+        ],
+        "actions": {
+            "setArmed": {
+                "type": "item",
+                "item": [
+                    "disarm;desarmer;desarmement",
+                    "arm;armer;armement"
+                ]
+            },
+            "setAck": {
+                "type": "direct",
+                "equivalent": "ack;acquitter;acquitte"
+            }
+        }
+    },
+    "DevCO2Alert": {
+        "Description": "CO2 Alert sensor",
+        "params": [
+            {
+                "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "armable"
+            },
+            {
+                "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "ackable"
+            },
+            {
+                "Description": "Current arming status : 1 = On \/ 0 = Off",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "armed"
+            },
+            {
+                "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
+                "potentialJeeDomState": "true",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "tripped"
+            }
+        ],
+        "actions": []
+    },
+    "DevElectricity": {
+        "Description": "Electricity consumption sensor",
+        "params": [
+            {
+                "Description": "Current consumption",
+                "unit": "Watts",
+                "graphable": "false",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "watts"
+            },
+            {
+                "Description": "Current total consumption",
+                "unit": "kWh",
+                "graphable": "false",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "consototal"
+            }
+        ],
+        "actions": []
+    },
+    "DevHygrometry": {
+        "Description": "Hygro sensor",
+        "params": [
+            {
+                "Description": "Current hygro value",
+                "unit": "%",
+                "graphable": "false",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "min": "0",
+                "max": "100",
+                "equivalent": "",
+                "value": "0",
+                "key": "value"
+            }
+        ],
+        "actions": []
+    },
+    "DevLock": {
+        "Description": "Door lock",
+        "params": [
+            {
+                "Description": "Current status (0 = opened \/ 1 = closed)",
+                "potentialJeeDomState": "true",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "status"
+            }
+        ],
+        "actions": {
+            "setStatus": {
+                "type": "item",
+                "item": [
+                    "off;deverrouiller",
+                    "on;verrouiller"
+                ]
+            }
+        }
+    },
+    "DevLuminosity": {
+        "Description": "Luminance sensor",
+        "params": [
+            {
+                "Description": "Current lum value",
+                "unit": "lux",
+                "graphable": "false",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "value"
+            }
+        ],
+        "actions": []
+    },
+    "DevMultiSwitch": {
+        "Description": "Multiple choice actuator",
+        "params": [
+            {
+                "Description": "Current value",
+                "potentialJeeDomState": "true",
+                "type": "infoText",
+                "equivalent": "",
+                "value": "",
+                "key": "value"
+            },
+            {
+                "Description": "Comma-separated list of possible values",
+                "type": "text",
+                "equivalent": "",
+                "value": "",
+                "key": "choices"
+            }
+        ],
+        "actions": {
+            "setChoice": {
+                "type": "direct",
+                "equivalent": "mode"
+            }
+        }
+    },
+    "DevNoise": {
+        "Description": "Noise sensor",
+        "params": [
+            {
+                "Description": "Current noise level",
+                "unit": "dB",
+                "graphable": "false",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "value"
+            }
+        ],
+        "actions": []
+    },
+    "DevPressure": {
+        "Description": "Pressure sensor",
+        "params": [
+            {
+                "Description": "Current pressure",
+                "unit": "mbar",
+                "graphable": "false",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "value"
+            }
+        ],
+        "actions": []
+    },
+    "DevRain": {
+        "Description": "Rain sensor",
+        "params": [
+            {
+                "Description": "Current instant rain value",
+                "unit": "mm\/h",
+                "graphable": "false",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "value"
+            },
+            {
+                "Description": "Total rain accumulation",
+                "unit": "mm",
+                "graphable": "false",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "accumulation"
+            }
+        ],
+        "actions": []
+    },
+    "DevScene": {
+        "Description": "Scene (launchable)",
+        "params": [
+            {
+                "Description": "Date of last run",
+                "equivalent": "",
+                "type": "infoNumeric",
+                "value": "",
+                "key": "lastrun"
+            }
+        ],
+        "actions": {
+            "launchScene": {
+                "type": "direct",
+                "equivalent": ""
+            }
+        }
+    },
+    "DevSwitch": {
+        "Description": "Standard on\/off switch",
+        "params": [
+            {
+                "Description": "Current status : 1 = On \/ 0 = Off",
+                "potentialJeeDomState": "true",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "status"
+            },
+            {
+                "Description": "Energy value (number)",
+                "unit": "Watts",
+                "type": "infoNumeric",
+                "equivalent": "Puissance;Consommation",
+                "value": "0",
+                "key": "energy"
+            }
+        ],
+        "actions": {
+            "setStatus": {
+                "type": "item",
+                "item": [
+                    "off;eteindre",
+                    "on;allumer"
+                ]
+            }
+        }
+    },
+    "DevTemperature": {
+        "Description": "Temperature sensor",
+        "params": [
+            {
+                "key": "Value",
+                "Description": "Current temperature",
+                "unit": "°C",
+                "graphable": "false",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0"
+            }
+        ],
+        "actions": []
+    },
+    "DevThermostat": {
+        "Description": "Thermostat",
+        "params": [
+            {
+                "Description": "Current thermostat mode from available modes (see availablemodes)",
+                "type": "infoText",
+                "equivalent": "",
+                "value": "",
+                "key": "curmode"
+            },
+            {
+                "Description": "Current ambient temperature",
+                "unit": "°C",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "curtemp"
+            },
+            {
+                "Description": "Current thermostat setpoint (same unit as curtemp)",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "cursetpoint"
+            },
+            {
+                "Description": "The setpoint step between 2 values (default 0.5)",
+                "type": "numeric",
+                "equivalent": "",
+                "value": "0.5",
+                "key": "step"
+            },
+            {
+                "Description": "Comma-separated list of possible values for thermostat mode",
+                "type": "text",
+                "equivalent": "",
+                "value": "",
+                "key": "availablemodes"
+            }
+        ],
+        "actions": {
+            "setMode": {
+                "type": "direct",
+                "equivalent": "mode"
+            },
+            "setSetPoint": {
+                "type": "direct",
+                "equivalent": "consigne;Thermostat"
+            }
+        }
+    },
+    "DevWind": {
+        "Description": "Wind sensor",
+        "params": [
+            {
+                "Description": "Current wind speed",
+                "unit": "km\/h",
+                "graphable": "false",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "speed"
+            },
+            {
+                "Description": "Wind direction",
+                "unit": "Degrees",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "direction"
+            }
+        ],
+        "actions": []
+    },
+    "DevUV": {
+        "Description": "UV sensor",
+        "params": [
+            {
+                "Description": "Current UV index",
+                "unit": "index",
+                "graphable": "false",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "equivalent": "",
+                "value": "0",
+                "key": "value"
+            }
+        ],
+        "actions": []
+    },
+    "DevGenericSensor": {
+        "Description": "Generic sensor (any value)",
+        "params": [
+            {
+                "Description": "Current value",
+                "unit": "",
+                "graphable": "false",
+                "potentialJeeDomState": "true",
+                "type": "infoText",
+                "equivalent": "",
+                "value": "",
+                "key": "value"
+            }
+        ],
+        "actions": []
+    },
+    "DevRGBLight": {
+        "Description": "RGB(W) Light (dimmable)",
+        "params": [
+            {
+                "Description": "Current status : 1 = On \/ 0 = Off",
+                "potentialJeeDomState": "true",
+                "type": "infoBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "status"
+            },
+            {
+                "Description": "Energy value (number)",
+                "unit": "Watts",
+                "type": "infoNumeric",
+                "equivalent": "Puissance;Consommation",
+                "value": "0",
+                "key": "energy"
+            },
+            {
+                "Description": "If dimmable, current dim level (0-100)",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "min": "0",
+                "max": "100",
+                "equivalent": "",
+                "value": "0",
+                "key": "level"
+            },
+            {
+                "Description": "Ability to control luminosity : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "dimmable"
+            },
+            {
+                "Description": "Does the light has a white channel : 1 = Yes \/ 0 = No",
+                "type": "optionBinary",
+                "equivalent": "",
+                "value": "0",
+                "key": "whitechannel"
+            },
+            {
+                "Description": "Color code in 8 hex characters : AARRGGBB",
+                "type": "infoColor",
+                "equivalent": "",
+                "value": "",
+                "key": "color"
+            }
+        ],
+        "actions": {
+            "setStatus": {
+                "type": "item",
+                "item": [
+                    "off;eteindre",
+                    "on;allumer;blanc"
+                ]
+            },
+            "setLevel": {
+                "type": "direct",
+                "equivalent": "level;Niveau;Puissance;Intensité"
+            },
+            "setColor": {
+                "type": "direct",
+                "equivalent": "color;Couleur"
+            }
+        }
+    },
+    "DevTempHygro": {
+        "Description": "Temperature and Hygrometry combined sensor",
+        "params": [
+            {
+                "Description": "Current temperature",
+                "unit": "°C",
+                "graphable": "false",
+                "potentialJeeDomState": "true",
+                "type": "infoNumeric",
+                "equivalent": "Temperature",
+                "value": "0",
+                "key": "temp"
+            },
+            {
+                "Description": "Current hygro value",
+                "unit": "%",
+                "graphable": "false",
+                "type": "infoNumeric",
+                "equivalent": "Humidité",
+                "value": "0",
+                "key": "hygro"
+            }
+        ],
+        "actions": []
+    }
+}

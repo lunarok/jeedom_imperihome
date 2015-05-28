@@ -15,43 +15,46 @@
  * You should have received a copy of the GNU General Public License
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
-
- // Renvoie uniquement du JSON
- header('Content-type: application/json');
- 
- // Début CODE JeeDom OBLIGATOIRE DE SECURITE
+header('Content-type: application/json');
+ob_start();
 require_once dirname(__FILE__) . "/../../../../core/php/core.inc.php";
-require_once dirname(__FILE__) . '/../../ressources/imperihomeInterpreter.class.php';
+$args = explode("/", $_GET['_url']);
 
-// Récupération des paramètres de l'URL
-$URLArgs = explode("/", $_GET['_url']);
-
-if (config::byKey('api') != '') {
-	try {
-		if($URLArgs[1] != config::byKey('api')){
-			if (php_sapi_name() != 'cli' || isset($_SERVER['REQUEST_METHOD']) || !isset($_SERVER['argc'])) {
-				if (config::byKey('api') != init('apikey')) {
-					connection::failed();
-					echo 'Clef API non valide, vous n\'etes pas autorisé à effectuer cette action (jeeApi)';
-					log::add('imperihome', 'error', 'Problème avec la clé API, modifiez la puis redémarrez le plugin');
-					die();
-				}
-			}
-		}
-	} catch (Exception $e) {
-        echo $e->getMessage();
-        log::add('imperihome', 'error', $e->getMessage());
-    }
+if ($args[1] != config::byKey('api') || config::byKey('api') == '') {
+	connection::failed();
+	echo 'Clef API non valide, vous n\'etes pas autorisé à effectuer cette action (jeeApi)';
+	die();
 }
- // Fin CODE JeeDom OBLIGATOIRE DE SECURITE
- 
-
-
-// Création de l'objet Interpreter
-//$interpreter = imperihome::getInterpreter();
-$interpreter = new imperihomeInterpreter();
-
-// Interpretation des arguments, et impression du résultat
-print(json_encode($interpreter->interpret($URLArgs)));
-
+log::add('imperihome', 'debug', print_r($args, true));
+switch ($args[2]) {
+	case "devices":
+		if (!isset($args[3])) {
+			echo imperihome::devices();
+		} elseif ($args[4] == 'action') {
+			if (isset($args[6])) {
+				//echo json_encode($this->action($args[3], $args[5], $args[6]));
+			} else {
+				//echo json_encode($this->action($args[3], $args[5]));
+			}
+		} elseif ($args[5] == 'histo') {
+			//echo json_encode($this->histo($args[3], $args[4], $args[6], $args[7]));
+		} else {
+			http_response_code(404);
+			echo json_encode(array("success" => false, "errormsg" => "Format inconnu"));
+		}
+		break;
+	case "rooms":
+		echo imperihome::rooms();
+		break;
+	case "system":
+		echo imperihome::system();
+		break;
+	default:
+		http_response_code(404);
+		echo json_encode(array("success" => false, "errormsg" => "Format inconnu"));
+		break;
+}
+$out = ob_get_clean();
+echo trim(substr($out, strpos($out, '{')));
+//var_dump(trim(substr($out, strpos($out, '{'))));
 ?>

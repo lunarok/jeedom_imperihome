@@ -29,6 +29,10 @@ foreach (eqLogic::all() as $eqLogic) {
 	if (is_object($object) && $object->getIsVisible() == 0) {
 		continue;
 	}
+	$cmds = $eqLogic->getCmd('info');
+	if (count($cmds) == 0) {
+		continue;
+	}
 	echo '<tr>';
 	echo '<td>';
 	if (is_object($object)) {
@@ -54,10 +58,7 @@ foreach (eqLogic::all() as $eqLogic) {
 	echo '</tr>';
 	echo '</thead>';
 	echo '<tbody>';
-	foreach ($eqLogic->getCmd() as $cmd) {
-		if ($cmd->getIsVisible() == 0) {
-			continue;
-		}
+	foreach ($eqLogic->getCmd('info') as $cmd) {
 		echo '<tr class="imperihome" data-cmd_id="' . $cmd->getId() . '">';
 		echo '<td>';
 		echo $cmd->getName();
