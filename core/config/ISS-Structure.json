@@ -44,8 +44,7 @@
                 "value": "",
                 "key": "remotemjpegurl"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevCO2": {
         "Description": "CO2 sensor",
@@ -58,8 +57,7 @@
                 "value": "0",
                 "key": "value"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevDimmer": {
         "Description": "Dimmable light",
@@ -89,20 +87,7 @@
                 "value": "",
                 "key": "energy"
             }
-        ],
-        "actions": {
-            "setStatus": {
-                "type": "item",
-                "item": [
-                    "off;eteindre",
-                    "on;allumer"
-                ]
-            },
-            "setLevel": {
-                "type": "direct",
-                "equivalent": "level;Niveau;Puissance;Intensité"
-            }
-        }
+        ]
     },
     "DevShutter": {
         "Description": "Shutter actuator",
@@ -132,24 +117,7 @@
                 "value": "0",
                 "key": "level"
             }
-        ],
-        "actions": {
-            "setLevel": {
-                "type": "direct",
-                "equivalent": "level;Positionnement"
-            },
-            "stopShutter": {
-                "type": "direct",
-                "equivalent": "stop"
-            },
-            "pulseShutter": {
-                "type": "item",
-                "item": {
-                    "up": "up;ouvre;ouverture;monte;monter",
-                    "down": "down;ferme;fermeture;descend;descendre"
-                }
-            }
-        }
+        ]
     },
     "DevDoor": {
         "Description": "Door \/ window security sensor",
@@ -183,20 +151,7 @@
                 "value": "0",
                 "key": "tripped"
             }
-        ],
-        "actions": {
-            "setArmed": {
-                "type": "item",
-                "item": [
-                    "disarm;desarmer;desarmement",
-                    "arm;armer;armement"
-                ]
-            },
-            "setAck": {
-                "type": "direct",
-                "equivalent": "ack;acquitter;acquitte"
-            }
-        }
+        ]
     },
     "DevFlood": {
         "Description": "Flood security sensor",
@@ -230,20 +185,7 @@
                 "value": "0",
                 "key": "tripped"
             }
-        ],
-        "actions": {
-            "setArmed": {
-                "type": "item",
-                "item": [
-                    "disarm;desarmer;desarmement",
-                    "arm;armer;armement"
-                ]
-            },
-            "setAck": {
-                "type": "direct",
-                "equivalent": "ack;acquitter;acquitte"
-            }
-        }
+        ]
     },
     "DevMotion": {
         "Description": "Motion security sensor",
@@ -277,20 +219,7 @@
                 "value": "0",
                 "key": "tripped"
             }
-        ],
-        "actions": {
-            "setArmed": {
-                "type": "item",
-                "item": [
-                    "disarm;desarmer;desarmement;unlock",
-                    "arm;armer;armement;lock"
-                ]
-            },
-            "setAck": {
-                "type": "direct",
-                "equivalent": "ack;acquitter;acquitte"
-            }
-        }
+        ]
     },
     "DevSmoke": {
         "Description": "Smoke security sensor",
@@ -324,20 +253,7 @@
                 "value": "0",
                 "key": "tripped"
             }
-        ],
-        "actions": {
-            "setArmed": {
-                "type": "item",
-                "item": [
-                    "disarm;desarmer;desarmement",
-                    "arm;armer;armement"
-                ]
-            },
-            "setAck": {
-                "type": "direct",
-                "equivalent": "ack;acquitter;acquitte"
-            }
-        }
+        ]
     },
     "DevCO2Alert": {
         "Description": "CO2 Alert sensor",
@@ -371,8 +287,7 @@
                 "value": "0",
                 "key": "tripped"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevElectricity": {
         "Description": "Electricity consumption sensor",
@@ -396,8 +311,7 @@
                 "value": "0",
                 "key": "consototal"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevHygrometry": {
         "Description": "Hygro sensor",
@@ -414,8 +328,7 @@
                 "value": "0",
                 "key": "value"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevLock": {
         "Description": "Door lock",
@@ -428,16 +341,7 @@
                 "value": "0",
                 "key": "status"
             }
-        ],
-        "actions": {
-            "setStatus": {
-                "type": "item",
-                "item": [
-                    "off;deverrouiller",
-                    "on;verrouiller"
-                ]
-            }
-        }
+        ]
     },
     "DevLuminosity": {
         "Description": "Luminance sensor",
@@ -452,8 +356,7 @@
                 "value": "0",
                 "key": "value"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevMultiSwitch": {
         "Description": "Multiple choice actuator",
@@ -472,13 +375,7 @@
                 "value": "",
                 "key": "choices"
             }
-        ],
-        "actions": {
-            "setChoice": {
-                "type": "direct",
-                "equivalent": "mode"
-            }
-        }
+        ]
     },
     "DevNoise": {
         "Description": "Noise sensor",
@@ -492,8 +389,7 @@
                 "value": "0",
                 "key": "value"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevPressure": {
         "Description": "Pressure sensor",
@@ -507,8 +403,7 @@
                 "value": "0",
                 "key": "value"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevRain": {
         "Description": "Rain sensor",
@@ -532,8 +427,7 @@
                 "value": "0",
                 "key": "accumulation"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevScene": {
         "Description": "Scene (launchable)",
@@ -545,20 +439,13 @@
                 "value": "",
                 "key": "lastrun"
             }
-        ],
-        "actions": {
-            "launchScene": {
-                "type": "direct",
-                "equivalent": ""
-            }
-        }
+        ]
     },
     "DevSwitch": {
         "Description": "Standard on\/off switch",
         "params": [
             {
                 "Description": "Current status : 1 = On \/ 0 = Off",
-                
                 "type": "infoBinary",
                 "equivalent": "",
                 "value": "0",
@@ -572,16 +459,7 @@
                 "value": "0",
                 "key": "energy"
             }
-        ],
-        "actions": {
-            "setStatus": {
-                "type": "item",
-                "item": [
-                    "off;eteindre",
-                    "on;allumer"
-                ]
-            }
-        }
+        ]
     },
     "DevTemperature": {
         "Description": "Temperature sensor",
@@ -596,8 +474,7 @@
                 "equivalent": "",
                 "value": "0"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevThermostat": {
         "Description": "Thermostat",
@@ -638,17 +515,7 @@
                 "value": "",
                 "key": "availablemodes"
             }
-        ],
-        "actions": {
-            "setMode": {
-                "type": "direct",
-                "equivalent": "mode"
-            },
-            "setSetPoint": {
-                "type": "direct",
-                "equivalent": "consigne;Thermostat"
-            }
-        }
+        ]
     },
     "DevWind": {
         "Description": "Wind sensor",
@@ -671,8 +538,7 @@
                 "value": "0",
                 "key": "direction"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevUV": {
         "Description": "UV sensor",
@@ -687,8 +553,7 @@
                 "value": "0",
                 "key": "value"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevGenericSensor": {
         "Description": "Generic sensor (any value)",
@@ -703,8 +568,7 @@
                 "value": "",
                 "key": "value"
             }
-        ],
-        "actions": []
+        ]
     },
     "DevRGBLight": {
         "Description": "RGB(W) Light (dimmable)",
@@ -756,24 +620,7 @@
                 "value": "",
                 "key": "color"
             }
-        ],
-        "actions": {
-            "setStatus": {
-                "type": "item",
-                "item": [
-                    "off;eteindre",
-                    "on;allumer;blanc"
-                ]
-            },
-            "setLevel": {
-                "type": "direct",
-                "equivalent": "level;Niveau;Puissance;Intensité"
-            },
-            "setColor": {
-                "type": "direct",
-                "equivalent": "color;Couleur"
-            }
-        }
+        ]
     },
     "DevTempHygro": {
         "Description": "Temperature and Hygrometry combined sensor",
@@ -797,7 +644,6 @@
                 "value": "0",
                 "key": "hygro"
             }
-        ],
-        "actions": []
+        ]
     }
 }

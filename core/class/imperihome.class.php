@@ -61,7 +61,11 @@ class imperihome {
 					"type" => self::convertType($cmd),
 					'params' => array(),
 				);
-				$info_device['type'] = self::convertType($cmd);
+				if (isset($value['devtype'])) {
+					$info_device['type'] = $value['devtype'];
+				} else {
+					$info_device['type'] = self::convertType($cmd);
+				}
 				$cmd_params = self::generateParam($cmd, $info_device['type'], $ISSStructure);
 				$info_device['params'] = $cmd_params['params'];
 				foreach ($cmd_params['cmd_id'] as $cmd_used_id) {
@@ -112,11 +116,11 @@ class imperihome {
 					}
 				}
 				if ($_action == 'setStatus' && $action->getSubtype() == 'other') {
-					if ($_value == 0 && strpos(strtolower($cmd->getName()), 'off') !== false) {
+					if ($_value == 0 && strpos(strtolower($action->getName()), 'off') !== false) {
 						$action->execCmd();
 						return;
 					}
-					if ($_value == 1 && strpos(strtolower($cmd->getName()), 'on') !== false) {
+					if ($_value == 1 && strpos(strtolower($action->getName()), 'on') !== false) {
 						$action->execCmd();
 						return;
 					}
@@ -208,7 +212,7 @@ class imperihome {
 						return 'DevLuminosity';
 				case 'w':
 						return 'DevElectricity';
-				case 'kwH':
+				case 'kwh':
 						return 'DevElectricity';
 				}
 				return 'DevGenericSensor';

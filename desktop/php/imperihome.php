@@ -2,13 +2,10 @@
 if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
-
+$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../../core/config/ISS-Structure.json"), true);
 ?>
 
-<a class="btn btn-default btn-xs" id="bt_selectAllISS"><i class="fa fa-check-square-o"></i> Sélectionner tout</a>
-<a class="btn btn-default btn-xs" id="bt_unselectAllISS"><i class="fa"></i> Désélectionner tout</a>
 <a class="btn btn-success pull-right bt_saveISSConfig" id=""><i class="fa fa-floppy-o"></i> Sauvegarder</a><br>
-
 <br>
 <table class="table table-bordered table-condensed tablesorter" id="cmdList">
     <thead>
@@ -67,6 +64,16 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo '<input type="checkbox" class="imperihomeAttr" data-l1key="cmd_transmit" />';
 		echo '</td>';
 		echo '<td>';
+		echo '<select class="form-control" class="imperihomeAttr" data-l1key="devtype">';
+		$devtype = imperihome::convertType($cmd);
+		foreach ($ISSStructure as $key => $value) {
+			if ($devtype == $key) {
+				echo '<option selected>' . $key . '</option>';
+			} else {
+				echo '<option>' . $key . '</option>';
+			}
+		}
+		echo '<select>';
 		echo '</td>';
 		echo '</tr>';
 	}
