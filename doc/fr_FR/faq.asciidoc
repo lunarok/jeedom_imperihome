@@ -1,0 +1,19 @@
+En cours de rédaction...
+
+==== Ou trouver le lien à renseigner dans ImperiHome ?
+Le lien de l'API a configurer dans Imperihome est donné dans le menu Général -> Plugins -> Imperihome.
+
+Si celui-ci n'apparait pas, c'est que le système n'est pas correctement configuré: il faut alors suivre les instructions.
+
+Sous Imperihome, il faut ajouter un système de type ISS, et renseigner le lien donné, c'est tout!
+
+
+==== L'équipement disponible dans Imperihome n'est pas du bon type
+La configuration automatique n'a pas fonctionné, il faut passer par le mode manuel: cf doc.
+
+==== Je ne retrouve pas un de mes équipements sous Imperihome
+Avez-vous bien activer sa transmission? Rendez-vous dans l'onglet "Configuration ISS"!
+
+
+
+

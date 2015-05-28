@@ -1,0 +1,56 @@
+En cours de rédaction...
+
+==== Plugin
+L'activation du plugin nécessite un pré-requis: avoir renseigné la configuration réseau dans le menu Général -> Administration -> Configuration.
+Celle-ci permet en effet au plugin de déterminer le chemin d'accès de l'API ISS qu'il faudra renseigner dans Imperihome.
+
+Une fois le plugin activé (menu Général -> Plugins -> Imperihome), une section "Configuration" apparait.
+A ce moment là, le plugin essaie de configurer votre système et détermine automatiquement l'adresse à renseigner dans Imperihome. En quelque sorte, il réalise à ce moment là un Autotest de son interface.
+
+S'il ne trouve pas d'interface disponible, c'est que l'autoconfiguration a échouée. Il faut alors suivre les instructions qui sont indiquées.
+Une fois celle-ci suivies, et en réactualisant la page, soit celle-ci vous donne le lien a renseigner (c'est que la configuration est bonne), soit les instructions sont toujours là: rapprochez-vous du topic dédié sur le forum pour y trouver de l'aide.
+
+Vous pouvez sur cette page activer ou désactiver l'utilisation du cache. Celui-ci est à utiliser si votre machine est en surcharge sans l'utiliser...
+
+==== Configuration d'Imperihome
+Le lien de l'API a configurer dans Imperihome est donné dans le menu Général -> Plugins -> Imperihome.
+Sous imperihome, aller dans Paramètres -> Mes Systèmes, puis Ajouter un système. Sélectionner "Imperihome Standard System", puis rentrer l'URL donnée par le plugin dans "URL de Base API Locale".
+Si vous souhaitez accéder depuis l'exterieur, configurer également l'URL Externe en l'adaptant à votre installation.
+
+Pour le moment, il n'y a pas de système d'authentification (prévu dans une future version).
+
+Cliquer sur suivant et terminer. Si aucun équipement ne s'affiche, c'est normal, il faut aller sélectionner quel équipement vous souhaitez remonter vers Imperihome.
+
+==== Sélection des équipements à transmettre
+Rendez-vous dans la page Plugins -> Imperihome, puis dans l'onglet "Configuration ISS".
+
+Pour transmettre une valeur, cocher la case sur la gauche puis cliquer sur "Sauvegarder". Sous Imperihome, il se peut que l'équipement ne remonte pas immédiatement. Pour forcer la mise à jour, cliquer sur la double fléche rotative en haut à droite de l'écran sous Imperihome.
+
+==== Détermination automatique du type d'équipement
+Dans le mesure du possible, le plugin essaie de reconnaitre les équipements et de leur donner un type "Imperihome" adapté.
+En automatique, le plugin transforme les commandes de type "info" en un équipement, et si aucune commande info n'existe dans un module, créé un équipement standard.
+Si on prend en exemple une prise de courant télécommandée et qui remonte les informations de consommation, celle-ci aura deux commandes de type "info": Etat et Conso.
+Le plugin va alors créer 2 équipements: un de type "devSwitch" (pour Etat) et l'autre de type "devElectricity" pour Conso.
+Pour faire mieux, il faut passer par le mode manuel pour associer manuellement la conso à l'équipement devSwitch.
+
+==== Détermination manuel du type d'équipement
+!! Attention: modifier le type d'un équipement alors que celui-ci est configuré dans Imperihome peut faire planter l'application.
+!! Je vous recommande de supprimer l'équipement dans Imperihome avant de modifier son type dans Jeedom.
+
+Pour accéder au mode manuel, cliquer sur la roue crantée sur la ligne de l'info dont vous souhaitez modifier le type.
+
+La fenêtre qui s'ouvre permet de vérifier la configuration de chaque équipement, et de la modifier manuellement si besoin.
+
+Si la configuration automatique ne convient pas, cliquer sur "Passer en manuelle". Il est toujours possible de revenir en automatique par la suite...
+
+Une fois en manuel, la partie du bas devient interactive. Il est alors possible de modifier le type d'équipement, les paramètres, et les actions associées.
+
+Prenons l'exemple d'une prise télécommandée qui serait détectée en GenericSensor (type de base...) de manière automatique.
+Disons que sous Jeedom, elle possède deux commandes Info (Etat et Consommation) et deux commandes Action (Allumer et Eteindre).
+Dans la partie de droite, il faudra alors selectionner le type "Standard On/Off switch", puis:
+ - paramètre Status: selectionner la commande Etat
+ - paramètre Energy: selectionner la commande Consommation
+ - action setStatus: 
+   - pour le 0: selectionner la commande Eteindre
+   - pour le 1: selectionner la commande Allumer
+Sauvegarder la configuration, puis réactualiser la liste des équipements sous Imperihome.

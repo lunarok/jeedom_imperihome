@@ -1,0 +1,49 @@
+==== 1 - 22/05/2015
+- Mise à jour de la documentation
+- Gestion des min-max
+- Améliorations diverses
+
+==== 0.9 - 16/04/2015
+- Suppression des règles Nginx
+- Possibilité d'activer/désactiver le cache
+- Prise en charge du RGB
+- Prise en charge des équipements sans aucune commande de type info
+- Refonte de l'interface
+- Possibilité de n'envoyer à Imperihome que les équipements sélectionnés
+
+==== 0.8 - 20/03/2015
+- Refonte du code
+- Refonte de la configuration manuelle
+- Prise en charge automatique des plugins Thermostat, Alarme, Presence et Camera
+- Amélioration diverses
+- Support des nouveaux types Imperihome: Lampes RGB et sondes Température/Hygrométrie (attention: dispo que sur la bêta d'Imperihome pour le moment)
+- Mise à jour de la doc
+
+==== 0.6 - 25/02/2015
+- Paramétrage manuel des équipements (sélection du type, des paramètres et des actions)
+- Prise en charge Apache (configuration type Synology)
+- Amélioration de l'assistance utilisateur pour la configuration
+- Mise à jour doc
+
+==== 0.5 - 10/02/2015
+- Amélioration des logs
+
+==== 0.4 - 24/01/2015
+- Ajout d'informations dans la page de configuration pour aider les utilisateurs
+
+==== 0.3 - 20/01/2015
+- Ajout de vérifications à l'activation du plugin (conf réseau)
+- Page de configuration plus détaillée
+- Autotest de l'interface ISS
+- Remodelage de l'interface du plugin
+- Ajout d'un module permettant de visualiser les informations mises à disposition par le plugin à Imperihome
+- Mise à jour de la documentation
+- Préparation du plugin pour configuration manuelle (prochaine version)
+
+==== 0.2 - 04/01/2014
+- Correction bug mineur
+- Ajout d'informations pour l'utilisateur
+- Ajout de trace en mode Debug
+
+==== 0.1 - 02/01/2014
+- Mise à disposition du plugin en Beta
