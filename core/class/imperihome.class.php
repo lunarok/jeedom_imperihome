@@ -48,7 +48,7 @@ class imperihome {
 			$object = $eqLogic->getObject();
 
 			if (method_exists($cmd, 'imperihomeGenerate')) {
-				$info_device = $cmd->imperihomeGenerate($ISSStructure, $alreadyUsed);
+				$info_device = $cmd->imperihomeGenerate($ISSStructure);
 			} else {
 				$info_device = array(
 					"id" => $cmd->getId(),
@@ -106,6 +106,7 @@ class imperihome {
 						$device['params'][0]['value'] = $choices[$device['params'][0]['value'] - 1];
 					}
 				}
+				$device['params'][0]['value'] = str_replace('"', '', $device['params'][0]['value']);
 			}
 		}
 		return json_encode($return);
@@ -118,7 +119,6 @@ class imperihome {
 			return;
 		}
 		if ($_action == 'setChoice') {
-
 			if (!is_object($cmd)) {
 				return;
 			}
