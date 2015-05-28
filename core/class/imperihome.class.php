@@ -28,7 +28,6 @@ class imperihome {
 		$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
 		$template = array('devices' => array());
 		$cache = cache::byKey('issConfig');
-		$alreadyUsed = array();
 		$issConfig = json_decode($cache->getValue('{}'), true);
 		foreach ($issConfig as $cmd_id => $value) {
 			if (!isset($value['cmd_transmit']) || $value['cmd_transmit'] != 1) {
@@ -39,9 +38,6 @@ class imperihome {
 				continue;
 			}
 			if ($cmd->getType() != 'info') {
-				continue;
-			}
-			if (isset($alreadyUsed[$cmd_id])) {
 				continue;
 			}
 			$alreadyUsed[$cmd_id] = true;
@@ -68,11 +64,7 @@ class imperihome {
 				}
 				$cmd_params = self::generateParam($cmd, $info_device['type'], $ISSStructure);
 				$info_device['params'] = $cmd_params['params'];
-				foreach ($cmd_params['cmd_id'] as $cmd_used_id) {
-					$alreadyUsed[$cmd_used_id] = true;
-				}
 			}
-
 			$template['devices'][] = $info_device;
 		}
 		$cache = new cache();
@@ -161,7 +153,7 @@ class imperihome {
 
 	public static function generateParam($cmd, $cmdType, $ISSStructure) {
 		$eqLogic = $cmd->getEqLogic();
-		$return = array('params' => $ISSStructure[$cmdType]['params'], 'cmd_id' => array());
+		$return = array('params' => $ISSStructure[$cmdType]['params']);
 		foreach ($return['params'] as &$param) {
 			if ($param['type'] == 'optionBinary') {
 				continue;
@@ -172,6 +164,14 @@ class imperihome {
 			}
 			if (isset($param['graphable'])) {
 				$param['graphable'] = ($cmd->getIsHistorized() == 1) ? true : false;
+			}
+			if ($cmdType == 'DevSwitch' && $param['key'] == 'energy') {
+				$param['value'] = 0;
+				foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
+					if ($info->getUnite() == 'W' || $info->getUnite() == 'w') {
+						$param['value'] = '#' . $info->getId() . '#';
+					}
+				}
 			}
 		}
 		return $return;
