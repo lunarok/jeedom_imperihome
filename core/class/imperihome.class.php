@@ -47,8 +47,8 @@ class imperihome {
 			}
 			$object = $eqLogic->getObject();
 
-			if (method_exists($cmd, 'generateImperihome')) {
-				$info_device = $cmd->generateImperihome($ISSStructure, $alreadyUsed);
+			if (method_exists($cmd, 'imperihomeGenerate')) {
+				$info_device = $cmd->imperihomeGenerate($ISSStructure, $alreadyUsed);
 			} else {
 				$info_device = array(
 					"id" => $cmd->getId(),
@@ -112,8 +112,13 @@ class imperihome {
 	}
 
 	public static function action($_cmd_id, $_action, $_value) {
+		$cmd = cmd::byId($_cmd_id);
+		if (method_exists($cmd, 'imperihomeAction')) {
+			$cmd->imperihomeAction($_action, $_value);
+			return;
+		}
 		if ($_action == 'setChoice') {
-			$cmd = cmd::byId($_cmd_id);
+
 			if (!is_object($cmd)) {
 				return;
 			}
