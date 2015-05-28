@@ -112,6 +112,20 @@ class imperihome {
 	}
 
 	public static function action($_cmd_id, $_action, $_value) {
+		if ($_action == 'setChoice') {
+			$cmd = cmd::byId($_cmd_id);
+			if (!is_object($cmd)) {
+				return;
+			}
+			if ($cmd->getEqType() == 'presence') {
+				$eqlogic = $cmd->getEqLogic();
+				$action = $eqlogic->getCmd('action', $_value);
+				if (is_object($action)) {
+					$action->execCmd();
+				}
+			}
+			return;
+		}
 		$actions = cmd::byValue($_cmd_id, 'action');
 		if (count($actions) > 0) {
 			foreach ($actions as $action) {
