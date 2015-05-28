@@ -53,7 +53,7 @@ class imperihome {
 			$info_device = array(
 				"id" => $cmd->getId(),
 				"name" => $eqLogic->getName() . ' ' . $cmd->getName(),
-				"room" => (is_object($object)) ? $object->getId() : '',
+				"room" => (is_object($object)) ? $object->getId() : 99999,
 				"type" => self::convertType($cmd),
 				'params' => array(),
 			);
@@ -77,7 +77,55 @@ class imperihome {
 
 	public static function devices() {
 		$cache = cache::byKey('issTemplate');
-		return cmd::cmdToValue($cache->getValue('{}'));
+		return cmd::cmdToValue($cache->getValue('{}'), false, true);
+	}
+
+	public static function action($_cmd_id, $_action, $_value) {
+		$actions = cmd::byValue($_cmd_id, 'action');
+		if (count($actions) > 0) {
+			foreach ($actions as $action) {
+				if ($action->getSubtype() == 'slider') {
+					if ($_action == 'setLevel') {
+						$_value = ($_value > 99) ? 99 : $_value;
+						$action->execCmd(array('slider' => $_value));
+						return;
+					}
+					if ($_action == 'setStatus') {
+						if ($_value == 0) {
+							$action->execCmd(array('slider' => 0));
+							return;
+						} else {
+							$action->execCmd(array('slider' => 99));
+							return;
+						}
+					}
+				}
+				if ($_action == 'setStatus' && $action->getSubtype() == 'other') {
+					if ($_value == 0 && strpos(strtolower($cmd->getName()), 'off') !== false) {
+						$action->execCmd();
+						return;
+					}
+					if ($_value == 1 && strpos(strtolower($cmd->getName()), 'on') !== false) {
+						$action->execCmd();
+						return;
+					}
+				}
+			}
+		}
+		$cmd = cmd::byId($_cmd_id);
+		if (!is_object($_cmd)) {
+			return;
+		}
+		$eqLogic = $cmd->getEqLogic();
+		$on = null;
+		$off = null;
+		$slider = null;
+		foreach ($eqLogic->getCmd('action') as $action) {
+			if ($action->getSubtype() == 'slider') {
+				$slider = $action;
+				continue;
+			}
+		}
 	}
 
 	public static function generateParam($cmd, $cmdType, $confMode = false) {
@@ -147,6 +195,9 @@ class imperihome {
 		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'light') !== false) {
 			return 'DevDimmer';
 		}
+		if (strpos(strtolower($cmd->getName()), 'humidi') !== false) {
+			return 'DevHygrometry';
+		}
 		switch ($cmd->getSubtype()) {
 			case 'numeric':
 				switch ($cmd->getUnite()) {
@@ -193,6 +244,10 @@ class imperihome {
 				'name' => $object->getName(),
 			);
 		}
+		$response[] = array(
+			'id' => 99999,
+			'name' => __('Aucun', __FILE__),
+		);
 		return json_encode(array("rooms" => $response));
 	}
 

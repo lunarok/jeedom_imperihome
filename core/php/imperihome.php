@@ -32,7 +32,7 @@ switch ($args[2]) {
 			echo imperihome::devices();
 		} elseif ($args[4] == 'action') {
 			if (isset($args[6])) {
-				//echo json_encode($this->action($args[3], $args[5], $args[6]));
+				echo json_encode(imperihome::action($args[3], $args[5], $args[6]));
 			} else {
 				//echo json_encode($this->action($args[3], $args[5]));
 			}
@@ -54,7 +54,6 @@ switch ($args[2]) {
 		echo json_encode(array("success" => false, "errormsg" => "Format inconnu"));
 		break;
 }
-$out = ob_get_clean();
-echo trim(substr($out, strpos($out, '{')));
-//var_dump(trim(substr($out, strpos($out, '{'))));
+//$out = ob_get_clean();
+//echo trim(substr($out, strpos($out, '{')));
 ?>
