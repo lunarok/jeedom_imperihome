@@ -31,6 +31,7 @@ try {
 		$cache->setValue(init('config'));
 		$cache->setLifetime(0);
 		$cache->save();
+		imperihome::generateISSTemplate();
 		ajax::success();
 	}
 

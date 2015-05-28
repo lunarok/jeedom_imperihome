@@ -64,7 +64,7 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo '<input type="checkbox" class="imperihomeAttr" data-l1key="cmd_transmit" />';
 		echo '</td>';
 		echo '<td>';
-		echo '<select class="form-control" class="imperihomeAttr2" data-l1key="devtype">';
+		echo '<select class="form-control" class="imperihomeAttr" data-l1key="devtype">';
 		$devtype = imperihome::convertType($cmd);
 		foreach ($ISSStructure as $key => $value) {
 			if ($devtype == $key) {

@@ -108,6 +108,9 @@ class imperihome {
 				}
 				$device['params'][0]['value'] = str_replace('"', '', $device['params'][0]['value']);
 			}
+			if ($device['type'] == 'DevGenericSensor') {
+				$device['params'][0]['value'] = str_replace('"', '', $device['params'][0]['value']);
+			}
 		}
 		return json_encode($return);
 	}
@@ -183,7 +186,6 @@ class imperihome {
 	public static function generateParam($cmd, $cmdType, $ISSStructure) {
 		$eqLogic = $cmd->getEqLogic();
 		$return = array('params' => $ISSStructure[$cmdType]['params']);
-
 		foreach ($return['params'] as &$param) {
 			if ($param['type'] == 'optionBinary') {
 				continue;
@@ -278,6 +280,9 @@ class imperihome {
 				case '°c':
 						return 'DevTemperature';
 				case '%':
+						if (count(cmd::byValue($cmd->getId(), 'action')) == 0) {
+							return 'DevGenericSensor';
+						}
 						return 'DevDimmer';
 				case 'pa':
 						return 'DevPressure';
@@ -300,6 +305,9 @@ class imperihome {
 				}
 				return 'DevGenericSensor';
 			case 'binary':
+				if (count(cmd::byValue($cmd->getId(), 'action')) == 0) {
+					return 'DevGenericSensor';
+				}
 				return 'DevSwitch';
 
 		}
