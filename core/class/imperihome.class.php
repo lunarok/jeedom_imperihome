@@ -86,6 +86,20 @@ class imperihome {
 		$cache = cache::byKey('issTemplate');
 		$return = cmd::cmdToValue(json_decode($cache->getValue('{}'), true), false, true);
 		foreach ($return['devices'] as &$device) {
+			if ($device['type'] == 'DevRGBLight') {
+				foreach ($device['params'] as &$param) {
+					if ($param['key'] == 'color') {
+						$param['value'] = 'FF' . str_replace(array('#', '"'), '', $param['value']);
+					}
+					if ($param['key'] == 'status') {
+						if ($param['value'] != '"#000000"') {
+							$param['value'] = 1;
+						} else {
+							$param['value'] = 0;
+						}
+					}
+				}
+			}
 			foreach ($device['params'] as &$param) {
 				if ($param['type'] == 'infoBinary' && ($param['value'] > 0 || $param['value'])) {
 					$param['value'] = 1;
@@ -99,6 +113,22 @@ class imperihome {
 		$actions = cmd::byValue($_cmd_id, 'action');
 		if (count($actions) > 0) {
 			foreach ($actions as $action) {
+				if ($action->getSubtype() == 'color') {
+					if ($_action == 'setColor') {
+						$action->execCmd(array('color' => '#' . substr($_value, 2)));
+						return;
+					}
+					if ($_action == 'setStatus') {
+						if ($_value == 0) {
+							$action->execCmd(array('color' => '#000000'));
+							return;
+						} else {
+							$action->execCmd(array('color' => '#FFFFFF'));
+							return;
+						}
+					}
+				}
+
 				if ($action->getSubtype() == 'slider') {
 					if ($_action == 'setLevel') {
 						$_value = ($_value > 99) ? 99 : $_value;
