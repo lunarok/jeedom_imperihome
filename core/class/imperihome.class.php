@@ -178,6 +178,7 @@ class imperihome {
 	}
 
 	public function convertType($cmd) {
+		$eqlogic = $cmd->getEqLogic();
 		switch ($cmd->getEqType()) {
 			case "thermostat":
 				return 'DevThermostat';
@@ -212,11 +213,16 @@ class imperihome {
 		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'light') !== false) {
 			return 'DevDimmer';
 		}
-		if (strpos(strtolower($cmd->getName()), 'humidi') !== false) {
+		if (strpos(strtolower($cmd->getName()), __('humidité', __FILE__)) !== false) {
 			return 'DevHygrometry';
 		}
-		if (strtolower($cmd->getName()) == 'uv') {
+		if (strtolower($cmd->getName()) == __('uv', __FILE__)) {
 			return 'DevUV';
+		}
+		if (strpos(strtolower($cmd->getName()), __('etat', __FILE__)) !== false) {
+			if (strpos(strtolower($eqlogic->getName()), __('fenêtre', __FILE__)) !== false || strpos(strtolower($eqlogic->getName()), __('fenetre', __FILE__)) !== false || strpos(strtolower($eqlogic->getName()), __('porte', __FILE__)) !== false) {
+				return 'DevDoor';
+			}
 		}
 
 		switch ($cmd->getSubtype()) {
@@ -250,7 +256,7 @@ class imperihome {
 				return 'DevSwitch';
 
 		}
-		foreach ($cmd->getEqLogic()->getCmd() as $cmd) {
+		foreach ($eqlogic->getCmd() as $cmd) {
 			if ($cmd->getSubtype() == 'color') {
 				return 'DevRGBLight';
 			}
