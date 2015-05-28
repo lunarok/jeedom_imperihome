@@ -66,6 +66,7 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo '<td>';
 		echo '<select class="form-control" class="imperihomeAttr" data-l1key="devtype">';
 		$devtype = imperihome::convertType($cmd);
+		echo '<option value="">{{Defaut }}' . $devtype . '</option>';
 		foreach ($ISSStructure as $key => $value) {
 			if ($devtype == $key) {
 				echo '<option selected>' . $key . '</option>';
