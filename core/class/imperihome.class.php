@@ -141,7 +141,7 @@ class imperihome {
 				$device['params'][0]['value'] = str_replace('"', '', $device['params'][0]['value']);
 			}
 			if ($device['type'] == 'DevGenericSensor') {
-				$device['params'][0]['value'] = str_replace('"', '', $device['params'][0]['value']);
+				$device['params'][0]['value'] = str_replace(array('"', '<br/>', '<br>'), array('', ' ', ' '), $device['params'][0]['value']);
 			}
 		}
 		return json_encode($return);
