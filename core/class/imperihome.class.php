@@ -28,6 +28,7 @@ class imperihome {
 		$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
 		$template = array('devices' => array());
 		$cache = cache::byKey('issConfig');
+		$alreadyUsed = array();
 		$issConfig = json_decode($cache->getValue('{}'), true);
 		foreach ($issConfig as $cmd_id => $value) {
 			if (!isset($value['cmd_transmit']) || $value['cmd_transmit'] != 1) {
@@ -38,6 +39,9 @@ class imperihome {
 				continue;
 			}
 			if ($cmd->getType() != 'info') {
+				continue;
+			}
+			if (isset($alreadyUsed[$cmd_id])) {
 				continue;
 			}
 			$alreadyUsed[$cmd_id] = true;
@@ -64,6 +68,9 @@ class imperihome {
 				}
 				$cmd_params = self::generateParam($cmd, $info_device['type'], $ISSStructure);
 				$info_device['params'] = $cmd_params['params'];
+				foreach ($cmd_params['cmd_id'] as $cmd_used_id) {
+					$alreadyUsed[$cmd_used_id] = true;
+				}
 			}
 			$template['devices'][] = $info_device;
 		}
@@ -191,7 +198,7 @@ class imperihome {
 
 	public static function generateParam($cmd, $cmdType, $ISSStructure) {
 		$eqLogic = $cmd->getEqLogic();
-		$return = array('params' => $ISSStructure[$cmdType]['params']);
+		$return = array('params' => $ISSStructure[$cmdType]['params'], 'cmd_id' => array());
 		foreach ($return['params'] as &$param) {
 			if ($param['type'] == 'optionBinary') {
 				continue;
@@ -228,23 +235,49 @@ class imperihome {
 			if ($cmd->getEqType() == 'presence' && $param['key'] == 'choices') {
 				$param['value'] = 'Présent,Absent,Nuit,Travail,Vacances';
 			}
+			if ($cmdType == 'DevTempHygro') {
+				if ($param['key'] == 'temp') {
+					if ($cmd->getUnite() == '°C') {
+						$param['value'] = '#' . $cmd->getId() . '#';
+					} else {
+						foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
+							if ($info->getUnite() == '°C') {
+								$param['value'] = '#' . $info->getId() . '#';
+								$param['unit'] = $info->getUnite();
+								$return['cmd_id'][] = $info->getId();
+								break;
+							}
+						}
+					}
+				}
+
+				if ($param['key'] == 'hygro') {
+					if (strpos(strtolower($cmd->getName()), __('humidité', __FILE__)) !== false) {
+						$param['value'] = '#' . $cmd->getId() . '#';
+					} else {
+						foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
+							if (strpos(strtolower($info->getName()), __('humidité', __FILE__)) !== false) {
+								$param['value'] = '#' . $info->getId() . '#';
+								$param['unit'] = $info->getUnite();
+								$return['cmd_id'][] = $info->getId();
+								break;
+							}
+						}
+					}
+				}
+			}
 		}
 		return $return;
 	}
 
 	public function convertType($cmd) {
 		switch ($cmd->getEqType()) {
-			case "thermostat":
-				return 'DevThermostat';
 			case "presence":
 				return 'DevMultiSwitch';
 			case "camera":
 				return 'DevCamera';
 			case 'Store':
 				return 'DevShutter';
-		}
-		if (strpos(strtolower($cmd->getName()), 'off') !== false) {
-			return 'DevSwitch';
 		}
 		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'door') !== false) {
 			return 'DevDoor';
@@ -268,6 +301,15 @@ class imperihome {
 			return 'DevDimmer';
 		}
 		if (strpos(strtolower($cmd->getName()), __('humidité', __FILE__)) !== false) {
+			$cache = cache::byKey('issConfig');
+			$issConfig = json_decode($cache->getValue('{}'), true);
+			foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
+				if ($info->getUnite() == '°C') {
+					if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
+						return 'DevTempHygro';
+					}
+				}
+			}
 			return 'DevHygrometry';
 		}
 		if (strtolower($cmd->getName()) == __('uv', __FILE__)) {
@@ -284,6 +326,15 @@ class imperihome {
 			case 'numeric':
 				switch (strtolower($cmd->getUnite())) {
 				case '°c':
+						$cache = cache::byKey('issConfig');
+						$issConfig = json_decode($cache->getValue('{}'), true);
+						foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
+							if (strpos(strtolower($info->getName()), __('humidité', __FILE__)) !== false) {
+								if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
+									return 'DevTempHygro';
+								}
+							}
+						}
 						return 'DevTemperature';
 				case '%':
 						if (count(cmd::byValue($cmd->getId(), 'action')) == 0) {
