@@ -187,9 +187,19 @@ class imperihome {
 					}
 				}
 
-				if ($_action == 'stopShutter' && strpos(strtolower($action->getName()), 'stop') !== false) {
+				if ($_action == 'stopShutter' && $action->getSubtype() == 'other' && strpos(strtolower($action->getName()), 'stop') !== false) {
 					$action->execCmd();
 					return;
+				}
+				if ($_action == 'pulseShutter' && $action->getSubtype() == 'other') {
+					if ($_value == 'down' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
+						$action->execCmd();
+						return;
+					}
+					if ($_value == 'up' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
+						$action->execCmd();
+						return;
+					}
 				}
 			}
 		}
