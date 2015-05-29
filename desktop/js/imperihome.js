@@ -22,27 +22,39 @@
     $('tr.imperihomeScenario').each(function(){
         imperihome['scenario'+$(this).attr('data-scenario_id')] = $(this).getValues('.imperihomeAttr')[0]
     });
- $.ajax({// fonction permettant de faire de l'ajax
-        type: "POST", // méthode de transmission des données au fichier php
-        url: "plugins/imperihome/core/ajax/imperihome.ajax.php", // url du fichier php
-        data: {
-            action: "saveISSConfig",
-            config: json_encode(imperihome),
-        },
-        dataType: 'json',
-        error: function (request, status, error) {
-            handleAjaxError(request, status, error);
-        },
-        success: function (data) { // si l'appel a bien fonctionné
-        if (data.state != 'ok') {
-            $('#div_alert').showAlert({message: data.result, level: 'danger'});
-            return;
+     $.ajax({// fonction permettant de faire de l'ajax
+            type: "POST", // méthode de transmission des données au fichier php
+            url: "plugins/imperihome/core/ajax/imperihome.ajax.php", // url du fichier php
+            data: {
+                action: "saveISSConfig",
+                config: json_encode(imperihome),
+            },
+            dataType: 'json',
+            error: function (request, status, error) {
+                handleAjaxError(request, status, error);
+            },
+            success: function (data) { // si l'appel a bien fonctionné
+            if (data.state != 'ok') {
+                $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                return;
+            }
+            $('#div_alert').showAlert({message: '{{Sauvegarde réalisée avec succès}}', level: 'success'});
         }
-        $('#div_alert').showAlert({message: '{{Sauvegarde réalisée avec succès}}', level: 'success'});
-    }
+    });
 });
 
+$('#bt_selectAllISS').on('click', function () {
+    $('.imperihomeAttr').each(function() { //loop through each checkbox
+        this.checked = true;  //select all checkboxes with class "checkbox1"               
+    });
 });
+
+$('#bt_unselectAllISS').on('click', function () {
+    $('.imperihomeAttr').each(function() { //loop through each checkbox
+        this.checked = false;  //select all checkboxes with class "checkbox1"               
+    });
+});
+
 
 loadConf();
 
