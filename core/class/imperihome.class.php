@@ -35,6 +35,19 @@ class imperihome {
 				if (!isset($value['scenario_transmit']) || $value['scenario_transmit'] != 1) {
 					continue;
 				}
+				$scenario = scenario::byId(str_replace('scenario', '', $cmd_id));
+				if (!is_object($scenario)) {
+					continue;
+				}
+				$object = $scenario->getObject();
+				$info_device = array(
+					"id" => 'scenario' . $scenario->getId(),
+					"name" => $scenario->getName(),
+					"room" => (is_object($object)) ? $object->getId() : 99999,
+					"type" => 'DevScene',
+					'params' => array(),
+				);
+				$template['devices'][] = $info_device;
 				continue;
 			}
 
@@ -68,7 +81,6 @@ class imperihome {
 					"type" => self::convertType($cmd),
 					'params' => array(),
 				);
-				$info_device['type'] = self::convertType($cmd);
 				if ($info_device['type'] == 'DevTempHygro') {
 					$info_device['name'] = $eqLogic->getName();
 				}
@@ -129,6 +141,15 @@ class imperihome {
 	}
 
 	public static function action($_cmd_id, $_action, $_value = '') {
+		if ($_action == 'launchScene') {
+			$scenario = scenario::byId(str_replace('scenario', '', $_cmd_id));
+			if (!is_object($scenario)) {
+				return;
+			}
+			$scenario->launch(false, 'imperihome', __('Lancement provoque par Imperihome ', __FILE__));
+			return array("success" => true, "errormsg" => "");
+		}
+
 		$cmd = cmd::byId($_cmd_id);
 		if (method_exists($cmd, 'imperihomeAction')) {
 			$cmd->imperihomeAction($_action, $_value);
@@ -145,7 +166,7 @@ class imperihome {
 					$action->execCmd();
 				}
 			}
-			return;
+			return array("success" => true, "errormsg" => "");
 		}
 		$actions = cmd::byValue($_cmd_id, 'action');
 		if (count($actions) == 0) {
@@ -156,15 +177,15 @@ class imperihome {
 				if ($action->getSubtype() == 'color') {
 					if ($_action == 'setColor') {
 						$action->execCmd(array('color' => '#' . substr($_value, 2)));
-						return;
+						return array("success" => true, "errormsg" => "");
 					}
 					if ($_action == 'setStatus') {
 						if ($_value == 0) {
 							$action->execCmd(array('color' => '#000000'));
-							return;
+							return array("success" => true, "errormsg" => "");
 						} else {
 							$action->execCmd(array('color' => '#FFFFFF'));
-							return;
+							return array("success" => true, "errormsg" => "");
 						}
 					}
 				}
@@ -178,10 +199,10 @@ class imperihome {
 					if ($_action == 'setStatus') {
 						if ($_value == 0) {
 							$action->execCmd(array('slider' => 0));
-							return;
+							return array("success" => true, "errormsg" => "");
 						} else {
 							$action->execCmd(array('slider' => 99));
-							return;
+							return array("success" => true, "errormsg" => "");
 						}
 					}
 				}
@@ -189,26 +210,26 @@ class imperihome {
 				if ($_action == 'setStatus' && $action->getSubtype() == 'other') {
 					if ($_value == 0 && strpos(strtolower($action->getName()), 'off') !== false) {
 						$action->execCmd();
-						return;
+						return array("success" => true, "errormsg" => "");
 					}
 					if ($_value == 1 && strpos(strtolower($action->getName()), 'on') !== false) {
 						$action->execCmd();
-						return;
+						return array("success" => true, "errormsg" => "");
 					}
 				}
 
 				if ($_action == 'stopShutter' && $action->getSubtype() == 'other' && strpos(strtolower($action->getName()), 'stop') !== false) {
 					$action->execCmd();
-					return;
+					return array("success" => true, "errormsg" => "");
 				}
 				if ($_action == 'pulseShutter' && $action->getSubtype() == 'other') {
 					if ($_value == 'down' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
 						$action->execCmd();
-						return;
+						return array("success" => true, "errormsg" => "");
 					}
 					if ($_value == 'up' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
 						$action->execCmd();
-						return;
+						return array("success" => true, "errormsg" => "");
 					}
 				}
 			}
