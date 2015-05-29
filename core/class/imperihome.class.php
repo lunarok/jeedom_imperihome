@@ -138,6 +138,9 @@ class imperihome {
 			return;
 		}
 		$actions = cmd::byValue($_cmd_id, 'action');
+		if (count($actions) == 0) {
+			$actions = $cmd->getEqLogic()->getCmd('action');
+		}
 		if (count($actions) > 0) {
 			foreach ($actions as $action) {
 				if ($action->getSubtype() == 'color') {
