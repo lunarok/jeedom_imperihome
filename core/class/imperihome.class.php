@@ -76,7 +76,7 @@ class imperihome {
 			} else {
 				$info_device = array(
 					"id" => $cmd->getId(),
-					"name" => $eqLogic->getName() . ' ' . $cmd->getName(),
+					"name" => ($cmd->getName() == __('Etat', __FILE__)) ? $eqLogic->getName() : $cmd->getName(),
 					"room" => (is_object($object)) ? $object->getId() : 99999,
 					"type" => self::convertType($cmd),
 					'params' => array(),
