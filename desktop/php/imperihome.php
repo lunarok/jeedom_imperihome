@@ -64,17 +64,18 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo '<input type="checkbox" class="imperihomeAttr" data-l1key="cmd_transmit" />';
 		echo '</td>';
 		echo '<td>';
-		echo '<select class="form-control" class="imperihomeAttr" data-l1key="devtype">';
+		/*echo '<select class="form-control" class="imperihomeAttr" data-l1key="devtype">';
 		$devtype = imperihome::convertType($cmd);
 		echo '<option value="">{{Defaut }}' . $devtype . '</option>';
 		foreach ($ISSStructure as $key => $value) {
-			if ($devtype == $key) {
-				echo '<option selected>' . $key . '</option>';
-			} else {
-				echo '<option>' . $key . '</option>';
-			}
+		if ($devtype == $key) {
+		echo '<option selected>' . $key . '</option>';
+		} else {
+		echo '<option>' . $key . '</option>';
 		}
-		echo '<select>';
+		}
+		echo '<select>';*/
+		echo '<span class="label label-info" style="font-size : 1em;">' . imperihome::convertType($cmd) . '</span>';
 		echo '</td>';
 		echo '</tr>';
 	}
