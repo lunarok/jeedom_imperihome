@@ -115,7 +115,7 @@ class imperihome {
 		return json_encode($return);
 	}
 
-	public static function action($_cmd_id, $_action, $_value) {
+	public static function action($_cmd_id, $_action, $_value = '') {
 		$cmd = cmd::byId($_cmd_id);
 		if (method_exists($cmd, 'imperihomeAction')) {
 			$cmd->imperihomeAction($_action, $_value);
@@ -169,6 +169,7 @@ class imperihome {
 						}
 					}
 				}
+
 				if ($_action == 'setStatus' && $action->getSubtype() == 'other') {
 					if ($_value == 0 && strpos(strtolower($action->getName()), 'off') !== false) {
 						$action->execCmd();
@@ -178,6 +179,11 @@ class imperihome {
 						$action->execCmd();
 						return;
 					}
+				}
+
+				if ($_action == 'stopShutter' && strpos(strtolower($action->getName()), 'stop') !== false) {
+					$action->execCmd();
+					return;
 				}
 			}
 		}

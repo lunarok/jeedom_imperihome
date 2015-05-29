@@ -34,7 +34,7 @@ switch ($args[2]) {
 			if (isset($args[6])) {
 				echo json_encode(imperihome::action($args[3], $args[5], $args[6]));
 			} else {
-				//echo json_encode($this->action($args[3], $args[5]));
+				echo json_encode(imperihome::action($args[3], $args[5]));
 			}
 		} elseif ($args[5] == 'histo') {
 			echo json_encode(imperihome::history($args[3], $args[4], $args[6], $args[7]));

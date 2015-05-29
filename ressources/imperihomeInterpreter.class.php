@@ -22,7 +22,6 @@ require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 //********************************************
 // Définition de la classe d'interpretation
 class imperihomeInterpreter {
-
 	var $ISSLocalConfig;
 	var $ISSStructure;
 	var $cmds = array();
