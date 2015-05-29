@@ -351,10 +351,10 @@ class imperihome {
 		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'light') !== false) {
 			return 'DevDimmer';
 		}
-		if (strtolower($cmd->getName()) == 'co') {
+		if ($cmd->getSubType() == 'binary' && strtolower($cmd->getName()) == 'co') {
 			return 'DevCO2Alert';
 		}
-		if (strpos(strtolower($cmd->getName()), __('fumée', __FILE__)) !== false || strpos(strtolower($cmd->getName()), __('smoke', __FILE__)) !== false) {
+		if ($cmd->getSubType() == 'binary' && (strpos(strtolower($cmd->getName()), __('fumée', __FILE__)) !== false || strpos(strtolower($cmd->getName()), __('smoke', __FILE__)) !== false)) {
 			return 'DevSmoke';
 		}
 		if (strpos(strtolower($cmd->getName()), __('humidité', __FILE__)) !== false) {
