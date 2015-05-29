@@ -61,11 +61,7 @@ class imperihome {
 					"type" => self::convertType($cmd),
 					'params' => array(),
 				);
-				if (isset($value['devtype'])) {
-					$info_device['type'] = $value['devtype'];
-				} else {
-					$info_device['type'] = self::convertType($cmd);
-				}
+				$info_device['type'] = self::convertType($cmd);
 				$cmd_params = self::generateParam($cmd, $info_device['type'], $ISSStructure);
 				$info_device['params'] = $cmd_params['params'];
 				foreach ($cmd_params['cmd_id'] as $cmd_used_id) {
