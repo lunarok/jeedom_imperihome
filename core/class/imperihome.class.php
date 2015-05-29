@@ -62,6 +62,9 @@ class imperihome {
 					'params' => array(),
 				);
 				$info_device['type'] = self::convertType($cmd);
+				if ($info_device['type'] == 'DevTempHygro') {
+					$info_device['name'] = $eqLogic->getName();
+				}
 				$cmd_params = self::generateParam($cmd, $info_device['type'], $ISSStructure);
 				$info_device['params'] = $cmd_params['params'];
 				foreach ($cmd_params['cmd_id'] as $cmd_used_id) {
