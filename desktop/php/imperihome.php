@@ -64,30 +64,39 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo '<input type="checkbox" class="imperihomeAttr" data-l1key="cmd_transmit" />';
 		echo '</td>';
 		echo '<td>';
-		/*echo '<select class="form-control" class="imperihomeAttr" data-l1key="devtype">';
-		$devtype = imperihome::convertType($cmd);
-		echo '<option value="">{{Defaut }}' . $devtype . '</option>';
-		foreach ($ISSStructure as $key => $value) {
-		if ($devtype == $key) {
-		echo '<option selected>' . $key . '</option>';
-		} else {
-		echo '<option>' . $key . '</option>';
-		}
-		}
-		echo '<select>';*/
 		echo '<span class="label label-info" style="font-size : 1em;">' . imperihome::convertType($cmd) . '</span>';
 		echo '</td>';
 		echo '</tr>';
 	}
-
 	echo '</tbody>';
-
 	echo '</table>';
 	echo '</td>';
-
+	echo '</tr>';
+}
+foreach (scenario::all() as $scenario) {
+	$object = $scenario->getObject();
+	echo '<tr class="imperihomeScenario" data-scenario_id="' . $scenario->getId() . '">';
+	echo '<td>';
+	if (is_object($object)) {
+		echo $object->getName();
+	} else {
+		echo __('Aucun', __FILE__);
+	}
+	echo '</td>';
+	echo '<td>';
+	echo $scenario->getName();
+	echo '</td>';
+	echo '<td> {{Scénario}}';
+	echo '</td>';
+	echo '<td>';
+	echo '<input type="checkbox" class="imperihomeAttr" data-l1key="scenario_transmit" />';
+	echo ' {{Transmettre}}';
+	echo ' <span class="label label-info" style="font-size : 1em;">DevScene</span>';
+	echo '</td>';
 	echo '</tr>';
 }
 ?>
+
     </tbody>
 </table>
 

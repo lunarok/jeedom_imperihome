@@ -19,6 +19,9 @@
     $('tr.imperihome').each(function(){
         imperihome[$(this).attr('data-cmd_id')] = $(this).getValues('.imperihomeAttr')[0]
     });
+    $('tr.imperihomeScenario').each(function(){
+        imperihome['scenario'+$(this).attr('data-scenario_id')] = $(this).getValues('.imperihomeAttr')[0]
+    });
  $.ajax({// fonction permettant de faire de l'ajax
         type: "POST", // méthode de transmission des données au fichier php
         url: "plugins/imperihome/core/ajax/imperihome.ajax.php", // url du fichier php
@@ -41,9 +44,9 @@
 
 });
 
- loadConf();
+loadConf();
 
- function loadConf(){
+function loadConf(){
     $.ajax({// fonction permettant de faire de l'ajax
         type: "POST", // méthode de transmission des données au fichier php
         url: "plugins/imperihome/core/ajax/imperihome.ajax.php", // url du fichier php
@@ -61,9 +64,13 @@
         }
         var imperihome = data.result;
         for(var i in data.result){
-            $('tr.imperihome[data-cmd_id='+i+']').setValues(data.result[i],'.imperihomeAttr');
+            if(i.indexOf('scenario') != -1){
+                $('tr.imperihomeScenario[data-scenario_id='+i.replace("scenario", "")+']').setValues(data.result[i],'.imperihomeAttr');
+            }else{
+                $('tr.imperihome[data-cmd_id='+i+']').setValues(data.result[i],'.imperihomeAttr');
+            }
         }
     }
 });
- }
+}
 

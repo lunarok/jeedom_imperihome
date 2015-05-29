@@ -31,6 +31,13 @@ class imperihome {
 		$alreadyUsed = array();
 		$issConfig = json_decode($cache->getValue('{}'), true);
 		foreach ($issConfig as $cmd_id => $value) {
+			if (strpos($cmd_id, 'scenario') !== false) {
+				if (!isset($value['scenario_transmit']) || $value['scenario_transmit'] != 1) {
+					continue;
+				}
+				continue;
+			}
+
 			if (!isset($value['cmd_transmit']) || $value['cmd_transmit'] != 1) {
 				continue;
 			}
