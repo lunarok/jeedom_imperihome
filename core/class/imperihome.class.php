@@ -192,16 +192,16 @@ class imperihome {
 
 				if ($action->getSubtype() == 'slider') {
 					if ($_action == 'setLevel') {
-						$_value = ($_value > 99) ? 99 : $_value;
+						$_value = ($action->getConfiguration('maxValue', 100) - $action->getConfiguration('minValue', 0)) * ($_value / 100) + $action->getConfiguration('minValue', 0);
 						$action->execCmd(array('slider' => $_value));
 						return;
 					}
 					if ($_action == 'setStatus') {
 						if ($_value == 0) {
-							$action->execCmd(array('slider' => 0));
+							$action->execCmd(array('slider' => $action->getConfiguration('minValue', 0)));
 							return array("success" => true, "errormsg" => "");
 						} else {
-							$action->execCmd(array('slider' => 99));
+							$action->execCmd(array('slider' => $action->getConfiguration('maxValue', 100)));
 							return array("success" => true, "errormsg" => "");
 						}
 					}
