@@ -71,6 +71,10 @@ class imperihome {
 			}
 			$object = $eqLogic->getObject();
 
+			if (method_exists($cmd, 'imperihomeCmd') && !$cmd->imperihomeCmd()) {
+				continue;
+			}
+
 			if (method_exists($cmd, 'imperihomeGenerate')) {
 				$info_device = $cmd->imperihomeGenerate($ISSStructure);
 			} else {
