@@ -121,6 +121,9 @@ class imperihome {
 				if ($param['type'] == 'infoBinary' && ($param['value'] > 0 || $param['value'])) {
 					$param['value'] = 1;
 				}
+				if ($param['type'] == 'infoNumeric' && isset($param['min']) && isset($param['max'])) {
+					$param['value'] = ($param['max'] - $param['min']) * ($param['value'] / 100) + $param['min'];
+				}
 			}
 			if ($device['type'] == 'DevMultiSwitch') {
 				$value = $device['params'][0]['value'];
@@ -144,7 +147,7 @@ class imperihome {
 		if ($_action == 'launchScene') {
 			$scenario = scenario::byId(str_replace('scenario', '', $_cmd_id));
 			if (!is_object($scenario)) {
-				return;
+				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
 			}
 			$scenario->launch(false, 'imperihome', __('Lancement provoque par Imperihome ', __FILE__));
 			return array("success" => true, "errormsg" => "");
@@ -153,11 +156,11 @@ class imperihome {
 		$cmd = cmd::byId($_cmd_id);
 		if (method_exists($cmd, 'imperihomeAction')) {
 			$cmd->imperihomeAction($_action, $_value);
-			return;
+			return array("success" => true, "errormsg" => "");
 		}
 		if ($_action == 'setChoice') {
 			if (!is_object($cmd)) {
-				return;
+				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
 			}
 			if ($cmd->getEqType() == 'presence') {
 				$eqlogic = $cmd->getEqLogic();
@@ -249,6 +252,10 @@ class imperihome {
 			}
 			if (isset($param['graphable'])) {
 				$param['graphable'] = ($cmd->getIsHistorized() == 1) ? true : false;
+			}
+			if (isset($param['min']) && isset($param['max'])) {
+				$param['min'] = $cmd->getConfiguration('minValue', 0);
+				$param['max'] = $cmd->getConfiguration('maxValue', 100);
 			}
 			if (($cmdType == 'DevSwitch' || $cmdType == 'DevRGBLight' || $cmdType == 'DevDimmer') && $param['key'] == 'energy') {
 				$param['value'] = 0;
