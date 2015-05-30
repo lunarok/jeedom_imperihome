@@ -130,11 +130,13 @@ class imperihome {
 				continue;
 			}
 			foreach ($device['params'] as &$param) {
-				if ($param['type'] == 'infoBinary' && ($param['value'] > 0 || $param['value'])) {
-					$param['value'] = 1;
-				}
-				if ($param['type'] == 'infoNumeric' && isset($param['min']) && isset($param['max'])) {
-					$param['value'] = ($param['max'] - $param['min']) * ($param['value'] / 100) + $param['min'];
+				if (isset($param['type'])) {
+					if ($param['type'] == 'infoBinary' && ($param['value'] > 0 || $param['value'])) {
+						$param['value'] = 1;
+					}
+					if ($param['type'] == 'infoNumeric' && isset($param['min']) && isset($param['max'])) {
+						$param['value'] = ($param['max'] - $param['min']) * ($param['value'] / 100) + $param['min'];
+					}
 				}
 				if ($param['key'] == 'lasttrip') {
 					$param['value'] = strtotime($param['value']) * 1000;
