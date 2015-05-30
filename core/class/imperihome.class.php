@@ -127,13 +127,14 @@ class imperihome {
 						$param['value'] = 'FF' . str_replace(array('#', '"'), '', $param['value']);
 					}
 					if ($param['key'] == 'status') {
-						if ($param['value'] != '"#000000"') {
+						if ($param['value'] != '#000000') {
 							$param['value'] = 1;
 						} else {
 							$param['value'] = 0;
 						}
 					}
 				}
+				continue;
 			}
 			foreach ($device['params'] as &$param) {
 				if ($param['type'] == 'infoBinary' && ($param['value'] > 0 || $param['value'])) {
