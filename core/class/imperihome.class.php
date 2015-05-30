@@ -127,11 +127,7 @@ class imperihome {
 						$param['value'] = 'FF' . str_replace(array('#', '"'), '', $param['value']);
 					}
 					if ($param['key'] == 'status') {
-						if ($param['value'] != '#000000') {
-							$param['value'] = 1;
-						} else {
-							$param['value'] = 0;
-						}
+						$param['value'] = ($param['value'] != '#000000') ? 0 : 1;
 					}
 				}
 				continue;
