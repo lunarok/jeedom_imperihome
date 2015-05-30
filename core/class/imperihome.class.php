@@ -122,14 +122,8 @@ class imperihome {
 		$return = json_decode($return, true);
 		foreach ($return['devices'] as &$device) {
 			if ($device['type'] == 'DevRGBLight') {
-				foreach ($device['params'] as &$param) {
-					if ($param['key'] == 'color') {
-						$param['value'] = 'FF' . str_replace(array('#', '"'), '', $param['value']);
-					}
-					if ($param['key'] == 'status') {
-						$param['value'] = ($param['value'] != '#000000') ? 0 : 1;
-					}
-				}
+				$device['params'][0]['value'] = ($device['params'][0]['value'] != '#000000') ? 1 : 0;
+				$device['params'][5]['value'] = 'FF' . str_replace(array('#', '"'), '', $device['params'][5]['value']);
 				continue;
 			}
 			foreach ($device['params'] as &$param) {
