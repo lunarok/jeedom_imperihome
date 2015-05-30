@@ -107,8 +107,11 @@ class imperihome {
 	}
 
 	public static function devices() {
-		$cache = cache::byKey('issTemplate');
-		$return = cmd::cmdToValue($cache->getValue('{}'), false, true);
+		$sql = 'SELECT `value` FROM cache
+          		WHERE `key`="issTemplate"';
+		$result = DB::Prepare($sql, array(), DB::FETCH_TYPE_ROW);
+		$cache = ($result['value'] != '') ? $result['value'] : '{}';
+		$return = cmd::cmdToValue($cache, false, true);
 		preg_match_all("/#scenarioLastRun([0-9]*)#/", $return, $matches);
 		foreach ($matches[1] as $scenario_id) {
 			if (is_numeric($scenario_id)) {
