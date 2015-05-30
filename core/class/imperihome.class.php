@@ -47,6 +47,9 @@ class imperihome {
 					"type" => 'DevScene',
 					'params' => array(),
 				);
+				$cmd_params = self::generateParam($cmd, $info_device['type'], $ISSStructure);
+				$info_device['params'] = $cmd_params['params'];
+				$info_device['params'][0]['value'] = '#scenarioLastRun' . $scenario->getId() . '#';
 				$template['devices'][] = $info_device;
 				continue;
 			}
@@ -105,7 +108,18 @@ class imperihome {
 
 	public static function devices() {
 		$cache = cache::byKey('issTemplate');
-		$return = cmd::cmdToValue(json_decode($cache->getValue('{}'), true), false, true);
+		$return = cmd::cmdToValue($cache->getValue('{}'), false, true);
+		preg_match_all("/#scenarioLastRun([0-9]*)#/", $return, $matches);
+		foreach ($matches[1] as $scenario_id) {
+			if (is_numeric($scenario_id)) {
+				$scenario = scenario::byId($scenario_id);
+				if (is_object($scenario)) {
+					$return = str_replace('#scenarioLastRun' . $scenario_id . '#', trim(json_encode($scenario->getLastLaunch()), '"'), $return);
+				}
+			}
+		}
+
+		$return = json_decode($return, true);
 		foreach ($return['devices'] as &$device) {
 			if ($device['type'] == 'DevRGBLight') {
 				foreach ($device['params'] as &$param) {
@@ -127,6 +141,9 @@ class imperihome {
 				}
 				if ($param['type'] == 'infoNumeric' && isset($param['min']) && isset($param['max'])) {
 					$param['value'] = ($param['max'] - $param['min']) * ($param['value'] / 100) + $param['min'];
+				}
+				if ($param['key'] == 'lasttrip') {
+					$param['value'] = strtotime($param['value']) * 1000;
 				}
 			}
 			if ($device['type'] == 'DevMultiSwitch') {
@@ -247,7 +264,7 @@ class imperihome {
 		$eqLogic = $cmd->getEqLogic();
 		$return = array('params' => $ISSStructure[$cmdType]['params'], 'cmd_id' => array());
 		foreach ($return['params'] as &$param) {
-			if ($param['type'] == 'optionBinary') {
+			if (isset($param['type']) && $param['type'] == 'optionBinary') {
 				continue;
 			}
 			$param['value'] = ($cmd->getType() == 'info') ? '#' . $cmd->getId() . '#' : '';
@@ -260,6 +277,9 @@ class imperihome {
 			if (isset($param['min']) && isset($param['max'])) {
 				$param['min'] = $cmd->getConfiguration('minValue', 0);
 				$param['max'] = $cmd->getConfiguration('maxValue', 100);
+			}
+			if ($param['key'] == 'lasttrip') {
+				$param['value'] = ($cmd->getType() == 'info') ? '#collectDate' . $cmd->getId() . '#' : 0;
 			}
 			if (($cmdType == 'DevSwitch' || $cmdType == 'DevRGBLight' || $cmdType == 'DevDimmer') && $param['key'] == 'energy') {
 				$param['value'] = 0;

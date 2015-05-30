@@ -131,6 +131,11 @@
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
+            },
+            {
+                "Description": "Date of last trip (timestamp format)",
+                "key": "lasttrip",
+                "value": 0
             }
         ]
     },
@@ -157,10 +162,14 @@
             },
             {
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
-                
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
+            },
+            {
+                "Description": "Date of last trip (timestamp format)",
+                "key": "lasttrip",
+                "value": 0
             }
         ]
     },
@@ -187,10 +196,14 @@
             },
             {
                 "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
-                
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
+            },
+            {
+                "Description": "Date of last trip (timestamp format)",
+                "key": "lasttrip",
+                "value": 0
             }
         ]
     },
@@ -221,6 +234,11 @@
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
+            },
+            {
+                "Description": "Date of last trip (timestamp format)",
+                "key": "lasttrip",
+                "value": 0
             }
         ]
     },
@@ -250,6 +268,11 @@
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
+            },
+            {
+                "Description": "Date of last trip (timestamp format)",
+                "key": "lasttrip",
+                "value": 0
             }
         ]
     },
@@ -384,7 +407,7 @@
                 "Description": "Date of last run",
                 "type": "infoNumeric",
                 "value": "",
-                "key": "lastrun"
+                "key": "LastRun"
             }
         ]
     },
