@@ -289,7 +289,7 @@ class imperihome {
 				}
 			}
 			if ($cmdType == 'DevElectricity' && $param['key'] == 'consototal') {
-				$param['value'] = 0;
+				$param['value'] = '';
 				foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
 					if (strtolower($info->getUnite()) == 'kwh') {
 						$param['unit'] = $info->getUnite();
