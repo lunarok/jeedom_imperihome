@@ -278,7 +278,7 @@ class imperihome {
 				$param['value'] = ($cmd->getType() == 'info') ? '#collectDate' . $cmd->getId() . '#' : 0;
 			}
 			if (($cmdType == 'DevSwitch' || $cmdType == 'DevRGBLight' || $cmdType == 'DevDimmer') && $param['key'] == 'energy') {
-				$param['value'] = 0;
+				$param['value'] = '';
 				foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
 					if (strtolower($info->getUnite()) == 'w') {
 						$param['unit'] = $info->getUnite();
