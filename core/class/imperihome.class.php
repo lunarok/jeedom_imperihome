@@ -117,7 +117,7 @@ class imperihome {
 			if (is_numeric($scenario_id)) {
 				$scenario = scenario::byId($scenario_id);
 				if (is_object($scenario)) {
-					$return = str_replace('#scenarioLastRun' . $scenario_id . '#', trim(json_encode($scenario->getLastLaunch()), '"'), $return);
+					$return = str_replace('#scenarioLastRun' . $scenario_id . '#', trim(json_encode(strtotime($scenario->getLastLaunch()) * 1000), '"'), $return);
 				}
 			}
 		}
