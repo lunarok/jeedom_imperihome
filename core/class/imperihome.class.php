@@ -47,7 +47,7 @@ class imperihome {
 					"type" => 'DevScene',
 					'params' => array(),
 				);
-				$cmd_params = self::generateParam($cmd, $info_device['type'], $ISSStructure);
+				$cmd_params = self::generateParam($scenario, $info_device['type'], $ISSStructure);
 				$info_device['params'] = $cmd_params['params'];
 				$info_device['params'][0]['value'] = '#scenarioLastRun' . $scenario->getId() . '#';
 				$template['devices'][] = $info_device;
@@ -257,6 +257,9 @@ class imperihome {
 	}
 
 	public static function generateParam($cmd, $cmdType, $ISSStructure) {
+		if ($cmdType == "DevScene"){
+			return array('params' => $ISSStructure[$cmdType]['params'], 'cmd_id' => array());
+		}
 		$eqLogic = $cmd->getEqLogic();
 		$return = array('params' => $ISSStructure[$cmdType]['params'], 'cmd_id' => array());
 		foreach ($return['params'] as &$param) {
