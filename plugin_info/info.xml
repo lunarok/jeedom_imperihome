@@ -2,13 +2,13 @@
 <info>
     <id>imperihome</id>
     <name>ImperiHome</name>
-    <description>Plugin permettant la communication avec le logiciel ImperiHome (API ISS et Control)</description>
+    <description>Plugin permettant la communication avec le logiciel ImperiHome (API ISS)</description>
     <icon>fa techno-robot30</icon>
     <licence>AGPL</licence>
     <author>Gael GRIFFON</author>
     <installation></installation>
-    <require>1.179</require>
-    <version>0.9.5</version>
+    <require>1.188</require>
+    <version>1.1</version>
     <category>communication</category>
     <allowRemote>0</allowRemote>
 </info>

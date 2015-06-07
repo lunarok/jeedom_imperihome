@@ -55,6 +55,11 @@ $('#bt_unselectAllISS').on('click', function () {
     });
 });
 
+$('.bt_newAdvancedDevice').on('click',function(){
+    $('#md_modal').dialog({title: "{{Mode avancé ISS}}"});
+    $('#md_modal').load('index.php?v=d&plugin=imperihome&modal=config.eqISS&ISSeqId=new').dialog('open');
+});
+
 
 loadConf();
 

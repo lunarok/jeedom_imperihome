@@ -38,7 +38,8 @@
                 "value": "",
                 "key": "remotemjpegurl"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevCO2": {
         "Description": "CO2 sensor",
@@ -50,13 +51,14 @@
                 "value": "0",
                 "key": "value"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevDimmer": {
         "Description": "Dimmable light",
         "params": [
             {
-                "Description": "Current status : 1 = On \/ 0 = Off",
+                "Description": "Current status : 1 = On / 0 = Off",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "status"
@@ -77,19 +79,32 @@
                 "value": "",
                 "key": "energy"
             }
-        ]
+        ],
+        "actions": {
+            "setStatus": {
+                "type": "item",
+                "item": {
+                    "0": "off;eteindre",
+                    "1": "on;allumer"
+                }
+            },
+            "setLevel": {
+                "type": "direct",
+                "equivalent": "level;Niveau;Puissance;Intensité"
+            }
+        }
     },
     "DevShutter": {
         "Description": "Shutter actuator",
         "params": [
             {
-                "Description": "Ability to stop shutter: 1 = Yes \/ 0 = No",
+                "Description": "Ability to stop shutter: 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "1",
                 "key": "stopable"
             },
             {
-                "Description": "Ability to send pulse commands to shutter: 1 = Yes \/ 0 = No",
+                "Description": "Ability to send pulse commands to shutter: 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "1",
                 "key": "pulseable"
@@ -103,178 +118,222 @@
                 "value": "0",
                 "key": "level"
             }
-        ]
+        ],
+        "actions": {
+            "setLevel": {
+                "type": "direct",
+                "equivalent": "level;Positionnement"
+            },
+            "stopShutter": {
+                "type": "direct",
+                "equivalent": "stop"
+            },
+            "pulseShutter": {
+                "type": "item",
+                "item": {
+                    "up": "up;ouvre;ouverture;monte;monter",
+                    "down": "down;ferme;fermeture;descend;descendre"
+                }
+            }
+        }
     },
     "DevDoor": {
-        "Description": "Door \/ window security sensor",
+        "Description": "Door / window security sensor",
         "params": [
             {
-                "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
+                "Description": "Ability to arm the device : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "armable"
             },
             {
-                "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
+                "Description": "Ability to acknowledge alerts : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "ackable"
             },
             {
-                "Description": "Current arming status : 1 = On \/ 0 = Off",
+                "Description": "Current arming status : 1 = On / 0 = Off",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "armed"
             },
             {
-                "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
+                "Description": "Is the sensor tripped ? (0 = No / 1 = Tripped)",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
-            },
-            {
-                "Description": "Date of last trip (timestamp format)",
-                "key": "lasttrip",
-                "value": 0
             }
-        ]
+        ],
+        "actions": {
+            "setArmed": {
+                "type": "item",
+                "item": {
+                    "0": "disarm;desarmer;desarmement",
+                    "1": "arm;armer;armement"
+                }
+            },
+            "setAck": {
+                "type": "direct",
+                "equivalent": "ack;acquitter;acquitte"
+            }
+        }
     },
     "DevFlood": {
         "Description": "Flood security sensor",
         "params": [
             {
-                "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
+                "Description": "Ability to arm the device : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "armable"
             },
             {
-                "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
+                "Description": "Ability to acknowledge alerts : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "ackable"
             },
             {
-                "Description": "Current arming status : 1 = On \/ 0 = Off",
+                "Description": "Current arming status : 1 = On / 0 = Off",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "armed"
             },
             {
-                "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
+                "Description": "Is the sensor tripped ? (0 = No / 1 = Tripped)",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
-            },
-            {
-                "Description": "Date of last trip (timestamp format)",
-                "key": "lasttrip",
-                "value": 0
             }
-        ]
+        ],
+        "actions": {
+            "setArmed": {
+                "type": "item",
+                "item": {
+                    "0": "disarm;desarmer;desarmement",
+                    "1": "arm;armer;armement"
+                }
+            },
+            "setAck": {
+                "type": "direct",
+                "equivalent": "ack;acquitter;acquitte"
+            }
+        }
     },
     "DevMotion": {
         "Description": "Motion security sensor",
         "params": [
             {
-                "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
+                "Description": "Ability to arm the device : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "armable"
             },
             {
-                "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
+                "Description": "Ability to acknowledge alerts : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "ackable"
             },
             {
-                "Description": "Current arming status : 1 = On \/ 0 = Off",
+                "Description": "Current arming status : 1 = On / 0 = Off",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "armed"
             },
             {
-                "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
+                "Description": "Is the sensor tripped ? (0 = No / 1 = Tripped)",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
-            },
-            {
-                "Description": "Date of last trip (timestamp format)",
-                "key": "lasttrip",
-                "value": 0
             }
-        ]
+        ],
+        "actions": {
+            "setArmed": {
+                "type": "item",
+                "item": {
+                    "0": "disarm;desarmer;desarmement;unlock",
+                    "1": "arm;armer;armement;lock"
+                }
+            },
+            "setAck": {
+                "type": "direct",
+                "equivalent": "ack;acquitter;acquitte"
+            }
+        }
     },
     "DevSmoke": {
         "Description": "Smoke security sensor",
         "params": [
             {
-                "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
+                "Description": "Ability to arm the device : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "armable"
             },
             {
-                "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
+                "Description": "Ability to acknowledge alerts : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "ackable"
             },
             {
-                "Description": "Current arming status : 1 = On \/ 0 = Off",
+                "Description": "Current arming status : 1 = On / 0 = Off",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "armed"
             },
             {
-                "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
-                
+                "Description": "Is the sensor tripped ? (0 = No / 1 = Tripped)",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
-            },
-            {
-                "Description": "Date of last trip (timestamp format)",
-                "key": "lasttrip",
-                "value": 0
             }
-        ]
+        ],
+        "actions": {
+            "setArmed": {
+                "type": "item",
+                "item": {
+                    "0": "disarm;desarmer;desarmement",
+                    "1": "arm;armer;armement"
+                }
+            },
+            "setAck": {
+                "type": "direct",
+                "equivalent": "ack;acquitter;acquitte"
+            }
+        }
     },
     "DevCO2Alert": {
         "Description": "CO2 Alert sensor",
         "params": [
             {
-                "Description": "Ability to arm the device : 1 = Yes \/ 0 = No",
+                "Description": "Ability to arm the device : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "armable"
             },
             {
-                "Description": "Ability to acknowledge alerts : 1 = Yes \/ 0 = No",
+                "Description": "Ability to acknowledge alerts : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "ackable"
             },
             {
-                "Description": "Current arming status : 1 = On \/ 0 = Off",
+                "Description": "Current arming status : 1 = On / 0 = Off",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "armed"
             },
             {
-                "Description": "Is the sensor tripped ? (0 = No \/ 1 = Tripped)",
+                "Description": "Is the sensor tripped ? (0 = No / 1 = Tripped)",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
-            },
-            {
-                "Description": "Date of last trip (timestamp format)",
-                "key": "lasttrip",
-                "value": 0
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevElectricity": {
         "Description": "Electricity consumption sensor",
@@ -295,7 +354,8 @@
                 "value": "0",
                 "key": "consototal"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevHygrometry": {
         "Description": "Hygro sensor",
@@ -310,18 +370,28 @@
                 "value": "0",
                 "key": "value"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevLock": {
         "Description": "Door lock",
         "params": [
             {
-                "Description": "Current status (0 = opened \/ 1 = closed)",
+                "Description": "Current status (0 = opened / 1 = closed)",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "status"
             }
-        ]
+        ],
+        "actions": {
+            "setStatus": {
+                "type": "item",
+                "item": {
+                    "0": "off;deverrouiller",
+                    "1": "on;verrouiller"
+                }
+            }
+        }
     },
     "DevLuminosity": {
         "Description": "Luminance sensor",
@@ -334,7 +404,8 @@
                 "value": "0",
                 "key": "value"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevMultiSwitch": {
         "Description": "Multiple choice actuator",
@@ -351,7 +422,13 @@
                 "value": "",
                 "key": "choices"
             }
-        ]
+        ],
+        "actions": {
+            "setChoice": {
+                "type": "direct",
+                "equivalent": "mode"
+            }
+        }
     },
     "DevNoise": {
         "Description": "Noise sensor",
@@ -364,7 +441,8 @@
                 "value": "0",
                 "key": "value"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevPressure": {
         "Description": "Pressure sensor",
@@ -377,14 +455,15 @@
                 "value": "0",
                 "key": "value"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevRain": {
         "Description": "Rain sensor",
         "params": [
             {
                 "Description": "Current instant rain value",
-                "unit": "mm\/h",
+                "unit": "mm/h",
                 "graphable": "false",
                 "type": "infoNumeric",
                 "value": "0",
@@ -398,7 +477,8 @@
                 "value": "0",
                 "key": "accumulation"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevScene": {
         "Description": "Scene (launchable)",
@@ -407,15 +487,21 @@
                 "Description": "Date of last run",
                 "type": "infoNumeric",
                 "value": "",
-                "key": "LastRun"
+                "key": "lastrun"
             }
-        ]
+        ],
+        "actions": {
+            "launchScene": {
+                "type": "direct",
+                "equivalent": ""
+            }
+        }
     },
     "DevSwitch": {
-        "Description": "Standard on\/off switch",
+        "Description": "Standard on/off switch",
         "params": [
             {
-                "Description": "Current status : 1 = On \/ 0 = Off",
+                "Description": "Current status : 1 = On / 0 = Off",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "status"
@@ -427,7 +513,16 @@
                 "value": "0",
                 "key": "energy"
             }
-        ]
+        ],
+        "actions": {
+            "setStatus": {
+                "type": "item",
+                "item": {
+                    "0": "off;eteindre",
+                    "1": "on;allumer"
+                }
+            }
+        }
     },
     "DevTemperature": {
         "Description": "Temperature sensor",
@@ -440,7 +535,8 @@
                 "type": "infoNumeric",
                 "value": "0"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevThermostat": {
         "Description": "Thermostat",
@@ -476,14 +572,24 @@
                 "value": "",
                 "key": "availablemodes"
             }
-        ]
+        ],
+        "actions": {
+            "setMode": {
+                "type": "direct",
+                "equivalent": "mode"
+            },
+            "setSetPoint": {
+                "type": "direct",
+                "equivalent": "consigne;Thermostat"
+            }
+        }
     },
     "DevWind": {
         "Description": "Wind sensor",
         "params": [
             {
                 "Description": "Current wind speed",
-                "unit": "km\/h",
+                "unit": "km/h",
                 "graphable": "false",
                 "type": "infoNumeric",
                 "value": "0",
@@ -496,7 +602,8 @@
                 "value": "0",
                 "key": "direction"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevUV": {
         "Description": "UV sensor",
@@ -509,7 +616,8 @@
                 "value": "0",
                 "key": "value"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevGenericSensor": {
         "Description": "Generic sensor (any value)",
@@ -522,13 +630,14 @@
                 "value": "",
                 "key": "value"
             }
-        ]
+        ],
+        "actions": {}
     },
     "DevRGBLight": {
         "Description": "RGB(W) Light (dimmable)",
         "params": [
             {
-                "Description": "Current status : 1 = On \/ 0 = Off",
+                "Description": "Current status : 1 = On / 0 = Off",
                 "type": "infoBinary",
                 "value": "0",
                 "key": "status"
@@ -549,13 +658,13 @@
                 "key": "level"
             },
             {
-                "Description": "Ability to control luminosity : 1 = Yes \/ 0 = No",
+                "Description": "Ability to control luminosity : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "dimmable"
             },
             {
-                "Description": "Does the light has a white channel : 1 = Yes \/ 0 = No",
+                "Description": "Does the light has a white channel : 1 = Yes / 0 = No",
                 "type": "optionBinary",
                 "value": "0",
                 "key": "whitechannel"
@@ -566,7 +675,24 @@
                 "value": "",
                 "key": "color"
             }
-        ]
+        ],
+        "actions": {
+            "setStatus": {
+                "type": "item",
+                "item": {
+                    "0": "off;eteindre",
+                    "1": "on;allumer;blanc"
+                }
+            },
+            "setLevel": {
+                "type": "direct",
+                "equivalent": "level;Niveau;Puissance;Intensité"
+            },
+            "setColor": {
+                "type": "direct",
+                "equivalent": "color;Couleur"
+            }
+        }
     },
     "DevTempHygro": {
         "Description": "Temperature and Hygrometry combined sensor",
@@ -587,6 +713,7 @@
                 "value": "0",
                 "key": "hygro"
             }
-        ]
+        ],
+        "actions": {}
     }
 }

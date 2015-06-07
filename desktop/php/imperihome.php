@@ -115,7 +115,22 @@ foreach (scenario::all() as $scenario) {
 	</div>
 
 	<div role="tabpanel" class="tab-pane" id="advancedMode">
-
+		<br/>
+		<a class="btn btn-success pull-right bt_saveISSConfig" id=""><i class="fa fa-floppy-o"></i> Sauvegarder</a>
+		<a class="btn btn-warning pull-right bt_newAdvancedDevice" id=""><i class="fa fa-plus-circle"></i> Ajouter un équipement</a>
+		<br><br>
+		<table class="table table-bordered table-condensed tablesorter" id="cmdListAdvanced">
+			<thead>
+				<tr>
+					<th>{{Objet}}</th>
+					<th>{{Equipement}}</th>
+					<th>{{Type}}</th>
+					<th>{{Commande}}</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
 	</div>
 </div>
 
