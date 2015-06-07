@@ -24,6 +24,8 @@ $ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../../core/c
 					<th>{{Equipement}}</th>
 					<th>{{Type}}</th>
 					<th>{{Commande}}</th>
+					<th>{{Transmettre}}</th>
+					<th>{{Type Imperihome}}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -40,36 +42,33 @@ foreach (eqLogic::all() as $eqLogic) {
 	if (count($cmds) == 0) {
 		continue;
 	}
-	echo '<tr>';
-	echo '<td>';
-	if (is_object($object)) {
-		echo $object->getName();
-	} else {
-		echo __('Aucun', __FILE__);
-	}
-	echo '</td>';
-	echo '<td>';
-	echo $eqLogic->getName();
-	echo '</td>';
-	echo '<td>';
-	echo $eqLogic->getEqType_name();
-	echo '</td>';
 
-	echo '<td>';
-	echo '<table class="table table-bordered table-condensed">';
-	echo '<thead>';
-	echo '<tr>';
-	echo '<td>{{Nom}}</td>';
-	echo '<td>{{Transmettre}}</td>';
-	echo '<td>{{Type Imperihome}}</td>';
-	echo '</tr>';
-	echo '</thead>';
-	echo '<tbody>';
-	foreach ($eqLogic->getCmd('info') as $cmd) {
+	$firstLine = true;
+	foreach ($cmds as $cmd) {
 		if (method_exists($cmd, 'imperihomeCmd') && !$cmd->imperihomeCmd()) {
 			continue;
 		}
-		echo '<tr class="imperihome" data-cmd_id="' . $cmd->getId() . '">';
+
+		if($firstLine){
+			$firstLine = false;
+			echo '<tr class="imperihome" data-cmd_id="' . $cmd->getId() . '">';
+			echo '<td rowspan="' . count($cmds) . '">';
+			if (is_object($object)) {
+				echo $object->getName();
+			} else {
+				echo __('Aucun', __FILE__);
+			}
+			echo '</td>';
+			echo '<td rowspan="' . count($cmds) . '">';
+			echo $eqLogic->getName();
+			echo '</td>';
+			echo '<td rowspan="' . count($cmds) . '">';
+			echo $eqLogic->getEqType_name();
+			echo '</td>';
+		}else{
+			echo '<tr class="tablesorter-childRow imperihome" data-cmd_id="' . $cmd->getId() . '">';
+		}
+
 		echo '<td>';
 		echo $cmd->getName();
 		echo '</td>';
@@ -81,10 +80,6 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo '</td>';
 		echo '</tr>';
 	}
-	echo '</tbody>';
-	echo '</table>';
-	echo '</td>';
-	echo '</tr>';
 }
 foreach (scenario::all() as $scenario) {
 	$object = $scenario->getObject();
@@ -101,9 +96,11 @@ foreach (scenario::all() as $scenario) {
 	echo '</td>';
 	echo '<td> {{Scénario}}';
 	echo '</td>';
+	echo '<td></td>';
 	echo '<td>';
 	echo '<input type="checkbox" class="imperihomeAttr" data-l1key="scenario_transmit" />';
-	echo ' {{Transmettre}}';
+	echo '</td>';
+	echo '<td>';
 	echo ' <span class="label label-info" style="font-size : 1em;">DevScene</span>';
 	echo '</td>';
 	echo '</tr>';
