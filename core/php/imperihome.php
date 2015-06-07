@@ -25,34 +25,28 @@ if ($args[1] != config::byKey('api') || config::byKey('api') == '') {
 	echo 'Clef API non valide, vous n\'etes pas autorisé à effectuer cette action (jeeApi)';
 	die();
 }
-log::add('imperihome', 'debug', print_r($args, true));
-switch ($args[2]) {
-	case "devices":
-		if (!isset($args[3])) {
-			echo imperihome::devices();
-		} elseif ($args[4] == 'action') {
-			if (isset($args[6])) {
-				echo json_encode(imperihome::action($args[3], $args[5], $args[6]));
-			} else {
-				echo json_encode(imperihome::action($args[3], $args[5]));
-			}
-		} elseif ($args[5] == 'histo') {
-			echo json_encode(imperihome::history($args[3], $args[4], $args[6], $args[7]));
+if ($args[2] == 'devices') {
+	if (!isset($args[3])) {
+		echo imperihome::devices();
+	} elseif ($args[4] == 'action') {
+		if (isset($args[6])) {
+			echo json_encode(imperihome::action($args[3], $args[5], $args[6]));
 		} else {
-			http_response_code(404);
-			echo json_encode(array("success" => false, "errormsg" => "Format inconnu"));
+			echo json_encode(imperihome::action($args[3], $args[5]));
 		}
-		break;
-	case "rooms":
-		echo imperihome::rooms();
-		break;
-	case "system":
-		echo imperihome::system();
-		break;
-	default:
+	} elseif ($args[5] == 'histo') {
+		echo json_encode(imperihome::history($args[3], $args[4], $args[6], $args[7]));
+	} else {
 		http_response_code(404);
 		echo json_encode(array("success" => false, "errormsg" => "Format inconnu"));
-		break;
+	}
+} else if ($args[2] == 'rooms') {
+	echo imperihome::rooms();
+} else if ($args[2] == 'system') {
+	echo imperihome::system();
+} else {
+	http_response_code(404);
+	echo json_encode(array("success" => false, "errormsg" => "Format inconnu"));
 }
 $out = ob_get_clean();
 echo trim(substr($out, strpos($out, '{')));
