@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
-
  $('.bt_saveISSConfig').on('click',function(){
     var imperihome = {};
     $('tr.imperihome').each(function(){
@@ -46,13 +45,13 @@
 
 $('#bt_selectAllISS').on('click', function () {
     $('.imperihomeAttr').each(function() { //loop through each checkbox
-        this.checked = true;  //select all checkboxes with class "checkbox1"               
+        this.setValues(true);  //select all checkboxes with class "checkbox1"               
     });
 });
 
 $('#bt_unselectAllISS').on('click', function () {
     $('.imperihomeAttr').each(function() { //loop through each checkbox
-        this.checked = false;  //select all checkboxes with class "checkbox1"               
+        this.setValues(false);  //select all checkboxes with class "checkbox1"               
     });
 });
 
