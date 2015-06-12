@@ -44,6 +44,31 @@ try {
 		ajax::success(json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true));
 	}
 
+	if (init('action') == 'saveAdvancedDevice') {
+		$device = json_decode(init('config'), true);
+		$cache = cache::byKey('issAdvancedConfig');
+		if(!is_object($cache)){
+			$cache = new cache();
+			$cache->setKey('issAdvancedConfig');
+		}
+
+		$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
+		
+		$issAdvancedConfig[$device['id']] = $device;
+
+		if(array_key_exists($device['id'], $issAdvancedConfig)){ 
+			$cache->setValue(json_encode($issAdvancedConfig));
+			$cache->setLifetime(0);
+			$cache->save();
+			imperihome::generateISSTemplate();
+			ajax::success();
+		}
+
+		
+	}
+
+	
+
 	throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
 
 } catch (Exception $e) {
