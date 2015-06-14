@@ -7,7 +7,7 @@ $ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../../core/c
 
 <ul class="nav nav-tabs" role="tablist">
 	<li role="presentation" class="active"><a href="#configISS" role="tab" data-toggle="tab">{{Configuration ISS}}</a></li>
-	<!--<li role="presentation" class="expertModeVisible"><a href="#advancedMode" role="tab" data-toggle="tab">{{Mode avancé}}</a></li>-->
+	<li role="presentation" class="expertModeVisible"><a href="#advancedMode" role="tab" data-toggle="tab">{{Mode avancé}}</a></li>
 </ul>
 
 <div class="tab-content">
@@ -43,6 +43,14 @@ foreach (eqLogic::all() as $eqLogic) {
 		continue;
 	}
 
+	$countCmd = 0;
+	foreach ($cmds as $cmd) {
+		if (method_exists($cmd, 'imperihomeCmd') && !$cmd->imperihomeCmd()) {
+			continue;
+		}
+		$countCmd++;
+	}
+
 	$firstLine = true;
 	foreach ($cmds as $cmd) {
 		if (method_exists($cmd, 'imperihomeCmd') && !$cmd->imperihomeCmd()) {
@@ -52,17 +60,17 @@ foreach (eqLogic::all() as $eqLogic) {
 		if($firstLine){
 			$firstLine = false;
 			echo '<tr class="imperihome" data-cmd_id="' . $cmd->getId() . '">';
-			echo '<td rowspan="' . count($cmds) . '">';
+			echo '<td rowspan="' . $countCmd . '">';
 			if (is_object($object)) {
 				echo $object->getName();
 			} else {
 				echo __('Aucun', __FILE__);
 			}
 			echo '</td>';
-			echo '<td rowspan="' . count($cmds) . '">';
+			echo '<td rowspan="' . $countCmd . '">';
 			echo $eqLogic->getName();
 			echo '</td>';
-			echo '<td rowspan="' . count($cmds) . '">';
+			echo '<td rowspan="' . $countCmd . '">';
 			echo $eqLogic->getEqType_name();
 			echo '</td>';
 		}else{
@@ -81,6 +89,7 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo '</tr>';
 	}
 }
+
 foreach (scenario::all() as $scenario) {
 	$object = $scenario->getObject();
 	echo '<tr class="imperihomeScenario" data-scenario_id="' . $scenario->getId() . '">';
@@ -113,16 +122,14 @@ foreach (scenario::all() as $scenario) {
 
 	<div role="tabpanel" class="tab-pane" id="advancedMode">
 		<br/>
-		<a class="btn btn-success pull-right bt_saveISSConfig" id=""><i class="fa fa-floppy-o"></i> Sauvegarder</a>
 		<a class="btn btn-warning pull-right bt_newAdvancedDevice" id=""><i class="fa fa-plus-circle"></i> Ajouter un équipement</a>
 		<br><br>
 		<table class="table table-bordered table-condensed tablesorter" id="cmdListAdvanced">
 			<thead>
 				<tr>
-					<th>{{Objet}}</th>
 					<th>{{Equipement}}</th>
 					<th>{{Type}}</th>
-					<th>{{Commande}}</th>
+					<th>{{Action}}</th>
 				</tr>
 			</thead>
 			<tbody>
