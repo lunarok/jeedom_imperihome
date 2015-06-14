@@ -61,8 +61,14 @@ sendVarToJS('ISSeqId', init('ISSeqId'));
 var ISSStructure;
 
 $('#eqSave').on('click', function () {
+    if(($("#cmdSupportId").val() == '') || ($("#eqType").val() == 'noType')){
+        $('#div_alert').showAlert({message: 'Vous devez renseigner à minima une commande support et un type.', level: 'danger'});
+
+        return;
+    }
+
     var device = {};
-    device.id = 'manual' + $("#cmdSupportId").val();
+    device.id = $("#cmdSupportId").val();
     device.type = $("#eqType").val();
 
     device.params = [];
@@ -123,6 +129,7 @@ $('#eqSave').on('click', function () {
                 return;
             }
             $('#div_alert').showAlert({message: '{{Sauvegarde réalisée avec succès}}', level: 'success'});
+            loadAdvancedConf();
         }
     });
 });
@@ -130,8 +137,37 @@ $('#eqSave').on('click', function () {
 $('.listEquipement').on('click', function () {
     var el = $(this);
     jeedom.cmd.getSelectModal({}, function(result) {
-        $('#' + el.data('input') + "Id").val(result.cmd.id);
-        $('#' + el.data('input') + "HumanName").val(result.human);
+        $.ajax({
+            type: 'POST',
+            url: 'plugins/imperihome/core/ajax/imperihome.ajax.php',
+            data: {
+                action: 'loadAdvancedDeviceISSConfig',
+                deviceId: result.cmd.id
+            },
+
+            dataType: 'json',
+            error: function (request, status, error) {
+                console.log("Erreur lors de la demande de la configuration de l'équipement");
+            },
+
+            success: function( data ) {
+                if(data.state == "ok"){
+                    if(data.result.type != 'noDevice'){
+                        bootbox.confirm('<b>Cet équipement a déjà une configuration?</b><br>Si vous sélectionnez celui-ci, sa configuration éxistante sera chargée.<br>', function(device, result, el){
+                            return function(result2) {
+                                if(result2){
+                                    $('#' + el.data('input') + "HumanName").val(result.human);
+                                    loadDevice(device);
+                                }
+                            };
+                        }(data.result, result, el));
+                    }else{
+                        $('#' + el.data('input') + "Id").val(result.cmd.id);
+                        $('#' + el.data('input') + "HumanName").val(result.human);
+                    }
+                }
+            }
+        });
     });
 });
 
@@ -181,15 +217,13 @@ $.ajax({
 
                 $('#eqType').on('change', function(ISSeqId) {
                     return function() {
-                        //loadDevice(device.id, $(this).val());
-                        console.log("Changement de type: " + $(this).val());
                         loadParameters($(this).val());
                         loadActions($(this).val());
                     };
                 }(ISSeqId));
+
+                initLoadEqISS(ISSeqId);
                 
-            }else{
-                console.log(data.result);
             }
         };
     }(ISSeqId)
@@ -241,7 +275,7 @@ function loadParameters(eqType){
     $("#table_params").delegate(".listEquipementInfo", 'click', function() {
         var el = $(this);
         jeedom.cmd.getSelectModal({cmd: {type: 'info'}}, function(result) {
-            $('#' + el.data('input') + "Id").val("#" + result.cmd.id + "#");
+            $('#' + el.data('input') + "Id").val(result.cmd.id);
             $('#' + el.data('input')).val(result.human);
         });
     });
@@ -289,20 +323,78 @@ function loadActions(eqType){
     $("#table_actions").delegate(".listEquipementAction", 'click', function() {
         var el = $(this);
         jeedom.cmd.getSelectModal({cmd: {type: 'action'}}, function(result) {
-            $('#' + el.data('input') + "Id").val("#" + result.cmd.id + "#");
+            $('#' + el.data('input') + "Id").val(result.cmd.id);
             $('#' + el.data('input')).val(result.human);
         });
     });
 }
 
-function initLoadEqISS(eqId){
-    if(eqId != 'new'){
+function loadDevice(device){
+    if(device.type != 'noDevice'){
+        $("#cmdSupportId").val(device.id);
+        $("#eqType").val(device.type);
 
-    }else{
+        loadParameters(device.type);
+        loadActions(device.type);
 
+        $('tr.imperihomeAdvancedDeviceParameter').each(function(){
+            paramKey = $(this).attr('data-paramKey');
+            paramType = $(this).attr('data-paramType');
+
+            for (var i=0; i<device.params.length; i++) {
+                param = device.params[i];
+
+                if(param.key == paramKey){
+                    if((param.type == 'infoBinary') || (param.type == 'infoNumeric') || (param.type == 'infoText') || (param.type == 'infoColor')){
+                        $(this).find('#cmd' + param.key + "Id").val(param.value);
+                        // Récupérer le nom de la commande et l'insérer
+                    }else{
+                        if(param.type == 'optionBinary'){
+                            $(this).find("#" + param.key + param.value ).prop('checked', true);
+                        }else{
+                            $(this).find('#' + param.key).val(param.value);
+                        }
+                    }
+                }
+            }            
+        });
+
+        $('tr.imperihomeAdvancedDeviceAction').each(function(){
+            actionName = $(this).attr('data-actionName');
+            actionType = $(this).attr('data-actionType');
+
+            if(actionType == 'item'){
+                actionKey = $(this).attr('data-actionKey');
+                $('#cmd' + actionName + actionKey + "Id").val(device.actions[actionName]['item'][actionKey]);
+            }else{
+                $('#cmd' + actionName + "Id").val(device.actions[actionName].cmdId);
+            }        
+        });
     }
 }
 
-initLoadEqISS(ISSeqId);
+function initLoadEqISS(eqId){
+    if(eqId != 'new'){
+        $.ajax({
+            type: 'POST',
+            url: 'plugins/imperihome/core/ajax/imperihome.ajax.php',
+            data: {
+                action: 'loadAdvancedDeviceISSConfig',
+                deviceId: eqId
+            },
+
+            dataType: 'json',
+            error: function (request, status, error) {
+                console.log("Erreur lors de la demande de la configuration de l'équipement");
+            },
+
+            success: function( data ) {
+                if(data.state == "ok"){
+                    loadDevice(data.result);
+                }
+            }
+        });
+    }
+}
 
 </script>
