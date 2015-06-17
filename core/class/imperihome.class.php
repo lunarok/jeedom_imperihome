@@ -99,6 +99,35 @@ class imperihome {
 			}
 			$template['devices'][] = $info_device;
 		}
+
+		$cache = cache::byKey('issAdvancedConfig');
+		$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
+		foreach ($issAdvancedConfig as $device_id => $device) {
+			$cmd = cmd::byId($device_id);
+			if (!is_object($cmd)) {
+				continue;
+			}			
+			$eqLogic = $cmd->getEqLogic();
+			if (!is_object($eqLogic)) {
+				continue;
+			}
+			$object = $eqLogic->getObject();
+			$info_device = array(
+				"id" => 'manual' . $cmd->getId(),
+				"name" => $eqLogic->getName() . '-' . $cmd->getName(),
+				"room" => (is_object($object)) ? $object->getId() : 99999,
+				"type" => $device['type'],
+				'params' => array(),
+			);
+
+			foreach($ISSStructure[$device['type']]['params'] as $param){
+				$param['value'] = $device['params'][$param['key']]['value'];
+				$info_device['params'][] = $param;		
+			}
+
+			$template['devices'][] = $info_device;
+		}
+
 		$cache = new cache();
 		$cache->setKey('issTemplate');
 		$cache->setValue(json_encode($template));
@@ -161,6 +190,8 @@ class imperihome {
 	}
 
 	public static function action($_cmd_id, $_action, $_value = '') {
+		log::add('imperihome', 'debug', 'Reception d\'une action "' . $_action . '(' . $_value . ')" sur ' . $_cmd_id);
+
 		if ($_action == 'launchScene') {
 			$scenario = scenario::byId(str_replace('scenario', '', $_cmd_id));
 			if (!is_object($scenario)) {
@@ -168,6 +199,45 @@ class imperihome {
 			}
 			$scenario->launch(false, 'imperihome', __('Lancement provoque par Imperihome ', __FILE__));
 			return array("success" => true, "errormsg" => "");
+		}
+
+		if(strpos(strtolower($_cmd_id), 'manual') !== false){
+			$_cmd_id = str_replace("manual", "", $_cmd_id);
+
+			//log::add('imperihome', 'debug', 'Type manuelle: id=' . $_cmd_id);
+
+			$cache = cache::byKey('issAdvancedConfig');
+			$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
+
+			$action = $issAdvancedConfig[$_cmd_id]['actions'][$_action];
+			if($action['type'] == 'item'){
+				$actionCmdId = $action['item'][$_value];
+			}else{
+				$actionCmdId = $action['cmdId'];
+			}
+			
+			//log::add('imperihome', 'debug', 'Type manuelle: ActionId=' . $actionCmdId);
+
+			$cmd = cmd::byId($actionCmdId);			
+			if (!is_object($cmd)) {
+				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
+			}
+
+			if ($cmd->getSubtype() == 'color'){
+				$cmd->execCmd(array('color' => '#' . substr($_value, 2)));
+				return array("success" => true, "errormsg" => "");
+			}
+
+			if ($cmd->getSubtype() == 'slider') {
+				$_value = ($cmd->getConfiguration('maxValue', 100) - $cmd->getConfiguration('minValue', 0)) * ($_value / 100) + $cmd->getConfiguration('minValue', 0);
+				$cmd->execCmd(array('slider' => $_value));
+				return array("success" => true, "errormsg" => "");
+			}
+
+			if ($cmd->getSubtype() == 'other') {
+				$cmd->execCmd();
+				return array("success" => true, "errormsg" => "");
+			}
 		}
 
 		$cmd = cmd::byId($_cmd_id);

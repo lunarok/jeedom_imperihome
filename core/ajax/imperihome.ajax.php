@@ -54,6 +54,46 @@ try {
 
 		$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
 
+		foreach ($issAdvancedConfig as $cmd_id => $value) {
+			$cmd = cmd::byId($cmd_id);
+			if(is_object($cmd)){
+				$issAdvancedConfig[$cmd_id]['humanName'] = $cmd->getHumanName();
+			}else{
+				$issAdvancedConfig[$cmd_id]['humanName'] = "Cmd support inconnue";
+			}
+
+			foreach($issAdvancedConfig[$cmd_id]['params'] as $paramName => $param){
+				if(strpos(strtolower($param['type']), 'info') !== false){
+					$cmd_param = cmd::byId(str_replace("#", "", $param['value']));
+					if(is_object($cmd_param)){
+						$issAdvancedConfig[$cmd_id]['params'][$paramName]['humanName'] = $cmd->getHumanName();
+					}else{
+						$issAdvancedConfig[$cmd_id]['params'][$paramName]['humanName'] = "Cmd inconnue";
+					}
+				}
+			}
+
+			foreach($issAdvancedConfig[$cmd_id]['actions'] as $actionName => $action){
+				if($action['type']=='item'){
+					foreach($issAdvancedConfig[$cmd_id]['actions'][$actionName]['item'] as $actionItem => $item){
+						$cmd_action = cmd::byId($item['cmdId']);
+						if(is_object($cmd_action)){
+							$issAdvancedConfig[$cmd_id]['actions'][$actionName]['item'][$actionItem]['humanName'] = $cmd_action->getHumanName();
+						}else{
+							$issAdvancedConfig[$cmd_id]['actions'][$actionName]['item'][$actionItem]['humanName'] = "Cmd inconnue";
+						}
+					}
+				}else{
+					$cmd_action = cmd::byId($action['cmdId']);
+					if(is_object($cmd_action)){
+						$issAdvancedConfig[$cmd_id]['actions'][$actionName]['humanName'] = $cmd->getHumanName();
+					}else{
+						$issAdvancedConfig[$cmd_id]['actions'][$actionName]['humanName'] = "Cmd inconnue";
+					}
+				}
+			}
+		}
+
 		if(array_key_exists($deviceId, $issAdvancedConfig)){ 
 			ajax::success($issAdvancedConfig[$deviceId]);
 		}else{
@@ -67,7 +107,18 @@ try {
 
 	if (init('action') == 'loadAdvancedISSConfig') {
 		$cache = cache::byKey('issAdvancedConfig');
-		ajax::success(json_decode($cache->getValue('{}'), true));
+		$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
+
+		foreach ($issAdvancedConfig as $cmd_id => $value) {
+			$cmd = cmd::byId($cmd_id);
+			if(is_object($cmd)){
+				$issAdvancedConfig[$cmd_id]['humanName'] = $cmd->getHumanName();
+			}else{
+				$issAdvancedConfig[$cmd_id]['humanName'] = "Cmd support inconnue";
+			}
+		}
+
+		ajax::success($issAdvancedConfig);
 	}
 
 	if (init('action') == 'saveAdvancedDevice') {
@@ -82,13 +133,11 @@ try {
 		
 		$issAdvancedConfig[$device['id']] = $device;
 
-		if(array_key_exists($device['id'], $issAdvancedConfig)){ 
-			$cache->setValue(json_encode($issAdvancedConfig));
-			$cache->setLifetime(0);
-			$cache->save();
-			imperihome::generateISSTemplate();
-			ajax::success();
-		}
+		$cache->setValue(json_encode($issAdvancedConfig));
+		$cache->setLifetime(0);
+		$cache->save();
+		imperihome::generateISSTemplate();
+		ajax::success();
 	}
 
 	if (init('action') == 'deleteAdvancedDevice') { 

@@ -71,45 +71,48 @@ $('#eqSave').on('click', function () {
     device.id = $("#cmdSupportId").val();
     device.type = $("#eqType").val();
 
-    device.params = [];
+    device.params = {};
     $('tr.imperihomeAdvancedDeviceParameter').each(function(){
         var param = {};
-        param.key = $(this).attr('data-paramKey');
+        paramKey = $(this).attr('data-paramKey');
         param.type = $(this).attr('data-paramType');
 
         if((param.type == 'infoBinary') || (param.type == 'infoNumeric') || (param.type == 'infoText') || (param.type == 'infoColor')){
-            param.value = $(this).find('#cmd' + param.key + "Id").val();
+            param.value = $(this).find('#cmd' + paramKey + "Id").val();
         }else{
             if(param.type == 'optionBinary'){
-                param.value = $(this).find("input[name='" + param.key + "']:checked" ).val();
+                param.value = $(this).find("input[name='" + paramKey + "']:checked" ).val();
             }else{
-                param.value = $(this).find('#' + param.key).val();
+                param.value = $(this).find('#' + paramKey).val();
             }
         }
 
-        device.params.push(param);
+        device.params[paramKey] = param;
     });
 
     device.actions = {};
     $('tr.imperihomeAdvancedDeviceAction').each(function(){
-        var action = {};
         actionName = $(this).attr('data-actionName');
-        action.type = $(this).attr('data-actionType');
 
-        if(action.type == 'item'){
+        if(!(actionName in device.actions)){
+            device.actions[actionName] = {};
+            device.actions[actionName].type = $(this).attr('data-actionType');
+        }
+
+        if(device.actions[actionName].type == 'item'){
             actionKey = $(this).attr('data-actionKey');
 
-            if(actionName in device.actions){
-                device.actions[actionName]['item'][actionKey] = $('#cmd' + actionName + actionKey + "Id").val();
-            }else{
-                action.item = [];
-                action.item[actionKey] = $('#cmd' + actionName + actionKey + "Id").val();
-                device.actions[actionName] = action;
+            if(!('item' in device.actions[actionName])){
+                device.actions[actionName].item = {};
             }
+
+            device.actions[actionName].item[actionKey] = {};
+            device.actions[actionName].item[actionKey].cmdId = $('#cmd' + actionName + actionKey + "Id").val();
         }else{
-            action.cmdId = $('#cmd' + actionName + "Id").val();
-            device.actions[actionName] = action;
-        }        
+            device.actions[actionName].cmdId = $('#cmd' + actionName + "Id").val();
+        }
+
+        console.log(device.actions);       
     });
 
     $.ajax({// fonction permettant de faire de l'ajax
@@ -275,7 +278,7 @@ function loadParameters(eqType){
     $("#table_params").delegate(".listEquipementInfo", 'click', function() {
         var el = $(this);
         jeedom.cmd.getSelectModal({cmd: {type: 'info'}}, function(result) {
-            $('#' + el.data('input') + "Id").val(result.cmd.id);
+            $('#' + el.data('input') + "Id").val("#" + result.cmd.id + "#");
             $('#' + el.data('input')).val(result.human);
         });
     });
@@ -332,6 +335,7 @@ function loadActions(eqType){
 function loadDevice(device){
     if(device.type != 'noDevice'){
         $("#cmdSupportId").val(device.id);
+        $("#cmdSupportHumanName").val(device.humanName);
         $("#eqType").val(device.type);
 
         loadParameters(device.type);
@@ -340,23 +344,23 @@ function loadDevice(device){
         $('tr.imperihomeAdvancedDeviceParameter').each(function(){
             paramKey = $(this).attr('data-paramKey');
             paramType = $(this).attr('data-paramType');
+            if(paramKey in device.params){
+                param = device.params[paramKey];
 
-            for (var i=0; i<device.params.length; i++) {
-                param = device.params[i];
+                if((param.type == 'infoBinary') || (param.type == 'infoNumeric') || (param.type == 'infoText') || (param.type == 'infoColor')){
+                    $(this).find('#cmd' + paramKey + "Id").val(param.value);
+                    $(this).find('#cmd' + paramKey).val(param.humanName);
 
-                if(param.key == paramKey){
-                    if((param.type == 'infoBinary') || (param.type == 'infoNumeric') || (param.type == 'infoText') || (param.type == 'infoColor')){
-                        $(this).find('#cmd' + param.key + "Id").val(param.value);
-                        // Récupérer le nom de la commande et l'insérer
+                    // TODO: Récupérer le nom de la commande et l'insérer si possible...
+                }else{
+                    if(param.type == 'optionBinary'){
+                        $(this).find("#" + paramKey + param.value ).prop('checked', true);
                     }else{
-                        if(param.type == 'optionBinary'){
-                            $(this).find("#" + param.key + param.value ).prop('checked', true);
-                        }else{
-                            $(this).find('#' + param.key).val(param.value);
-                        }
+                        $(this).find('#' + paramKey).val(param.value);
                     }
-                }
-            }            
+                } 
+            }
+                  
         });
 
         $('tr.imperihomeAdvancedDeviceAction').each(function(){
@@ -365,9 +369,11 @@ function loadDevice(device){
 
             if(actionType == 'item'){
                 actionKey = $(this).attr('data-actionKey');
-                $('#cmd' + actionName + actionKey + "Id").val(device.actions[actionName]['item'][actionKey]);
+                $('#cmd' + actionName + actionKey + "Id").val(device.actions[actionName]['item'][actionKey]['cmdId']);
+                $('#cmd' + actionName + actionKey).val(device.actions[actionName]['item'][actionKey]['humanName']);
             }else{
                 $('#cmd' + actionName + "Id").val(device.actions[actionName].cmdId);
+                $('#cmd' + actionName).val(device.actions[actionName].humanName);
             }        
         });
     }

@@ -116,7 +116,7 @@ function loadAdvancedConf(){
 
             for(var i in data.result){
                 var tr = '<tr>';
-                tr += '<td>manual' + data.result[i].id + '</td>';
+                tr += '<td>' + data.result[i].humanName + ' (manual' + data.result[i].id + ')</td>';
                 tr += '<td><span class="label label-info" style="font-size : 1em;">' + data.result[i].type + '</span></td>';
                 tr += '<td><a class="btn btn-danger btn-xs pull-right bt_deleteAdvancedConfig" data-id="' + data.result[i].id + '"><i class="fa fa-minus"></i> Supprimer</a><a class="btn btn-warning btn-xs pull-right bt_editAdvancedConfig" data-id="' + data.result[i].id + '"><i class="fa"></i> Modifier</a></td>';
                 tr += '</tr>';
@@ -150,8 +150,8 @@ function loadAdvancedConf(){
                                         return;
                                     }
                                     
-                                    ('#div_alert').showAlert({message: '{{Suppression réalisée avec succès}}', level: 'success'});
-                                    loadConf();
+                                    $('#div_alert').showAlert({message: '{{Suppression réalisée avec succès}}', level: 'success'});
+                                    loadAdvancedConf();
                                 }
                             });
                         }
