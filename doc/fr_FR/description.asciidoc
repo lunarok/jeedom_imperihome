@@ -5,5 +5,4 @@ Le plugin Imperihome permet:
 Les informations sur ce logiciel ainsi que les API sont disponibles sur le site de l'éditeur:
  - http://www.imperihome.com/fr/[Le logiciel Imperihome]
  - https://imperihome.zendesk.com/hc/en-us/articles/202088308-ImperiHome-Standard-System-API-definition[L'ISS]
- - https://imperihome.zendesk.com/hc/en-us/articles/201397067-How-to-use-the-REST-Control-API-[L'API REST Control]
  

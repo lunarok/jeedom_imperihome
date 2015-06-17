@@ -1,3 +1,9 @@
+==== 2 - 17/06/2015
+Refonte du plugin (merci Loïc)
+ - nouvelle détection automatique
+ - les plugins tiers créent eux-mêmes la correspondance avec Imperihome
+ - nouveau moteur: plus rapide, moins gourmant en ressource 
+
 ==== 1 - 22/05/2015
 - Mise à jour de la documentation
 - Gestion des min-max
