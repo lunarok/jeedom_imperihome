@@ -497,6 +497,8 @@ class imperihome {
 						return 'DevRain';
 				case 'mm':
 						return 'DevRain';
+				case 'm3':
+						return 'DevFlood';
 				case 'ppm':
 						return 'DevCO2';
 				case 'lux':
