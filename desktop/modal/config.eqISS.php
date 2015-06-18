@@ -249,6 +249,7 @@ function loadParameters(eqType){
             case "infoNumeric":
             case "infoBinary":
             case "infoText":
+            case "infoColor":
                 td = '<input class="form-control" style="width: 10%; display : inline-block;" id="cmd' + param.key + 'Id" disabled> ' ;
                 td += '<input class="form-control" id="cmd' + param.key + '" placeholder="Commande Info associée" style="width: 80%; display : inline-block;" disabled> ';
                 td += '<a class="btn btn-default cursor listEquipementInfo" data-input="cmd' + param.key + '"><i class="fa fa-list-alt "></i></a> ';
