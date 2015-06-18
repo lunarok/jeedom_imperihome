@@ -1,17 +1,21 @@
-== Imperihome
+= Imperihome
 
 '''
-=== Description
+== Description
 include::description.asciidoc[]
 
 '''
-=== Configuration
+== Configuration
 include::configuration.asciidoc[]
 
 '''
-=== FAQ
+== Détection automatique
+include::ISS.asciidoc[]
+
+'''
+== FAQ
 include::faq.asciidoc[]
 
 '''
-=== Changelog
+== Changelog
 include::changelog.asciidoc[]
