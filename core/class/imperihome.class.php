@@ -190,8 +190,6 @@ class imperihome {
 	}
 
 	public static function action($_cmd_id, $_action, $_value = '') {
-		log::add('imperihome', 'debug', 'Reception d\'une action "' . $_action . '(' . $_value . ')" sur ' . $_cmd_id);
-
 		if ($_action == 'launchScene') {
 			$scenario = scenario::byId(str_replace('scenario', '', $_cmd_id));
 			if (!is_object($scenario)) {
@@ -202,9 +200,11 @@ class imperihome {
 		}
 
 		if(strpos(strtolower($_cmd_id), 'manual') !== false){
+			log::add('imperihome', 'debug', 'Reception d\'une action "' . $_action . '(' . $_value . ')" sur ' . $_cmd_id);
+
 			$_cmd_id = str_replace("manual", "", $_cmd_id);
 
-			//log::add('imperihome', 'debug', 'Type manuelle: id=' . $_cmd_id);
+			log::add('imperihome', 'debug', 'Type manuelle: id=' . $_cmd_id);
 
 			$cache = cache::byKey('issAdvancedConfig');
 			$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
@@ -216,26 +216,30 @@ class imperihome {
 				$actionCmdId = $action['cmdId'];
 			}
 			
-			//log::add('imperihome', 'debug', 'Type manuelle: ActionId=' . $actionCmdId);
+			log::add('imperihome', 'debug', 'Type manuelle: ActionId=' . $actionCmdId);
 
 			$cmd = cmd::byId($actionCmdId);			
 			if (!is_object($cmd)) {
+				log::add('imperihome', 'debug', 'Commande introuvable');
 				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
 			}
 
 			if ($cmd->getSubtype() == 'color'){
 				$cmd->execCmd(array('color' => '#' . substr($_value, 2)));
+				log::add('imperihome', 'debug', 'Action Color éxécutée');
 				return array("success" => true, "errormsg" => "");
 			}
 
 			if ($cmd->getSubtype() == 'slider') {
 				$_value = ($cmd->getConfiguration('maxValue', 100) - $cmd->getConfiguration('minValue', 0)) * ($_value / 100) + $cmd->getConfiguration('minValue', 0);
 				$cmd->execCmd(array('slider' => $_value));
+				log::add('imperihome', 'debug', 'Action Slider éxécutée, value = ' . $_value);
 				return array("success" => true, "errormsg" => "");
 			}
 
 			if ($cmd->getSubtype() == 'other') {
 				$cmd->execCmd();
+				log::add('imperihome', 'debug', 'Action Other éxécutée');
 				return array("success" => true, "errormsg" => "");
 			}
 		}
