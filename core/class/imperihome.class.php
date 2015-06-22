@@ -211,7 +211,6 @@ class imperihome {
 
 			$action = $issAdvancedConfig[$_cmd_id]['actions'][$_action];
 			if($action['type'] == 'item'){
-				$actionCmdId = $action['item'][$_value];
 				$actionCmdId = $action['item'][$_value]['cmdId'];
 			}else{
 				$actionCmdId = $action['cmdId'];
