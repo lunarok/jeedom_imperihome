@@ -322,6 +322,7 @@ class imperihome {
 					}
 				}
 
+
 				if ($_action == 'stopShutter' && $action->getSubtype() == 'other' && strpos(strtolower($action->getName()), 'stop') !== false) {
 					$action->execCmd();
 					log::add('imperihome', 'debug', 'Type other stopShutter: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
@@ -336,6 +337,18 @@ class imperihome {
 					if ($_value == 'up' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
 						$action->execCmd();
 						log::add('imperihome', 'debug', 'Type other pulseShutter up: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
+						return array("success" => true, "errormsg" => "");
+					}
+				}
+				if ($_action == 'setLevel' && $action->getSubtype() == 'other') {
+					if ($_value == '0' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
+						$action->execCmd();
+						log::add('imperihome', 'debug', 'Type other setLevel(0): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
+						return array("success" => true, "errormsg" => "");
+					}
+					if ($_value == '100' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
+						$action->execCmd();
+						log::add('imperihome', 'debug', 'Type other setLevel(1): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
 				}
