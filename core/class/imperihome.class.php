@@ -190,6 +190,8 @@ class imperihome {
 	}
 
 	public static function action($_cmd_id, $_action, $_value = '') {
+		log::add('imperihome', 'debug', 'Reception d\'une action "' . $_action . '(' . $_value . ')" sur ' . $_cmd_id);
+
 		if ($_action == 'launchScene') {
 			$scenario = scenario::byId(str_replace('scenario', '', $_cmd_id));
 			if (!is_object($scenario)) {
@@ -200,8 +202,6 @@ class imperihome {
 		}
 
 		if(strpos(strtolower($_cmd_id), 'manual') !== false){
-			log::add('imperihome', 'debug', 'Reception d\'une action "' . $_action . '(' . $_value . ')" sur ' . $_cmd_id);
-
 			$_cmd_id = str_replace("manual", "", $_cmd_id);
 
 			log::add('imperihome', 'debug', 'Type manuelle: id=' . $_cmd_id);
@@ -212,6 +212,7 @@ class imperihome {
 			$action = $issAdvancedConfig[$_cmd_id]['actions'][$_action];
 			if($action['type'] == 'item'){
 				$actionCmdId = $action['item'][$_value];
+				$actionCmdId = $action['item'][$_value]['cmdId'];
 			}else{
 				$actionCmdId = $action['cmdId'];
 			}
@@ -247,6 +248,7 @@ class imperihome {
 		$cmd = cmd::byId($_cmd_id);
 		if (method_exists($cmd, 'imperihomeAction')) {
 			$cmd->imperihomeAction($_action, $_value);
+			log::add('imperihome', 'debug', 'Action imperihome associée à la commande connue');
 			return array("success" => true, "errormsg" => "");
 		}
 		if ($_action == 'setChoice') {
@@ -258,6 +260,7 @@ class imperihome {
 				$action = $eqlogic->getCmd('action', $_value);
 				if (is_object($action)) {
 					$action->execCmd();
+					log::add('imperihome', 'debug', 'Type setChoice: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 				}
 			}
 			return array("success" => true, "errormsg" => "");
@@ -271,14 +274,17 @@ class imperihome {
 				if ($action->getSubtype() == 'color') {
 					if ($_action == 'setColor') {
 						$action->execCmd(array('color' => '#' . substr($_value, 2)));
+						log::add('imperihome', 'debug', 'Type setColor: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
 					if ($_action == 'setStatus') {
 						if ($_value == 0) {
 							$action->execCmd(array('color' => '#000000'));
+							log::add('imperihome', 'debug', 'Type color setStatus(0): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 							return array("success" => true, "errormsg" => "");
 						} else {
 							$action->execCmd(array('color' => '#FFFFFF'));
+							log::add('imperihome', 'debug', 'Type color setStatus(1): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 							return array("success" => true, "errormsg" => "");
 						}
 					}
@@ -288,14 +294,17 @@ class imperihome {
 					if ($_action == 'setLevel') {
 						$_value = ($action->getConfiguration('maxValue', 100) - $action->getConfiguration('minValue', 0)) * ($_value / 100) + $action->getConfiguration('minValue', 0);
 						$action->execCmd(array('slider' => $_value));
+						log::add('imperihome', 'debug', 'Type setLevel: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName() . ' Val=' . $_value);
 						return;
 					}
 					if ($_action == 'setStatus') {
 						if ($_value == 0) {
 							$action->execCmd(array('slider' => $action->getConfiguration('minValue', 0)));
+							log::add('imperihome', 'debug', 'Type slider setStatus(0): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 							return array("success" => true, "errormsg" => "");
 						} else {
 							$action->execCmd(array('slider' => $action->getConfiguration('maxValue', 100)));
+							log::add('imperihome', 'debug', 'Type slider setStatus(0): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 							return array("success" => true, "errormsg" => "");
 						}
 					}
@@ -304,25 +313,30 @@ class imperihome {
 				if ($_action == 'setStatus' && $action->getSubtype() == 'other') {
 					if ($_value == 0 && strpos(strtolower($action->getName()), 'off') !== false) {
 						$action->execCmd();
+						log::add('imperihome', 'debug', 'Type other setStatus(0): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
 					if ($_value == 1 && strpos(strtolower($action->getName()), 'on') !== false) {
 						$action->execCmd();
+						log::add('imperihome', 'debug', 'Type other setStatus(1): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
 				}
 
 				if ($_action == 'stopShutter' && $action->getSubtype() == 'other' && strpos(strtolower($action->getName()), 'stop') !== false) {
 					$action->execCmd();
+					log::add('imperihome', 'debug', 'Type other stopShutter: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 					return array("success" => true, "errormsg" => "");
 				}
 				if ($_action == 'pulseShutter' && $action->getSubtype() == 'other') {
 					if ($_value == 'down' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
 						$action->execCmd();
+						log::add('imperihome', 'debug', 'Type other pulseShutter down: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
 					if ($_value == 'up' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
 						$action->execCmd();
+						log::add('imperihome', 'debug', 'Type other pulseShutter up: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
 				}
