@@ -106,7 +106,7 @@ class imperihome {
 			$cmd = cmd::byId($device_id);
 			if (!is_object($cmd)) {
 				continue;
-			}			
+			}
 			$eqLogic = $cmd->getEqLogic();
 			if (!is_object($eqLogic)) {
 				continue;
@@ -120,9 +120,9 @@ class imperihome {
 				'params' => array(),
 			);
 
-			foreach($ISSStructure[$device['type']]['params'] as $param){
+			foreach ($ISSStructure[$device['type']]['params'] as $param) {
 				$param['value'] = $device['params'][$param['key']]['value'];
-				$info_device['params'][] = $param;		
+				$info_device['params'][] = $param;
 			}
 
 			$template['devices'][] = $info_device;
@@ -201,7 +201,7 @@ class imperihome {
 			return array("success" => true, "errormsg" => "");
 		}
 
-		if(strpos(strtolower($_cmd_id), 'manual') !== false){
+		if (strpos(strtolower($_cmd_id), 'manual') !== false) {
 			$_cmd_id = str_replace("manual", "", $_cmd_id);
 
 			log::add('imperihome', 'debug', 'Type manuelle: id=' . $_cmd_id);
@@ -210,21 +210,21 @@ class imperihome {
 			$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
 
 			$action = $issAdvancedConfig[$_cmd_id]['actions'][$_action];
-			if($action['type'] == 'item'){
+			if ($action['type'] == 'item') {
 				$actionCmdId = $action['item'][$_value]['cmdId'];
-			}else{
+			} else {
 				$actionCmdId = $action['cmdId'];
 			}
-			
+
 			log::add('imperihome', 'debug', 'Type manuelle: ActionId=' . $actionCmdId);
 
-			$cmd = cmd::byId($actionCmdId);			
+			$cmd = cmd::byId($actionCmdId);
 			if (!is_object($cmd)) {
 				log::add('imperihome', 'debug', 'Commande introuvable');
 				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
 			}
 
-			if ($cmd->getSubtype() == 'color'){
+			if ($cmd->getSubtype() == 'color') {
 				$cmd->execCmd(array('color' => '#' . substr($_value, 2)));
 				log::add('imperihome', 'debug', 'Action Color éxécutée');
 				return array("success" => true, "errormsg" => "");
@@ -322,7 +322,6 @@ class imperihome {
 					}
 				}
 
-
 				if ($_action == 'stopShutter' && $action->getSubtype() == 'other' && strpos(strtolower($action->getName()), 'stop') !== false) {
 					$action->execCmd();
 					log::add('imperihome', 'debug', 'Type other stopShutter: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
@@ -357,7 +356,7 @@ class imperihome {
 	}
 
 	public static function generateParam($cmd, $cmdType, $ISSStructure) {
-		if ($cmdType == "DevScene"){
+		if ($cmdType == "DevScene") {
 			return array('params' => $ISSStructure[$cmdType]['params'], 'cmd_id' => array());
 		}
 		$eqLogic = $cmd->getEqLogic();
@@ -378,7 +377,7 @@ class imperihome {
 				$param['max'] = $cmd->getConfiguration('maxValue', 100);
 			}
 			if ($param['key'] == 'lasttrip') {
-				$param['value'] = ($cmd->getType() == 'info') ? '#collectDate' . $cmd->getId() . '#' : 0;
+				$param['value'] = ($cmd->getType() == 'info') ? '#valueDate' . $cmd->getId() . '#' : 0;
 			}
 			if (($cmdType == 'DevSwitch' || $cmdType == 'DevRGBLight' || $cmdType == 'DevDimmer') && $param['key'] == 'energy') {
 				$param['value'] = '';
