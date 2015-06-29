@@ -86,7 +86,7 @@ try {
 				}else{
 					$cmd_action = cmd::byId($action['cmdId']);
 					if(is_object($cmd_action)){
-						$issAdvancedConfig[$cmd_id]['actions'][$actionName]['humanName'] = $cmd->getHumanName();
+						$issAdvancedConfig[$cmd_id]['actions'][$actionName]['humanName'] = $cmd_action->getHumanName();
 					}else{
 						$issAdvancedConfig[$cmd_id]['actions'][$actionName]['humanName'] = "Cmd inconnue";
 					}
