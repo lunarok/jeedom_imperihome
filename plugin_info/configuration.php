@@ -24,12 +24,20 @@ if (!isConnect()) {
 ?>
 <form class="form-horizontal">
     <fieldset>
-        <div class="form-group">
-            <label class="col-lg-4 control-label">Lien de l'API ISS à indiquer dans ImperiHome: </label>
+    	<legend>Lien de l'API ISS à indiquer dans ImperiHome</legend>
+    	<div class="form-group">
+            <label class="col-lg-4 control-label">Interne: </label>
             <div class="col-lg-8">
             <?php
-echo network::getNetworkAccess('external') . "/plugins/imperihome/core/php/imperihome.php?_url=/" . config::byKey('api') . "/";
-?></div>
+				echo network::getNetworkAccess('internal') . "/plugins/imperihome/core/php/imperihome.php?_url=/" . config::byKey('api') . "/";
+			?></div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-4 control-label">Externe: </label>
+            <div class="col-lg-8">
+            <?php
+				echo network::getNetworkAccess('external') . "/plugins/imperihome/core/php/imperihome.php?_url=/" . config::byKey('api') . "/";
+			?></div>
         </div>
     </fieldset>
 </form>
