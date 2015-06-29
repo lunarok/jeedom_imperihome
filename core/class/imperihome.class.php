@@ -576,12 +576,23 @@ class imperihome {
 	}
 
 	public function history($_cmd_id, $_paramKey, $_startdate, $_enddate) {
-		$cmd = cmd::byId($_cmd_id);
 		$history = array();
-		foreach ($cmd->getHistory(date('Y-m-d H:i:s', ($_startdate / 1000)), date('Y-m-d H:i:s', ($_enddate / 1000))) as $histoItem) {
-			$history[] = array('value' => floatval($histoItem->getValue()), 'date' => strtotime($histoItem->getDatetime()) * 1000);
+		$cache = cache::byKey('issTemplate');
+		$issTemplate = json_decode($cache->getValue('{}'), true);
+		$device = $issTemplate[$_cmd_id];
+		foreach ($device['params'] as $param) {
+			if($param['key'] == $_paramKey){
+				if(preg_match("/#([0-9]*)#/", $param['key']['value'], $matches)){
+					$cmd_id = $matches[1];
+					$cmd = cmd::byId($cmd_id);
+					$history = array();
+					foreach ($cmd->getHistory(date('Y-m-d H:i:s', ($_startdate / 1000)), date('Y-m-d H:i:s', ($_enddate / 1000))) as $histoItem) {
+						$history[] = array('value' => floatval($histoItem->getValue()), 'date' => strtotime($histoItem->getDatetime()) * 1000);
+					}
+				}
+				return array('values' => $history);
+			}
 		}
-		return array('values' => $history);
 	}
 
 /*     * **********************Getteur Setteur*************************** */
