@@ -579,18 +579,25 @@ class imperihome {
 		$history = array();
 		$cache = cache::byKey('issTemplate');
 		$issTemplate = json_decode($cache->getValue('{}'), true);
-		$device = $issTemplate[$_cmd_id];
-		foreach ($device['params'] as $param) {
-			if($param['key'] == $_paramKey){
-				if(preg_match("/#([0-9]*)#/", $param['key']['value'], $matches)){
-					$cmd_id = $matches[1];
-					$cmd = cmd::byId($cmd_id);
-					$history = array();
-					foreach ($cmd->getHistory(date('Y-m-d H:i:s', ($_startdate / 1000)), date('Y-m-d H:i:s', ($_enddate / 1000))) as $histoItem) {
-						$history[] = array('value' => floatval($histoItem->getValue()), 'date' => strtotime($histoItem->getDatetime()) * 1000);
+
+		foreach ($issTemplate['devices'] as $device) {
+			if ($device['id'] == $_cmd_id) {
+				foreach ($device['params'] as $param) {
+					if (strtolower($param['key']) == $_paramKey) {
+						if (preg_match("/#([0-9]*)#/", $param['value'], $matches)) {
+
+							$cmd_id = $matches[1];
+							$cmd = cmd::byId($cmd_id);
+							$history = array();
+
+							foreach ($cmd->getHistory(date('Y-m-d H:i:s', ($_startdate / 1000)), date('Y-m-d H:i:s', ($_enddate / 1000))) as $histoItem) {
+								$history[] = array('value' => floatval($histoItem->getValue()), 'date' => strtotime($histoItem->getDatetime()) * 1000);
+							}
+						}
+						return array('values' => $history);
 					}
 				}
-				return array('values' => $history);
+				break;
 			}
 		}
 	}
