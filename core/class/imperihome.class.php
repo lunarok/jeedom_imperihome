@@ -447,6 +447,9 @@ class imperihome {
 				return 'DevCamera';
 			case 'Store':
 				return 'DevShutter';
+			case 'ipx800_relai':
+			case 'ipx800_bouton':
+				return 'DevSwitch';
 		}
 		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'door') !== false) {
 			return 'DevDoor';
