@@ -163,6 +163,12 @@
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
+            },
+            {
+                "Description": "Is the sensor tripped ? (0 = No / 1 = Tripped)",
+                "type": "datetime",
+                "value": "0",
+                "key": "lasttrip"
             }
         ],
         "actions": {
@@ -205,6 +211,12 @@
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
+            },
+            {
+                "Description": "Is the sensor tripped ? (0 = No / 1 = Tripped)",
+                "type": "datetime",
+                "value": "0",
+                "key": "lasttrip"
             }
         ],
         "actions": {
@@ -247,6 +259,12 @@
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
+            },
+            {
+                "Description": "Is the sensor tripped ? (0 = No / 1 = Tripped)",
+                "type": "datetime",
+                "value": "0",
+                "key": "lasttrip"
             }
         ],
         "actions": {
@@ -289,6 +307,12 @@
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
+            },
+            {
+                "Description": "Is the sensor tripped ? (0 = No / 1 = Tripped)",
+                "type": "datetime",
+                "value": "0",
+                "key": "lasttrip"
             }
         ],
         "actions": {
@@ -331,6 +355,12 @@
                 "type": "infoBinary",
                 "value": "0",
                 "key": "tripped"
+            },
+            {
+                "Description": "Is the sensor tripped ? (0 = No / 1 = Tripped)",
+                "type": "datetime",
+                "value": "0",
+                "key": "lasttrip"
             }
         ],
         "actions": {}
