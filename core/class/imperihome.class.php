@@ -154,8 +154,17 @@ class imperihome {
 		$return = json_decode($return, true);
 		foreach ($return['devices'] as &$device) {
 			if ($device['type'] == 'DevRGBLight') {
-				$device['params'][0]['value'] = ($device['params'][0]['value'] != '#000000') ? 1 : 0;
-				$device['params'][5]['value'] = 'FF' . str_replace(array('#', '"'), '', $device['params'][5]['value']);
+				$device['params'][0]['value'] = ($device['params'][0]['value'] != '#000000' && $device['params'][0]['value'] != '#00000000' && $device['params'][0]['value'] != '#0000000000') ? 1 : 0;
+				$device['params'][5]['value'] = str_replace(array('#', '"'), '', $device['params'][5]['value']);
+				if (strlen($device['params'][5]['value']) == 6) {
+					$device['params'][5]['value'] = 'FF' . $device['params'][5]['value'];
+				}
+				if (strlen($device['params'][5]['value']) == 8) {
+					$device['params'][5]['value'] = 'FF' . substr($device['params'][5]['value'], 0, 6);
+				}
+				if (strlen($device['params'][5]['value']) == 10) {
+					$device['params'][5]['value'] = 'FF' . substr($device['params'][5]['value'], 0, 6);
+				}
 				continue;
 			}
 			foreach ($device['params'] as &$param) {
@@ -503,7 +512,7 @@ class imperihome {
 		switch ($cmd->getSubtype()) {
 			case 'numeric':
 				switch (strtolower($cmd->getUnite())) {
-				case '°c':
+					case '°c':
 						$cache = cache::byKey('issConfig');
 						$issConfig = json_decode($cache->getValue('{}'), true);
 						foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
@@ -514,30 +523,30 @@ class imperihome {
 							}
 						}
 						return 'DevTemperature';
-				case '%':
+					case '%':
 						if (count(cmd::byValue($cmd->getId(), 'action')) == 0) {
 							return 'DevGenericSensor';
 						}
 						return 'DevDimmer';
-				case 'pa':
+					case 'pa':
 						return 'DevPressure';
-				case 'db':
+					case 'db':
 						return 'DevNoise';
-				case 'km/h':
+					case 'km/h':
 						return 'DevWind';
-				case 'mm/h':
+					case 'mm/h':
 						return 'DevRain';
-				case 'mm':
+					case 'mm':
 						return 'DevRain';
-				case 'm3':
+					case 'm3':
 						return 'DevFlood';
-				case 'ppm':
+					case 'ppm':
 						return 'DevCO2';
-				case 'lux':
+					case 'lux':
 						return 'DevLuminosity';
-				case 'w':
+					case 'w':
 						return 'DevElectricity';
-				case 'kwh':
+					case 'kwh':
 						return 'DevElectricity';
 				}
 				return 'DevGenericSensor';
