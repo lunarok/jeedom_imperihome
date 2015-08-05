@@ -85,6 +85,7 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo '</td>';
 		echo '<td>';
 		echo '<span class="label label-info" style="font-size : 1em;">' . imperihome::convertType($cmd) . '</span>';
+		echo '<span class="btn btn-warning btn-xs pull-right expertModeVisible bt_createManualConfig" data-id="' . $cmd->getId() . '"><i class="fa fa-wrench"></i></span>';
 		echo '</td>';
 		echo '</tr>';
 	}

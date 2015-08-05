@@ -60,7 +60,6 @@ $('.bt_newAdvancedDevice').on('click',function(){
     $('#md_modal').load('index.php?v=d&plugin=imperihome&modal=config.eqISS&ISSeqId=new').dialog('open');
 });
 
-
 loadConf();
 loadAdvancedConf();
 
@@ -88,6 +87,11 @@ function loadConf(){
                     $('tr.imperihome[data-cmd_id='+i+']').setValues(data.result[i],'.imperihomeAttr');
                 }
             }
+
+            $('.bt_createManualConfig').on('click',function(){
+                $('#md_modal').dialog({title: "{{Mode avancé ISS}}"});
+                $('#md_modal').load('index.php?v=d&plugin=imperihome&modal=config.eqISS&ISSeqId=' + $( this ).data('id')).dialog('open');
+            });
         }
     });
 }
