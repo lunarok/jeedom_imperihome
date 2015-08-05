@@ -31,7 +31,7 @@ $ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../../core/c
 			<tbody>
 				<?php
 foreach (eqLogic::all() as $eqLogic) {
-	if ($eqLogic->getIsEnable() == 0 || $eqLogic->getIsVisible() == 0) {
+	if ($eqLogic->getIsEnable() == 0) {
 		continue;
 	}
 	$object = $eqLogic->getObject();
@@ -57,7 +57,7 @@ foreach (eqLogic::all() as $eqLogic) {
 			continue;
 		}
 
-		if($firstLine){
+		if ($firstLine) {
 			$firstLine = false;
 			echo '<tr class="imperihome" data-cmd_id="' . $cmd->getId() . '">';
 			echo '<td rowspan="' . $countCmd . '">';
@@ -73,7 +73,7 @@ foreach (eqLogic::all() as $eqLogic) {
 			echo '<td rowspan="' . $countCmd . '">';
 			echo $eqLogic->getEqType_name();
 			echo '</td>';
-		}else{
+		} else {
 			echo '<tr class="tablesorter-childRow imperihome" data-cmd_id="' . $cmd->getId() . '">';
 		}
 
