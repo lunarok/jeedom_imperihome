@@ -265,7 +265,8 @@ class imperihome {
 			}
 			if ($cmd->getEqType() == 'presence') {
 				$eqlogic = $cmd->getEqLogic();
-				$action = $eqlogic->getCmd('action', $_value);
+				//$action = $eqlogic->getCmd('action', $_value);
+				$action = cmd::byEqLogicIdCmdName($eqlogic->getId(), $_value);
 				if (is_object($action)) {
 					$action->execCmd();
 					log::add('imperihome', 'debug', 'Type setChoice: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
@@ -411,7 +412,17 @@ class imperihome {
 				}
 			}
 			if ($cmd->getEqType() == 'presence' && $param['key'] == 'choices') {
-				$param['value'] = 'Présent,Absent,Nuit,Travail,Vacances';
+				$param['value'] = '';
+				foreach($cmd->getEqLogic()->getCmd('action') as $action){
+					$lId = $action->getLogicalId();
+					if(($lId == 'Present') or ($lId == 'Absent') or ($lId == 'Nuit') or ($lId == 'Travail') or ($lId == 'Vacances')){
+						if($param['value'] == ''){
+							$param['value'] = $action->getName();
+						}else{
+							$param['value'] .= ',' . $action->getName();
+						}
+					}
+				}
 			}
 			if ($cmdType == 'DevTempHygro') {
 				if ($param['key'] == 'temp') {
