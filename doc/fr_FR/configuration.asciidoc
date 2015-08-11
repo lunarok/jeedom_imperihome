@@ -77,3 +77,5 @@ Il faudra alors selectionner le type "Standard On/Off switch".
    - pour le 1: selectionner la commande Allumer
 
 Sauvegarder la configuration, puis réactualiser la liste des équipements sous Imperihome.
+
+Il y a une subtilité pour le type MultiSwitch et son action SetChoice. Si une commande est renseignée, alors elle sera appelée en lui passant comme paramètre la valeur sélectionnée dans Imperihome. Si aucune commande n'est renseignée, alors le plugin recherchera une commange ayant comme nom la valeur sélectrionnée dans Imperihome au sein du même équipement que la commande support.
