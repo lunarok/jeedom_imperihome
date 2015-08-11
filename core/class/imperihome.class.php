@@ -338,12 +338,12 @@ class imperihome {
 					return array("success" => true, "errormsg" => "");
 				}
 				if ($_action == 'pulseShutter' && $action->getSubtype() == 'other') {
-					if ($_value == 'down' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
+					if ($_value == 'down' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'ferme') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
 						$action->execCmd();
 						log::add('imperihome', 'debug', 'Type other pulseShutter down: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
-					if ($_value == 'up' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
+					if ($_value == 'up' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'ouvre') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
 						$action->execCmd();
 						log::add('imperihome', 'debug', 'Type other pulseShutter up: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
