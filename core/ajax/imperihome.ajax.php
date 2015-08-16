@@ -66,7 +66,7 @@ try {
 				if(strpos(strtolower($param['type']), 'info') !== false){
 					$cmd_param = cmd::byId(str_replace("#", "", $param['value']));
 					if(is_object($cmd_param)){
-						$issAdvancedConfig[$deviceId]['params'][$paramName]['humanName'] = $cmd->getHumanName();
+						$issAdvancedConfig[$deviceId]['params'][$paramName]['humanName'] = $cmd_param->getHumanName();
 					}else{
 						$issAdvancedConfig[$deviceId]['params'][$paramName]['humanName'] = "Cmd inconnue";
 					}
