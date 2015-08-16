@@ -173,7 +173,7 @@ class imperihome {
 						$param['value'] = 1;
 					}
 					if ($param['type'] == 'infoNumeric' && isset($param['min']) && isset($param['max'])) {
-						$param['value'] = ($param['max'] - $param['min']) * ($param['value'] / 100) + $param['min'];
+						$param['value'] = 100 * ($param['value'] - $param['min']) / ($param['max'] - $param['min']);
 					}
 				}
 				if ($param['key'] == 'lasttrip') {
@@ -363,12 +363,12 @@ class imperihome {
 					}
 				}
 				if ($_action == 'setLevel' && $action->getSubtype() == 'other') {
-					if ($_value == '0' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
+					if ($_value == '0' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'ferme') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
 						$action->execCmd();
 						log::add('imperihome', 'debug', 'Type other setLevel(0): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
-					if ($_value == '100' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
+					if ($_value == '100' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'ouvre') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
 						$action->execCmd();
 						log::add('imperihome', 'debug', 'Type other setLevel(1): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
@@ -398,6 +398,10 @@ class imperihome {
 			if (isset($param['min']) && isset($param['max'])) {
 				$param['min'] = $cmd->getConfiguration('minValue', 0);
 				$param['max'] = $cmd->getConfiguration('maxValue', 100);
+
+				if ($cmd->getSubType() == 'binary'){
+					$param['max'] = 1;
+				}
 			}
 			if ($param['key'] == 'lasttrip') {
 				$param['value'] = ($cmd->getType() == 'info') ? '#valueDate' . $cmd->getId() . '#' : 0;
