@@ -620,19 +620,34 @@ class imperihome {
 		$cache = cache::byKey('issTemplate');
 		$issTemplate = json_decode($cache->getValue('{}'), true);
 
+		log::add('imperihome', 'debug', 'Historique: cmd id=' . $_cmd_id . ' - ParamKey:' . $_paramKey);
+
 		foreach ($issTemplate['devices'] as $device) {
 			if ($device['id'] == $_cmd_id) {
+				log::add('imperihome', 'debug', print_r($device, true));				
+
 				foreach ($device['params'] as $param) {
-					if (strtolower($param['key']) == $_paramKey) {
+					if (strtolower($param['key']) == strtolower($_paramKey)) {
+						log::add('imperihome', 'debug', ' Paramètre trouvé: ' . print_r($param, true));				
+
 						if (preg_match("/#([0-9]*)#/", $param['value'], $matches)) {
 
 							$cmd_id = $matches[1];
 							$cmd = cmd::byId($cmd_id);
 							$history = array();
 
-							foreach ($cmd->getHistory(date('Y-m-d H:i:s', ($_startdate / 1000)), date('Y-m-d H:i:s', ($_enddate / 1000))) as $histoItem) {
-								$history[] = array('value' => floatval($histoItem->getValue()), 'date' => strtotime($histoItem->getDatetime()) * 1000);
+							log::add('imperihome', 'debug', ' Cmd demandée: ' . $cmd_id);				
+
+							if(is_object($cmd)){
+								log::add('imperihome', 'debug', ' Cmd trouvée, construction de l\'historique...');				
+
+								foreach ($cmd->getHistory(date('Y-m-d H:i:s', ($_startdate / 1000)), date('Y-m-d H:i:s', ($_enddate / 1000))) as $histoItem) {
+									$history[] = array('value' => floatval($histoItem->getValue()), 'date' => strtotime($histoItem->getDatetime()) * 1000);
+								}
 							}
+
+							log::add('imperihome', 'debug', print_r($history, true));				
+
 						}
 						return array('values' => $history);
 					}
