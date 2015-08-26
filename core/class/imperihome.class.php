@@ -477,6 +477,11 @@ class imperihome {
 	}
 
 	public function convertType($cmd) {
+		if (method_exists($cmd, 'imperihomeGenerate')) {
+			$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
+			$info_device = $cmd->imperihomeGenerate($ISSStructure);
+			return $info_device['type'];
+		}
 		switch ($cmd->getEqType()) {
 			case "presence":
 				return 'DevMultiSwitch';
