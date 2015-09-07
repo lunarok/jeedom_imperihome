@@ -224,6 +224,26 @@ class imperihome {
 			} else {
 				$actionCmdId = $action['cmdId'];
 			}
+			
+			if(($_action == 'setLevel') and ($actionCmdId == '') and ($issAdvancedConfig[$_cmd_id]['type'] == 'DevShutter')){
+				log::add('imperihome', 'debug', 'Type manuelle devShutter: SetLevel ActionId vide, value=' . $_value . ' -> transformation en pulseShutter');
+				if($_value == 100){
+					$actionCmdId = $issAdvancedConfig[$_cmd_id]['actions']['pulseShutter']['item']['up']['cmdId'];
+					log::add('imperihome', 'debug', 'Type manuelle devShutter: SetLevel ActionId vide, value=' . $_value . ' -> transformation en pulseShutter(up) sur cmdId=' . $actionCmdId);
+				}
+				if($_value == 0){
+					$actionCmdId = $issAdvancedConfig[$_cmd_id]['actions']['pulseShutter']['item']['down']['cmdId'];
+					log::add('imperihome', 'debug', 'Type manuelle devShutter: SetLevel ActionId vide, value=' . $_value . ' -> transformation en pulseShutter(down) sur cmdId=' . $actionCmdId);
+				}
+				
+				$cmd = cmd::byId($actionCmdId);
+				if (is_object($cmd)) {
+					$cmd->execCmd();
+					return array("success" => true, "errormsg" => "");
+					log::add('imperihome', 'debug', 'Type manuelle devShutter: SetLevel ActionId vide, execution de la cmd id=' . $cmd->getId() . ' - ' . $cmd->getName());
+				}
+				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
+			}
 
 			if(($_action == 'setChoice') and ($actionCmdId == '')){
 				$cmd = cmd::byId($_cmd_id);
