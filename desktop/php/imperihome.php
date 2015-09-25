@@ -8,6 +8,7 @@ $ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../../core/c
 <ul class="nav nav-tabs" role="tablist">
 	<li role="presentation" class="active"><a href="#configISS" role="tab" data-toggle="tab">{{Configuration ISS}}</a></li>
 	<li role="presentation" class="expertModeVisible"><a href="#advancedMode" role="tab" data-toggle="tab">{{Mode avancé}}</a></li>
+	<li role="presentation" class="expertModeVisible"><a href="#configTab" role="tab" data-toggle="tab">{{Configuration brute}}</a></li>
 </ul>
 
 <div class="tab-content">
@@ -30,6 +31,8 @@ $ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../../core/c
 			</thead>
 			<tbody>
 				<?php
+$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../../core/config/ISS-Structure.json"), true);
+			
 foreach (eqLogic::all() as $eqLogic) {
 	if ($eqLogic->getIsEnable() == 0) {
 		continue;
@@ -81,10 +84,11 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo $cmd->getName();
 		echo '</td>';
 		echo '<td>';
-		echo '<input type="checkbox" class="imperihomeAttr bootstrapSwitch" data-size="small" data-label-text="{{Transmettre}}" data-l1key="cmd_transmit" />';
+		echo '<input type="checkbox" class="imperihomeAttr" data-size="small" data-label-text="{{Transmettre}}" data-l1key="cmd_transmit" />';
+		//echo '<input type="checkbox" class="imperihomeAttr bootstrapSwitch" data-size="small" data-label-text="{{Transmettre}}" data-l1key="cmd_transmit" />';
 		echo '</td>';
 		echo '<td>';
-		echo '<span class="label label-info" style="font-size : 1em;">' . imperihome::convertType($cmd) . '</span>';
+		echo '<span class="label label-info" style="font-size : 1em;">' . imperihome::convertType($cmd, $ISSStructure) . '</span>';
 		echo '<span class="btn btn-warning btn-xs pull-right expertModeVisible bt_createManualConfig" data-id="' . $cmd->getId() . '"><i class="fa fa-wrench"></i></span>';
 		echo '</td>';
 		echo '</tr>';
@@ -136,6 +140,40 @@ foreach (scenario::all() as $scenario) {
 			<tbody>
 			</tbody>
 		</table>
+	</div>
+
+	<div role="tabpanel" class="tab-pane" id="configTab">
+		Attention: cet onglet n'est pas mis à jour aprés avoir sauvegardé une modification. Pour mettre à jour aprés avoir fait une modification dans votre configuration, veuillez rafraichir la page.
+		<div class="form-group">
+		    <label class="col-sm-2 control-label">issConfig</label>
+		    <div class="col-sm-10">
+		      	<textarea class="form-control disabled" id="issConfigForm">
+		      		<?php 
+		      			$cache = cache::byKey('issConfig'); 
+		      			echo $cache->getValue('{}');
+		      		?></textarea>
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label class="col-sm-2 control-label">issAdvancedConfig</label>
+		    <div class="col-sm-10">
+		      	<textarea class="form-control disabled" id="issAdvancedConfigForm">
+		      		<?php 
+		      			$cache = cache::byKey('issAdvancedConfig'); 
+		      			echo $cache->getValue('{}');
+		      		?></textarea>
+		    </div>
+		</div>
+		<div class="form-group">
+		    <label class="col-sm-2 control-label">issTemplate</label>
+		    <div class="col-sm-10">
+		      	<textarea class="form-control disabled" id="issTemplateForm">
+		      		<?php 
+		      			$cache = cache::byKey('issTemplate'); 
+		      			echo $cache->getValue('{}');
+		      		?></textarea>
+		    </div>
+		</div>
 	</div>
 </div>
 
