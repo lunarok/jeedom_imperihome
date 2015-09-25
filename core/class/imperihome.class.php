@@ -85,7 +85,7 @@ class imperihome {
 					"id" => $cmd->getId(),
 					"name" => ($cmd->getName() == __('Etat', __FILE__)) ? $eqLogic->getName() : $cmd->getName(),
 					"room" => (is_object($object)) ? $object->getId() : 99999,
-					"type" => self::convertType($cmd),
+					"type" => self::convertType($cmd, $ISSStructure),
 					'params' => array(),
 				);
 				if ($info_device['type'] == 'DevTempHygro') {
@@ -358,7 +358,7 @@ class imperihome {
 						log::add('imperihome', 'debug', 'Type other setStatus(0): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
-					if ($_value == 1 && strpos(strtolower($action->getName()), 'on') !== false) {
+					if ($_value == 1 && strpos(strtolower($action->getName()), 'on') !== false && strpos(strtolower($action->getName()), 'impulsion') === false) {
 						$action->execCmd();
 						log::add('imperihome', 'debug', 'Type other setStatus(1): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
@@ -496,9 +496,8 @@ class imperihome {
 		return $return;
 	}
 
-	public function convertType($cmd) {
+	public static function convertType($cmd, $ISSStructure) {
 		if (method_exists($cmd, 'imperihomeGenerate')) {
-			$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
 			$info_device = $cmd->imperihomeGenerate($ISSStructure);
 			return $info_device['type'];
 		}
