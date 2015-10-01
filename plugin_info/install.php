@@ -27,7 +27,14 @@ function imperihome_update() {
 }
 
 function imperihome_remove() {
-    	
+    	$cache = cache::byKey('issConfig');
+    	$cache->remove();
+
+    	$cacheAdvanced = cache::byKey('issAdvancedConfig');
+    	$cacheAdvanced->remove();
+
+    	$cacheTemplate = cache::byKey('issTemplate');
+    	$cacheTemplate->remove();
 }
 
 ?>

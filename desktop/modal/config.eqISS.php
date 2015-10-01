@@ -334,9 +334,10 @@ function loadActions(eqType){
 }
 
 function loadDevice(device){
+    $("#cmdSupportId").val(device.id);
+    $("#cmdSupportHumanName").val(device.humanName);
+
     if(device.type != 'noDevice'){
-        $("#cmdSupportId").val(device.id);
-        $("#cmdSupportHumanName").val(device.humanName);
         $("#eqType").val(device.type);
 
         loadParameters(device.type);
