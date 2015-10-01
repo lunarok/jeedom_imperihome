@@ -173,7 +173,7 @@ class imperihome {
 						$param['value'] = 1;
 					}
 					if ($param['type'] == 'infoNumeric' && isset($param['min']) && isset($param['max'])) {
-						$param['value'] = ($param['max'] - $param['min']) * ($param['value'] / 100) + $param['min'];
+						$param['value'] = 100 * ($param['value'] - $param['min']) / ($param['max'] - $param['min']);
 					}
 				}
 				if ($param['key'] == 'lasttrip') {
@@ -225,6 +225,40 @@ class imperihome {
 				$actionCmdId = $action['cmdId'];
 			}
 
+			if (($_action == 'setLevel') and ($actionCmdId == '') and ($issAdvancedConfig[$_cmd_id]['type'] == 'DevShutter')) {
+				log::add('imperihome', 'debug', 'Type manuelle devShutter: SetLevel ActionId vide, value=' . $_value . ' -> transformation en pulseShutter');
+				if ($_value == 100) {
+					$actionCmdId = $issAdvancedConfig[$_cmd_id]['actions']['pulseShutter']['item']['up']['cmdId'];
+					log::add('imperihome', 'debug', 'Type manuelle devShutter: SetLevel ActionId vide, value=' . $_value . ' -> transformation en pulseShutter(up) sur cmdId=' . $actionCmdId);
+				}
+				if ($_value == 0) {
+					$actionCmdId = $issAdvancedConfig[$_cmd_id]['actions']['pulseShutter']['item']['down']['cmdId'];
+					log::add('imperihome', 'debug', 'Type manuelle devShutter: SetLevel ActionId vide, value=' . $_value . ' -> transformation en pulseShutter(down) sur cmdId=' . $actionCmdId);
+				}
+
+				$cmd = cmd::byId($actionCmdId);
+				if (is_object($cmd)) {
+					$cmd->execCmd();
+					return array("success" => true, "errormsg" => "");
+					log::add('imperihome', 'debug', 'Type manuelle devShutter: SetLevel ActionId vide, execution de la cmd id=' . $cmd->getId() . ' - ' . $cmd->getName());
+				}
+				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
+			}
+
+			if (($_action == 'setChoice') and ($actionCmdId == '')) {
+				$cmd = cmd::byId($_cmd_id);
+				if (!is_object($cmd)) {
+					return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
+				}
+				$eqlogic = $cmd->getEqLogic();
+				$action = cmd::byEqLogicIdCmdName($eqlogic->getId(), $_value);
+				if (is_object($action)) {
+					$action->execCmd();
+					log::add('imperihome', 'debug', 'Type setChoice: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
+				}
+				return array("success" => true, "errormsg" => "");
+			}
+
 			log::add('imperihome', 'debug', 'Type manuelle: ActionId=' . $actionCmdId);
 
 			$cmd = cmd::byId($actionCmdId);
@@ -265,7 +299,7 @@ class imperihome {
 			}
 			if ($cmd->getEqType() == 'presence') {
 				$eqlogic = $cmd->getEqLogic();
-				$action = $eqlogic->getCmd('action', $_value);
+				$action = cmd::byEqLogicIdCmdName($eqlogic->getId(), $_value);
 				if (is_object($action)) {
 					$action->execCmd();
 					log::add('imperihome', 'debug', 'Type setChoice: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
@@ -337,24 +371,24 @@ class imperihome {
 					return array("success" => true, "errormsg" => "");
 				}
 				if ($_action == 'pulseShutter' && $action->getSubtype() == 'other') {
-					if ($_value == 'down' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
+					if ($_value == 'down' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'ferme') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
 						$action->execCmd();
 						log::add('imperihome', 'debug', 'Type other pulseShutter down: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
-					if ($_value == 'up' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
+					if ($_value == 'up' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'ouvre') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
 						$action->execCmd();
 						log::add('imperihome', 'debug', 'Type other pulseShutter up: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
 				}
 				if ($_action == 'setLevel' && $action->getSubtype() == 'other') {
-					if ($_value == '0' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
+					if ($_value == '0' && (strpos(strtolower($action->getName()), 'descendre') !== false || strpos(strtolower($action->getName()), 'down') !== false || strpos(strtolower($action->getName()), 'ferme') !== false || strpos(strtolower($action->getName()), 'bas') !== false)) {
 						$action->execCmd();
 						log::add('imperihome', 'debug', 'Type other setLevel(0): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
 					}
-					if ($_value == '100' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
+					if ($_value == '100' && (strpos(strtolower($action->getName()), 'monter') !== false || strpos(strtolower($action->getName()), 'up') !== false || strpos(strtolower($action->getName()), 'ouvre') !== false || strpos(strtolower($action->getName()), 'haut') !== false)) {
 						$action->execCmd();
 						log::add('imperihome', 'debug', 'Type other setLevel(1): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 						return array("success" => true, "errormsg" => "");
@@ -384,6 +418,10 @@ class imperihome {
 			if (isset($param['min']) && isset($param['max'])) {
 				$param['min'] = $cmd->getConfiguration('minValue', 0);
 				$param['max'] = $cmd->getConfiguration('maxValue', 100);
+
+				if ($cmd->getSubType() == 'binary') {
+					$param['max'] = 1;
+				}
 			}
 			if ($param['key'] == 'lasttrip') {
 				$param['value'] = ($cmd->getType() == 'info') ? '#valueDate' . $cmd->getId() . '#' : 0;
@@ -411,7 +449,17 @@ class imperihome {
 				}
 			}
 			if ($cmd->getEqType() == 'presence' && $param['key'] == 'choices') {
-				$param['value'] = 'Présent,Absent,Nuit,Travail,Vacances';
+				$param['value'] = '';
+				foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
+					$lId = $action->getLogicalId();
+					if (($lId == 'Present') or ($lId == 'Absent') or ($lId == 'Nuit') or ($lId == 'Travail') or ($lId == 'Vacances')) {
+						if ($param['value'] == '') {
+							$param['value'] = $action->getName();
+						} else {
+							$param['value'] .= ',' . $action->getName();
+						}
+					}
+				}
 			}
 			if ($cmdType == 'DevTempHygro') {
 				if ($param['key'] == 'temp') {
@@ -448,7 +496,13 @@ class imperihome {
 		return $return;
 	}
 
-	public function convertType($cmd) {
+	public function convertType($cmd, $_direct = false) {
+		if (!$_direct && method_exists($cmd, 'imperihomeGenerate')) {
+			$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
+			error_log(print_r($cmd, true));
+			$info_device = $cmd->imperihomeGenerate($ISSStructure);
+			return $info_device['type'];
+		}
 		switch ($cmd->getEqType()) {
 			case "presence":
 				return 'DevMultiSwitch';
@@ -592,19 +646,34 @@ class imperihome {
 		$cache = cache::byKey('issTemplate');
 		$issTemplate = json_decode($cache->getValue('{}'), true);
 
+		log::add('imperihome', 'debug', 'Historique: cmd id=' . $_cmd_id . ' - ParamKey:' . $_paramKey);
+
 		foreach ($issTemplate['devices'] as $device) {
 			if ($device['id'] == $_cmd_id) {
+				log::add('imperihome', 'debug', print_r($device, true));
+
 				foreach ($device['params'] as $param) {
-					if (strtolower($param['key']) == $_paramKey) {
+					if (strtolower($param['key']) == strtolower($_paramKey)) {
+						log::add('imperihome', 'debug', ' Paramètre trouvé: ' . print_r($param, true));
+
 						if (preg_match("/#([0-9]*)#/", $param['value'], $matches)) {
 
 							$cmd_id = $matches[1];
 							$cmd = cmd::byId($cmd_id);
 							$history = array();
 
-							foreach ($cmd->getHistory(date('Y-m-d H:i:s', ($_startdate / 1000)), date('Y-m-d H:i:s', ($_enddate / 1000))) as $histoItem) {
-								$history[] = array('value' => floatval($histoItem->getValue()), 'date' => strtotime($histoItem->getDatetime()) * 1000);
+							log::add('imperihome', 'debug', ' Cmd demandée: ' . $cmd_id);
+
+							if (is_object($cmd)) {
+								log::add('imperihome', 'debug', ' Cmd trouvée, construction de l\'historique...');
+
+								foreach ($cmd->getHistory(date('Y-m-d H:i:s', ($_startdate / 1000)), date('Y-m-d H:i:s', ($_enddate / 1000))) as $histoItem) {
+									$history[] = array('value' => floatval($histoItem->getValue()), 'date' => strtotime($histoItem->getDatetime()) * 1000);
+								}
 							}
+
+							log::add('imperihome', 'debug', print_r($history, true));
+
 						}
 						return array('values' => $history);
 					}
