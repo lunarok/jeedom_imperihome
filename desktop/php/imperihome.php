@@ -84,7 +84,7 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo $cmd->getName();
 		echo '</td>';
 		echo '<td>';
-		echo '<input type="checkbox" class="imperihomeAttr" data-size="small" data-label-text="{{Transmettre}}" data-l1key="cmd_transmit" />';
+		echo '<input type="checkbox" class="imperihomeAttr" data-size="small" data-l1key="cmd_transmit" />';
 		//echo '<input type="checkbox" class="imperihomeAttr bootstrapSwitch" data-size="small" data-label-text="{{Transmettre}}" data-l1key="cmd_transmit" />';
 		echo '</td>';
 		echo '<td>';
@@ -112,7 +112,8 @@ foreach (scenario::all() as $scenario) {
 	echo '</td>';
 	echo '<td></td>';
 	echo '<td>';
-	echo '<input type="checkbox" class="imperihomeAttr bootstrapSwitch" data-size="small" data-l1key="scenario_transmit" data-label-text="{{Transmettre}}" />';
+	echo '<input type="checkbox" class="imperihomeAttr" data-size="small" data-l1key="scenario_transmit" />';
+	//echo '<input type="checkbox" class="imperihomeAttr bootstrapSwitch" data-size="small" data-l1key="scenario_transmit" data-label-text="{{Transmettre}}" />';
 	echo '</td>';
 	echo '<td>';
 	echo ' <span class="label label-info" style="font-size : 1em;">DevScene</span>';
@@ -143,35 +144,36 @@ foreach (scenario::all() as $scenario) {
 	</div>
 
 	<div role="tabpanel" class="tab-pane" id="configTab">
-		Attention: cet onglet n'est pas mis à jour aprés avoir sauvegardé une modification. Pour mettre à jour aprés avoir fait une modification dans votre configuration, veuillez rafraichir la page.
+		<br>
+		<b>Attention: cet onglet n'est pas mis à jour aprés avoir sauvegardé une modification. Pour mettre à jour aprés avoir fait une modification dans votre configuration, veuillez rafraichir la page.</b><br>
+		<br>
 		<div class="form-group">
 		    <label class="col-sm-2 control-label">issConfig</label>
-		    <div class="col-sm-10">
-		      	<textarea class="form-control disabled" id="issConfigForm">
+		    <div class="col-sm-10" style="overflow: scroll; height: 190px; background-color: #EEEEEE;">
 		      		<?php 
 		      			$cache = cache::byKey('issConfig'); 
 		      			echo $cache->getValue('{}');
-		      		?></textarea>
+		      		?>
 		    </div>
 		</div>
+		<br>
 		<div class="form-group">
 		    <label class="col-sm-2 control-label">issAdvancedConfig</label>
-		    <div class="col-sm-10">
-		      	<textarea class="form-control disabled" id="issAdvancedConfigForm">
+		    <div class="col-sm-10" style="overflow: scroll; height: 190px; background-color: #EEEEEE;">
 		      		<?php 
 		      			$cache = cache::byKey('issAdvancedConfig'); 
 		      			echo $cache->getValue('{}');
-		      		?></textarea>
+		      		?>
 		    </div>
 		</div>
+		<br>
 		<div class="form-group">
 		    <label class="col-sm-2 control-label">issTemplate</label>
-		    <div class="col-sm-10">
-		      	<textarea class="form-control disabled" id="issTemplateForm">
+		    <div class="col-sm-10" style="overflow: scroll; height: 190px; background-color: #EEEEEE;">
 		      		<?php 
 		      			$cache = cache::byKey('issTemplate'); 
 		      			echo $cache->getValue('{}');
-		      		?></textarea>
+		      		?>
 		    </div>
 		</div>
 	</div>
