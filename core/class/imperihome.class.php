@@ -121,7 +121,9 @@ class imperihome {
 			);
 
 			foreach ($ISSStructure[$device['type']]['params'] as $param) {
-				$param['value'] = $device['params'][$param['key']]['value'];
+				if((array_key_exists('key', $param)) and (array_key_exists($param['key'], $device['params'])) and (array_key_exists('value', $device['params'][$param['key']]))){
+					$param['value'] = $device['params'][$param['key']]['value'];
+				}
 				$info_device['params'][] = $param;
 			}
 

@@ -83,8 +83,8 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo '<td>';
 		echo $cmd->getName();
 		echo '</td>';
-		echo '<td>';
-		echo '<input type="checkbox" class="imperihomeAttr" data-size="small" data-l1key="cmd_transmit" />';
+		echo '<td style="text-align: center;">';
+		echo '<input type="checkbox" class="imperihomeAttr" data-size="small" data-l1key="cmd_transmit"/>';
 		//echo '<input type="checkbox" class="imperihomeAttr bootstrapSwitch" data-size="small" data-label-text="{{Transmettre}}" data-l1key="cmd_transmit" />';
 		echo '</td>';
 		echo '<td>';
@@ -156,7 +156,7 @@ foreach (scenario::all() as $scenario) {
 		      		?>
 		    </div>
 		</div>
-		<br>
+		<br><br>
 		<div class="form-group">
 		    <label class="col-sm-2 control-label">issAdvancedConfig</label>
 		    <div class="col-sm-10" style="overflow: scroll; height: 190px; background-color: #EEEEEE;">
@@ -166,7 +166,7 @@ foreach (scenario::all() as $scenario) {
 		      		?>
 		    </div>
 		</div>
-		<br>
+		<br><br>
 		<div class="form-group">
 		    <label class="col-sm-2 control-label">issTemplate</label>
 		    <div class="col-sm-10" style="overflow: scroll; height: 190px; background-color: #EEEEEE;">
