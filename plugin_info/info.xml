@@ -7,8 +7,8 @@
     <licence>AGPL</licence>
     <author>Gael GRIFFON</author>
     <installation></installation>
-    <require>1.191</require>
-    <version>2.06</version>
+    <require>1.209</require>
+    <version>2.07</version>
     <category>communication</category>
     <allowRemote>0</allowRemote>
 </info>
