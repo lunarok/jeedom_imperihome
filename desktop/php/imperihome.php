@@ -41,7 +41,47 @@ foreach (eqLogic::all() as $eqLogic) {
 	if (is_object($object) && $object->getIsVisible() == 0) {
 		continue;
 	}
-	$cmds = $eqLogic->getCmd('info');
+
+	$cmds = array();
+	foreach ($eqLogic->getCmd() as $cmd) {
+		if (method_exists($cmd, 'imperihomeCmd') ) {
+			if ( !$cmd->imperihomeCmd()) {
+				continue;
+			}
+		} elseif ($cmd->getType() != 'info') {
+			continue;
+		}
+		array_push($cmds, $cmd);
+	}
+
+	$firstLine = true;
+	foreach ($cmds as $cmd) {
+		if ($firstLine) {
+			$firstLine = false;
+			
+			echo '<tr class="imperihome" data-cmd_id="' . $cmd->getId() . '">';
+			echo '<td rowspan="' . count($cmds) . '">';
+			
+			if (is_object($object)) {
+				echo $object->getName();
+			} else {
+				echo __('Aucun', __FILE__);
+			}
+			
+			echo '</td>';
+			echo '<td rowspan="' . count($cmds) . '">';
+			echo $eqLogic->getName();
+			echo '</td>';
+			echo '<td rowspan="' . count($cmds) . '">';
+			echo $eqLogic->getEqType_name();
+			echo '</td>';
+		} else {
+			echo '<tr class="tablesorter-childRow imperihome" data-cmd_id="' . $cmd->getId() . '">';
+		}
+
+
+
+	/*$cmds = $eqLogic->getCmd('info');
 	if (count($cmds) == 0) {
 		continue;
 	}
@@ -56,9 +96,13 @@ foreach (eqLogic::all() as $eqLogic) {
 
 	$firstLine = true;
 	foreach ($cmds as $cmd) {
-		if (method_exists($cmd, 'imperihomeCmd') && !$cmd->imperihomeCmd()) {
-			continue;
-		}
+		if (method_exists($cmd, 'imperihomeCmd') ) {
+	        if ( !$cmd->imperihomeCmd()) {
+	        	continue;
+	        }
+	    } elseif ($cmd->getType() != 'info') {
+	         continue;
+	    }
 
 		if ($firstLine) {
 			$firstLine = false;
@@ -79,6 +123,8 @@ foreach (eqLogic::all() as $eqLogic) {
 		} else {
 			echo '<tr class="tablesorter-childRow imperihome" data-cmd_id="' . $cmd->getId() . '">';
 		}
+
+		*/
 
 		echo '<td>';
 		echo $cmd->getName();

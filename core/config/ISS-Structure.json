@@ -542,6 +542,12 @@
                 "type": "infoNumeric",
                 "value": "0",
                 "key": "energy"
+            },
+            {
+                "Description": "Enables the 'pulse' action and button : 1 = YES, 0 = NO",
+                "type": "optionBinary",
+                "value": "0",
+                "key": "pulseable"
             }
         ],
         "actions": {
@@ -551,6 +557,10 @@
                     "0": "off;eteindre",
                     "1": "on;allumer"
                 }
+            },
+            "pulse": {
+                "type": "direct",
+                "equivalent": ""
             }
         }
     },
