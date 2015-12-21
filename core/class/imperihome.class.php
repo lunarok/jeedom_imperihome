@@ -61,8 +61,8 @@ class imperihome {
 			if (!is_object($cmd)) {
 				continue;
 			}
-			if (method_exists($cmd, 'imperihomeCmd') ) {
-				if ( !$cmd->imperihomeCmd()) {
+			if (method_exists($cmd, 'imperihomeCmd')) {
+				if (!$cmd->imperihomeCmd()) {
 					continue;
 				}
 			} elseif ($cmd->getType() != 'info') {
@@ -125,7 +125,7 @@ class imperihome {
 			);
 
 			foreach ($ISSStructure[$device['type']]['params'] as $param) {
-				if((array_key_exists('key', $param)) and (array_key_exists($param['key'], $device['params'])) and (array_key_exists('value', $device['params'][$param['key']]))){
+				if ((array_key_exists('key', $param)) and (array_key_exists($param['key'], $device['params'])) and (array_key_exists('value', $device['params'][$param['key']]))) {
 					$param['value'] = $device['params'][$param['key']]['value'];
 				}
 				$info_device['params'][] = $param;
@@ -142,10 +142,8 @@ class imperihome {
 	}
 
 	public static function devices() {
-		$sql = 'SELECT `value` FROM cache
-          		WHERE `key`="issTemplate"';
-		$result = DB::Prepare($sql, array(), DB::FETCH_TYPE_ROW);
-		$cache = ($result['value'] != '') ? $result['value'] : '{}';
+		$cache = cache::byKey('issTemplate');
+		$cache = $cache->getValue('{}');
 		$return = cmd::cmdToValue($cache, false, true);
 		preg_match_all("/#scenarioLastRun([0-9]*)#/", $return, $matches);
 		foreach ($matches[1] as $scenario_id) {
@@ -287,10 +285,10 @@ class imperihome {
 			}
 
 			if ($cmd->getSubtype() == 'message') {
-	            $cmd->execCmd(array('message' => $_value));
-	            log::add('imperihome', 'debug', 'Action Message éxécutée, value = ' . $_value);
-	            return array("success" => true, "errormsg" => "");
-	         }
+				$cmd->execCmd(array('message' => $_value));
+				log::add('imperihome', 'debug', 'Action Message éxécutée, value = ' . $_value);
+				return array("success" => true, "errormsg" => "");
+			}
 
 			if ($cmd->getSubtype() == 'other') {
 				$cmd->execCmd();
@@ -306,9 +304,9 @@ class imperihome {
 			return array("success" => true, "errormsg" => "");
 		}
 		if (method_exists($cmd, 'imperihomeAction')) {
-         	return $cmd->imperihomeAction($_action, $_value);
-         	log::add('imperihome', 'debug', 'Action imperihome associée à la commande connue');
-      	}
+			return $cmd->imperihomeAction($_action, $_value);
+			log::add('imperihome', 'debug', 'Action imperihome associée à la commande connue');
+		}
 		if ($_action == 'setChoice') {
 			if (!is_object($cmd)) {
 				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
@@ -380,11 +378,11 @@ class imperihome {
 						return array("success" => true, "errormsg" => "");
 					}
 				}
-				
+
 				if ($_action == 'pulse' && $action->getSubtype() == 'other') {
-				   	$action->execCmd();
-				   	log::add('imperihome', 'debug', 'Type other pulse(): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
-				   	return array("success" => true, "errormsg" => "");
+					$action->execCmd();
+					log::add('imperihome', 'debug', 'Type other pulse(): execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
+					return array("success" => true, "errormsg" => "");
 				}
 
 				if ($_action == 'stopShutter' && $action->getSubtype() == 'other' && strpos(strtolower($action->getName()), 'stop') !== false) {
