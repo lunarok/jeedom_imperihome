@@ -77,10 +77,10 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 .Détecteur d'ouverture [DevDoor]
 --
 .Conditions:
-* Le widget de la commande est "Door", "Window" ou "Porte_garage"
+* Le widget de la commande est "Door", "Baie", "Window" ou "Porte_garage"
 
 .ou
-* Le nom de la commande contient "Etat" et "Fenetre", ou "Etat" et "Porte"
+* Le nom de la commande contient "Etat" et le nom de l'équipement est "Fenetre" ou "Porte"
 --
 
 [panel,primary]

@@ -532,7 +532,89 @@ class imperihome {
 			case 'ipx800_bouton':
 				return 'DevSwitch';
 		}
+
+		switch($cmd->getDisplay('generic_type')){
+			case "LIGHT_STATE":
+				foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
+					if ($action->getDisplay('generic_type') == 'LIGHT_SLIDER') {
+						return 'DevDimmer';
+					}
+				}
+				return 'DevSwitch';
+				
+			case "LIGHT_COLOR":
+				return 'DevRGBLight';
+
+			case "ENERGY_STATE":
+				foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
+					if ($action->getDisplay('generic_type') == 'ENERGY_SLIDER') {
+						return 'DevDimmer';
+					}
+				}
+				return 'DevSwitch';return 'DevSwitch';
+			case "FLAP_STATE":
+			case "FLAP_BSO_STATE":
+				return 'DevShutter';
+			case "HEATING_STATE":
+				return 'DevSwitch';
+			case "LOCK_STATE":
+				return 'DevLock';
+			case "SIREN_STATE":
+				return 'DevSwitch';
+			case "THERMOSTAT_STATE":
+				return 'DevThermostat';
+			case "MODE_STATE":
+				return 'DevMultiSwitch';
+			case "ALARM_STATE":
+			case "ALARM_ENABLE_STATE":
+				return 'DevSwitch';
+			case "ALARM_MODE":
+				return 'DevMultiSwitch';
+			case "POWER":
+				return 'DevElectricity';
+			case "CONSUMPTION":
+				return 'DevElectricity';
+			case "TEMPERATURE":
+				return 'DevTemperature';
+			case "BRIGHTNESS":
+				return 'DevLuminosity';
+			case "PRESENCE":
+				return 'DevMotion';
+			case "BATTERY":
+				return 'DevGenericSensor';
+			case "SMOKE":
+				return 'DevSmoke';
+			case "FLOOD":
+				return 'DevFlood';
+			case "HUMIDITY":
+				return 'DevHygrometry';
+			case "UV":
+				return 'DevUV';
+			case "OPENING":
+				return 'DevDoor';
+			case "SABOTAGE":
+				return 'DevDoor';
+			case "CO2":
+				return 'DevCO2';
+			case "VOLTAGE":
+				return 'DevElectricity';
+			case "NOISE":
+				return 'DevNoise';
+			case "PRESSURE":
+				return 'DevPressure';
+			case "RAIN_CURRENT":
+			case "RAIN_TOTAL":
+				return 'DevRain';
+			case "WIND_SPEED":
+				return 'DevWind';
+			case "SHOCK":
+				return 'DevMotion';
+		}
+
 		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'door') !== false) {
+			return 'DevDoor';
+		}
+		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'baie') !== false) {
 			return 'DevDoor';
 		}
 		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'window') !== false) {
