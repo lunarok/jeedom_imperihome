@@ -23,18 +23,12 @@ function imperihome_install() {
 }
 
 function imperihome_update() {
-
+	imperihome::transfertConfigFromCacheToFile();
 }
 
 function imperihome_remove() {
-    	$cache = cache::byKey('issConfig');
-    	$cache->remove();
-
-    	$cacheAdvanced = cache::byKey('issAdvancedConfig');
-    	$cacheAdvanced->remove();
-
-    	$cacheTemplate = cache::byKey('issTemplate');
-    	$cacheTemplate->remove();
+   	$cacheTemplate = cache::byKey('issTemplate');
+    $cacheTemplate->remove();
 }
 
 ?>

@@ -26,33 +26,23 @@ try {
 	}
 
 	if (init('action') == 'saveISSConfig') {
-		$cache = new cache();
-		$cache->setKey('issConfig');
-		$cache->setValue(init('config'));
-		$cache->setLifetime(0);
-		$cache->save();
+		imperihome::setIssConfig(json_decode(init('config'), true));
 		imperihome::generateISSTemplate();
 		ajax::success();
 	}
 
 	if (init('action') == 'loadISSConfig') {
-		$cache = cache::byKey('issConfig');
-		ajax::success(json_decode($cache->getValue('{}'), true));
+		ajax::success(imperihome::getIssConfig(true));
 	}
 
 	if (init('action') == 'getISSStructure') {
-		ajax::success(json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true));
+		ajax::success(imperihome::getIssStructure(true));
 	}
 
 	if (init('action') == 'loadAdvancedDeviceISSConfig') {
 		$deviceId = init('deviceId');
-		$cache = cache::byKey('issAdvancedConfig');
-		if(!is_object($cache)){
-			$cache = new cache();
-			$cache->setKey('issAdvancedConfig');
-		}
-
-		$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
+	
+		$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
 
 		if(array_key_exists($deviceId, $issAdvancedConfig)){
 			$cmd = cmd::byId($deviceId);
@@ -110,9 +100,8 @@ try {
 		}
 	}
 
-	if (init('action') == 'loadAdvancedISSConfig') {
-		$cache = cache::byKey('issAdvancedConfig');
-		$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
+	if (init('action') == 'loadAdvancedISSConfig') {		
+		$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
 
 		foreach ($issAdvancedConfig as $cmd_id => $value) {
 			$cmd = cmd::byId($cmd_id);
@@ -128,38 +117,21 @@ try {
 
 	if (init('action') == 'saveAdvancedDevice') {
 		$device = json_decode(init('config'), true);
-		$cache = cache::byKey('issAdvancedConfig');
-		if(!is_object($cache)){
-			$cache = new cache();
-			$cache->setKey('issAdvancedConfig');
-		}
-
-		$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
-		
+		$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
 		$issAdvancedConfig[$device['id']] = $device;
 
-		$cache->setValue(json_encode($issAdvancedConfig));
-		$cache->setLifetime(0);
-		$cache->save();
+		imperihome::setIssAdvancedConfig($issAdvancedConfig);
 		imperihome::generateISSTemplate();
 		ajax::success();
 	}
 
 	if (init('action') == 'deleteAdvancedDevice') { 
 		$deviceId = init('deviceId');
-		$cache = cache::byKey('issAdvancedConfig');
-		if(!is_object($cache)){
-			$cache = new cache();
-			$cache->setKey('issAdvancedConfig');
-		}
-
-		$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
+		$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
 
 		if(array_key_exists($deviceId, $issAdvancedConfig)){
 			unset($issAdvancedConfig[$deviceId]);
-			$cache->setValue(json_encode($issAdvancedConfig));
-			$cache->setLifetime(0);
-			$cache->save();
+			imperihome::setIssAdvancedConfig($issAdvancedConfig);
 			imperihome::generateISSTemplate();
 			ajax::success();
 		}else{

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /* This file is part of Jeedom.
  *
@@ -24,12 +24,151 @@ class imperihome {
 
 	/*     * ***********************Methode static*************************** */
 
-	public static function generateISSTemplate() {
-		$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
-		$template = array('devices' => array());
+	public static function getIssStructure($decodeJson = false){
+		$return = file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json");
+		
+		if ($return === false) {
+			return false;
+		}else{
+			if($decodeJson){
+				return json_decode($return, true);
+			}else{
+				return $return;
+			}
+		}
+	}
+	
+	public static function getIssConfig($decodeJson = false){
+		/*$cache = cache::byKey('issConfig');
+		
+		if($decodeJson){
+			return json_decode($cache->getValue('{}'), true);
+		}else{
+			return $cache->getValue('{}');
+		}*/
+		
+		$return = file_get_contents(dirname(__FILE__) . "/../config/ISSConfig.json");
+		
+		if ($return === false) {
+			return false;
+		}else{
+			if($decodeJson){
+				return json_decode($return, true);
+			}else{
+				return $return;
+			}
+		}
+	}
+	
+	public static function setIssConfig($content = ''){		
+		/*$cache = cache::byKey('issConfig');
+		if(!is_object($cache)){
+			$cache = new cache();
+			$cache->setKey('issConfig');
+		}
+		$cache->setValue(json_encode($content));
+		$cache->setLifetime(0);
+		$cache->save();*/
+		
+		$fpc = file_put_contents(dirname(__FILE__) . "/../config/ISSConfig.json", json_encode($content));
+		
+		if ($fpc === false) {
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	public static function getIssAdvancedConfig($decodeJson = false){		
+		/*
+		$cache = cache::byKey('issAdvancedConfig');
+		
+		if($decodeJson){
+			return json_decode($cache->getValue('{}'), true);
+		}else{
+			return $cache->getValue('{}');
+		}
+		*/
+		$return = file_get_contents(dirname(__FILE__) . "/../config/ISSAdvancedConfig.json");
+		
+		if ($return === false) {
+			return false;
+		}else{
+			if($decodeJson){
+				return json_decode($return, true);
+			}else{
+				return $return;
+			}
+		}
+	}
+	
+	public static function setIssAdvancedConfig($content = ''){		
+		/*
+		$cache = cache::byKey('issAdvancedConfig');
+		if(!is_object($cache)){
+			$cache = new cache();
+			$cache->setKey('issAdvancedConfig');
+		}
+		$cache->setValue(json_encode($content));
+		$cache->setLifetime(0);
+		$cache->save();
+		*/
+		
+		$fpc = file_put_contents(dirname(__FILE__) . "/../config/ISSAdvancedConfig.json", json_encode($content));
+		
+		if ($fpc === false) {
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	public static function getIssTemplate($decodeJson = false){
+		$cache = cache::byKey('issTemplate');
+		
+		if($cache->getValue('') != ''){
+			imperihome::generateISSTemplate();
+		}
+		
+		if($decodeJson){
+			return json_decode($cache->getValue('{}'), true);
+		}else{
+			return $cache->getValue('{}');
+		}
+	}
+
+	public static function setIssTemplate($content = ''){
+		$cache = new cache();
+		$cache->setKey('issTemplate');
+		$cache->setValue(json_encode($content));
+		$cache->setLifetime(0);
+		$cache->save();
+		
+		return $cache;
+	}
+	
+	public static function transfertConfigFromCacheToFile(){
 		$cache = cache::byKey('issConfig');
+		if($cache->getValue('') != ''){
+			imperihome::setIssConfig(json_decode($cache->getValue('{}'), true));
+		}
+		$cache->remove();	
+		
+		$cache = cache::byKey('issAdvancedConfig');
+		if($cache->getValue('') != ''){
+			imperihome::setIssAdvancedConfig(json_decode($cache->getValue('{}'), true));
+		}
+		$cache->remove();		
+	}
+		
+	public static function generateISSTemplate() {
+		$ISSStructure = imperihome::getIssStructure(true);
+		$issConfig = imperihome::getIssConfig(true);
+		
+		$template = array('devices' => array());
 		$alreadyUsed = array();
-		$issConfig = json_decode($cache->getValue('{}'), true);
+		
+		
 		foreach ($issConfig as $cmd_id => $value) {
 			if (strpos($cmd_id, 'scenario') !== false) {
 				if (!isset($value['scenario_transmit']) || $value['scenario_transmit'] != 1) {
@@ -104,8 +243,7 @@ class imperihome {
 			$template['devices'][] = $info_device;
 		}
 
-		$cache = cache::byKey('issAdvancedConfig');
-		$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
+		$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
 		foreach ($issAdvancedConfig as $device_id => $device) {
 			$cmd = cmd::byId($device_id);
 			if (!is_object($cmd)) {
@@ -142,9 +280,7 @@ class imperihome {
 	}
 
 	public static function devices() {
-		$cache = cache::byKey('issTemplate');
-		$cache = $cache->getValue('{}');
-		$return = cmd::cmdToValue($cache, false, true);
+		$return = cmd::cmdToValue(imperihome::getIssTemplate(false), false, true);
 		preg_match_all("/#scenarioLastRun([0-9]*)#/", $return, $matches);
 		foreach ($matches[1] as $scenario_id) {
 			if (is_numeric($scenario_id)) {
@@ -156,48 +292,50 @@ class imperihome {
 		}
 
 		$return = json_decode($return, true);
-		foreach ($return['devices'] as &$device) {
-			if ($device['type'] == 'DevRGBLight') {
-				$device['params'][0]['value'] = ($device['params'][0]['value'] != '#000000' && $device['params'][0]['value'] != '#00000000' && $device['params'][0]['value'] != '#0000000000') ? 1 : 0;
-				$device['params'][5]['value'] = str_replace(array('#', '"'), '', $device['params'][5]['value']);
-				if (strlen($device['params'][5]['value']) == 6) {
-					$device['params'][5]['value'] = 'FF' . $device['params'][5]['value'];
-				}
-				if (strlen($device['params'][5]['value']) == 8) {
-					$device['params'][5]['value'] = 'FF' . substr($device['params'][5]['value'], 0, 6);
-				}
-				if (strlen($device['params'][5]['value']) == 10) {
-					$device['params'][5]['value'] = 'FF' . substr($device['params'][5]['value'], 0, 6);
-				}
-				continue;
-			}
-			foreach ($device['params'] as &$param) {
-				if (isset($param['type'])) {
-					if ($param['type'] == 'infoBinary' && ($param['value'] > 0 || $param['value'])) {
-						$param['value'] = 1;
+		if (is_array($return['devices'])){
+			foreach ($return['devices'] as &$device) {
+				if ($device['type'] == 'DevRGBLight') {
+					$device['params'][0]['value'] = ($device['params'][0]['value'] != '#000000' && $device['params'][0]['value'] != '#00000000' && $device['params'][0]['value'] != '#0000000000') ? 1 : 0;
+					$device['params'][5]['value'] = str_replace(array('#', '"'), '', $device['params'][5]['value']);
+					if (strlen($device['params'][5]['value']) == 6) {
+						$device['params'][5]['value'] = 'FF' . $device['params'][5]['value'];
 					}
-					if ($param['type'] == 'infoNumeric' && isset($param['min']) && isset($param['max'])) {
-						$param['value'] = 100 * ($param['value'] - $param['min']) / ($param['max'] - $param['min']);
+					if (strlen($device['params'][5]['value']) == 8) {
+						$device['params'][5]['value'] = 'FF' . substr($device['params'][5]['value'], 0, 6);
 					}
+					if (strlen($device['params'][5]['value']) == 10) {
+						$device['params'][5]['value'] = 'FF' . substr($device['params'][5]['value'], 0, 6);
+					}
+					continue;
 				}
-				if ($param['key'] == 'lasttrip') {
-					$param['value'] = strtotime($param['value']) * 1000;
-				}
-			}
-			if ($device['type'] == 'DevMultiSwitch') {
-				$value = $device['params'][0]['value'];
-				$choice = $device['params'][1]['value'];
-				if (strpos($choice, $value) === false) {
-					$choices = explode(',', $choice);
-					if (isset($choices[$device['params'][0]['value'] - 1])) {
-						$device['params'][0]['value'] = $choices[$device['params'][0]['value'] - 1];
+				foreach ($device['params'] as &$param) {
+					if (isset($param['type'])) {
+						if ($param['type'] == 'infoBinary' && ($param['value'] > 0 || $param['value'])) {
+							$param['value'] = 1;
+						}
+						if ($param['type'] == 'infoNumeric' && isset($param['min']) && isset($param['max'])) {
+							$param['value'] = 100 * ($param['value'] - $param['min']) / ($param['max'] - $param['min']);
+						}
+					}
+					if ($param['key'] == 'lasttrip') {
+						$param['value'] = strtotime($param['value']) * 1000;
 					}
 				}
-				$device['params'][0]['value'] = str_replace('"', '', $device['params'][0]['value']);
-			}
-			if ($device['type'] == 'DevGenericSensor') {
-				$device['params'][0]['value'] = str_replace(array('"', '<br/>', '<br>'), array('', ' ', ' '), $device['params'][0]['value']);
-			}
+				if ($device['type'] == 'DevMultiSwitch') {
+					$value = $device['params'][0]['value'];
+					$choice = $device['params'][1]['value'];
+					if (strpos($choice, $value) === false) {
+						$choices = explode(',', $choice);
+						if (isset($choices[$device['params'][0]['value'] - 1])) {
+							$device['params'][0]['value'] = $choices[$device['params'][0]['value'] - 1];
+						}
+					}
+					$device['params'][0]['value'] = str_replace('"', '', $device['params'][0]['value']);
+				}
+				if ($device['type'] == 'DevGenericSensor') {
+					$device['params'][0]['value'] = str_replace(array('"', '<br/>', '<br>'), array('', ' ', ' '), $device['params'][0]['value']);
+				}
+			}		
 		}
 		return json_encode($return);
 	}
@@ -205,7 +343,7 @@ class imperihome {
 	public static function action($_cmd_id, $_action, $_value = '') {
 		log::add('imperihome', 'debug', 'Reception d\'une action "' . $_action . '(' . $_value . ')" sur ' . $_cmd_id);
 
-		if ($_action == 'launchScene') {
+		if ($_action == 'launchScene' && strpos($_cmd_id, 'scenario') !== false) {
 			$scenario = scenario::byId(str_replace('scenario', '', $_cmd_id));
 			if (!is_object($scenario)) {
 				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
@@ -219,8 +357,7 @@ class imperihome {
 
 			log::add('imperihome', 'debug', 'Type manuelle: id=' . $_cmd_id);
 
-			$cache = cache::byKey('issAdvancedConfig');
-			$issAdvancedConfig = json_decode($cache->getValue('{}'), true);
+			$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
 
 			$action = $issAdvancedConfig[$_cmd_id]['actions'][$_action];
 			if ($action['type'] == 'item') {
@@ -642,8 +779,7 @@ class imperihome {
 			return 'DevSmoke';
 		}
 		if (strpos(strtolower($cmd->getName()), __('humidité', __FILE__)) !== false) {
-			$cache = cache::byKey('issConfig');
-			$issConfig = json_decode($cache->getValue('{}'), true);
+			$issConfig = imperihome::getIssConfig(true);
 			foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
 				if ($info->getUnite() == '°C') {
 					if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
@@ -667,8 +803,7 @@ class imperihome {
 			case 'numeric':
 				switch (strtolower($cmd->getUnite())) {
 					case '°c':
-						$cache = cache::byKey('issConfig');
-						$issConfig = json_decode($cache->getValue('{}'), true);
+						$issConfig = imperihome::getIssConfig(true);
 						foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
 							if (strpos(strtolower($info->getName()), __('humidité', __FILE__)) !== false) {
 								if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
@@ -748,10 +883,8 @@ class imperihome {
 	}
 
 	public function history($_cmd_id, $_paramKey, $_startdate, $_enddate) {
-		$history = array();
-		$cache = cache::byKey('issTemplate');
-		$issTemplate = json_decode($cache->getValue('{}'), true);
-
+		$issTemplate = imperihome::getIssTemplate(true);
+		
 		log::add('imperihome', 'debug', 'Historique: cmd id=' . $_cmd_id . ' - ParamKey:' . $_paramKey);
 
 		foreach ($issTemplate['devices'] as $device) {

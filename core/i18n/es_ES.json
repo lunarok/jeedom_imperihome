@@ -1,0 +1,49 @@
+{
+    "plugins\/imperihome\/plugin_info\/info.xml": {
+        "Plugin permettant la communication avec le logiciel ImperiHome (API ISS et Control)": "Plugin permettant la communication avec le logiciel ImperiHome (API ISS et Control)",
+        "Ce plugin nécessite une redirection d'URL. En activant le plugin, celui-ci fera de son mieux pour configurer votre système tout seul et vous donner les informations nécessaires au paramétrage d'Imperihome. Dans tous les cas, il est nécessaire de bien configurer la partie \"Configuration Réseau\" dans le menu Général -> Administration -> Configuration .": "Ce plugin nécessite une redirection d'URL. En activant le plugin, celui-ci fera de son mieux pour configurer votre système tout seul et vous donner les informations nécessaires au paramétrage d'Imperihome. Dans tous les cas, il est nécessaire de bien configurer la partie \"Configuration Réseau\" dans le menu Général -> Administration -> Configuration ."},
+    "plugins\/imperihome\/desktop\/php\/imperihome.php": {
+        "Configuration avancée ISS": "Configuration avancée ISS",
+        "Télécharger le fichier de configuration manuelle": "Télécharger le fichier de configuration manuelle",
+        "Ajouter un équipement": "Ajouter un équipement",
+        "Rechercher": "Rechercher",
+        "Mes Interfaces Impérihome": "Mes Interfaces Impérihome",
+        "Vous n'avez pas encore d'interface de configurée, cliquez sur Ajouter un équipement pour commencer": "Vous n'avez pas encore d'interface de configurée, cliquez sur Ajouter un équipement pour commencer",
+        "Général": "Général",
+        "Nom de l'interface Imperihome": "Nom de l'interface Imperihome",
+        "Nom de l'interface": "Nom de l'interface",
+        "Objet parent": "Objet parent",
+        "Aucun": "Aucun",
+        "Catégorie": "Catégorie",
+        "Activer": "Activer",
+        "Visible": "Visible",
+        "Commentaire": "Commentaire",
+        "Interace Imperihome": "Interace Imperihome",
+        "Ajouter une commande": "Ajouter une commande",
+        "Nom": "Nom",
+        "Sous-Type": "Sous-Type",
+        "Valeur": "Valeur",
+        "Unité": "Unité",
+        "Paramètres": "Paramètres",
+        "Supprimer": "Supprimer",
+        "Sauvegarder": "Sauvegarder",
+        "Configuration ISS": "Configuration ISS",
+        "Transmettre": "Transmettre",
+        "Pièce": "Pièce",
+        "Configuration": "Configuration",
+        "Type Imperihome": "Type Imperihome"
+    },
+    "plugins\/imperihome\/desktop\/js\/imperihome.js": {
+        "Configuration avancée ISS": "Configuration avancée ISS",
+        "Sauvegarde réussie": "Sauvegarde réussie",
+        "Configuration avancée": "Configuration avancée"
+    },
+    "plugins\/imperihome\/desktop\/modal\/config.ISS.php": {
+        "Non": "Non",
+        "Oui": "Oui"
+    },
+    "plugins\/imperihome\/desktop\/modal\/config.eqISS.php": {
+        "Non": "Non",
+        "Oui": "Oui"
+    }
+}

@@ -1,50 +1,41 @@
 {
     "plugins\/imperihome\/plugin_info\/info.xml": {
-        "Plugin permettant la communication avec le logiciel ImperiHome (API ISS et Control)": "Plugin permettant la communication avec le logiciel ImperiHome (API ISS et Control)",
-        "Ce plugin nécessite une redirection d'URL. En activant le plugin, celui-ci fera de son mieux pour configurer votre système tout seul et vous donner les informations nécessaires au paramétrage d'Imperihome. Dans tous les cas, il est nécessaire de bien configurer la partie \"Configuration Réseau\" dans le menu Général -> Administration -> Configuration .": "Ce plugin nécessite une redirection d'URL. En activant le plugin, celui-ci fera de son mieux pour configurer votre système tout seul et vous donner les informations nécessaires au paramétrage d'Imperihome. Dans tous les cas, il est nécessaire de bien configurer la partie \"Configuration Réseau\" dans le menu Général -> Administration -> Configuration .",
-        "": ""
+        "Plugin permettant la communication avec le logiciel ImperiHome (API ISS)": "Plugin permettant la communication avec le logiciel ImperiHome (API ISS)"
+    },
+    "plugins\/imperihome\/core\/class\/imperihome.class.php": {
+        "Aucun": "Aucun",
+        "humidité": "humidité",
+        "uv": "uv",
+        "etat": "etat",
+        "fumée": "fumée",
+        "smoke": "smoke",
+        "fenêtre": "fenêtre",
+        "fenetre": "fenetre",
+        "porte": "porte",
+        "Etat": "Etat",
+        "Lancement provoque par Imperihome ": "Lancement provoque par Imperihome "
     },
     "plugins\/imperihome\/desktop\/php\/imperihome.php": {
-        "Configuration avancée ISS": "Configuration avancée ISS",
-        "Télécharger le fichier de configuration manuelle": "Télécharger le fichier de configuration manuelle",
-        "Ajouter un équipement": "Ajouter un équipement",
-        "Rechercher": "Rechercher",
-        "Mes Interfaces Impérihome": "Mes Interfaces Impérihome",
-        "Vous n'avez pas encore d'interface de configurée, cliquez sur Ajouter un équipement pour commencer": "Vous n'avez pas encore d'interface de configurée, cliquez sur Ajouter un équipement pour commencer",
-        "Général": "Général",
-        "Nom de l'interface Imperihome": "Nom de l'interface Imperihome",
-        "Nom de l'interface": "Nom de l'interface",
-        "Objet parent": "Objet parent",
         "Aucun": "Aucun",
-        "Catégorie": "Catégorie",
-        "Activer": "Activer",
-        "Visible": "Visible",
-        "Commentaire": "Commentaire",
-        "Interace Imperihome": "Interace Imperihome",
-        "Ajouter une commande": "Ajouter une commande",
-        "Nom": "Nom",
-        "Sous-Type": "Sous-Type",
-        "Valeur": "Valeur",
-        "Unité": "Unité",
-        "Paramètres": "Paramètres",
-        "Supprimer": "Supprimer",
-        "Sauvegarder": "Sauvegarder",
         "Configuration ISS": "Configuration ISS",
+        "Mode avancé": "Mode avancé",
+        "Configuration brute": "Configuration brute",
+        "Objet": "Objet",
+        "Equipement": "Equipement",
+        "Type": "Type",
+        "Commande": "Commande",
         "Transmettre": "Transmettre",
-        "Pièce": "Pièce",
-        "Configuration": "Configuration",
-        "Type Imperihome": "Type Imperihome"
+        "Type Imperihome": "Type Imperihome",
+        "Scénario": "Scénario",
+        "Action": "Action"
     },
     "plugins\/imperihome\/desktop\/js\/imperihome.js": {
-        "Configuration avancée ISS": "Configuration avancée ISS",
-        "Sauvegarde réussie": "Sauvegarde réussie",
-        "Configuration avancée": "Configuration avancée"
-    },
-    "plugins\/imperihome\/desktop\/modal\/config.ISS.php": {
-        "Non": "Non",
-        "Oui": "Oui"
+        "Sauvegarde réalisée avec succès": "Sauvegarde réalisée avec succès",
+        "Mode avancé ISS": "Mode avancé ISS",
+        "Suppression réalisée avec succès": "Suppression réalisée avec succès"
     },
     "plugins\/imperihome\/desktop\/modal\/config.eqISS.php": {
+        "Sauvegarde réalisée avec succès": "Sauvegarde réalisée avec succès",
         "Non": "Non",
         "Oui": "Oui"
     }

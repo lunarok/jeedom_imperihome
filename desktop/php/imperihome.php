@@ -2,7 +2,6 @@
 if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
-$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../../core/config/ISS-Structure.json"), true);
 ?>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -31,7 +30,7 @@ $ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../../core/c
 			</thead>
 			<tbody>
 				<?php
-$ISSStructure = json_decode(file_get_contents(dirname(__FILE__) . "/../../core/config/ISS-Structure.json"), true);
+$ISSStructure = imperihome::getIssStructure(true);
 			
 foreach (eqLogic::all() as $eqLogic) {
 	if ($eqLogic->getIsEnable() == 0) {
@@ -197,8 +196,7 @@ foreach (scenario::all() as $scenario) {
 		    <label class="col-sm-2 control-label">issConfig</label>
 		    <div class="col-sm-10" style="overflow: scroll; height: 190px; background-color: #EEEEEE;">
 		      		<?php 
-		      			$cache = cache::byKey('issConfig'); 
-		      			echo $cache->getValue('{}');
+						echo imperihome::getIssConfig(false);
 		      		?>
 		    </div>
 		</div>
@@ -207,8 +205,7 @@ foreach (scenario::all() as $scenario) {
 		    <label class="col-sm-2 control-label">issAdvancedConfig</label>
 		    <div class="col-sm-10" style="overflow: scroll; height: 190px; background-color: #EEEEEE;">
 		      		<?php 
-		      			$cache = cache::byKey('issAdvancedConfig'); 
-		      			echo $cache->getValue('{}');
+		      			echo imperihome::getIssAdvancedConfig(false);
 		      		?>
 		    </div>
 		</div>
@@ -217,8 +214,7 @@ foreach (scenario::all() as $scenario) {
 		    <label class="col-sm-2 control-label">issTemplate</label>
 		    <div class="col-sm-10" style="overflow: scroll; height: 190px; background-color: #EEEEEE;">
 		      		<?php 
-		      			$cache = cache::byKey('issTemplate'); 
-		      			echo $cache->getValue('{}');
+		      			echo imperihome::getIssTemplate(false);
 		      		?>
 		    </div>
 		</div>
