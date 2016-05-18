@@ -1,1 +1,0 @@
-{"2252":{"id":"2252","type":"DevMultiSwitch","params":{"value":{"type":"infoText","value":"#2252#"},"choices":{"type":"text","value":"RTL,RTL 2,NRJ,Aucun"}},"actions":{"setChoice":{"type":"direct","cmdId":""}}},"7107":{"id":"7107","type":"DevGenericSensor","params":{"value":{"type":"infoText","value":""}},"actions":[]}}
