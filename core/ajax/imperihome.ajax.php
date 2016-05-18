@@ -26,8 +26,8 @@ try {
 	}
 
 	if (init('action') == 'saveISSConfig') {
-		imperihome::setIssConfig();
-		imperihome::generateISSTemplate(json_decode(init('config'), true));
+		imperihome::setIssConfig(json_decode(init('config'), true));
+		imperihome::generateISSTemplate();
 		ajax::success();
 	}
 
