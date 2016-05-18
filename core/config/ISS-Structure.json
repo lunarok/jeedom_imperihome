@@ -755,5 +755,65 @@
             }
         ],
         "actions": {}
+    },
+    "DevPlayer": {
+        "Description": "Audio/Video player",
+        "params": [
+            {
+                "Description": "Indicates if currently playing (0 = No / 1 = Yes)",
+                "type": "infoBinary",
+                "value": "0",
+                "key": "playing"
+            },
+            {
+                "Description": "Volume level (0 to 100)",
+                "type": "infoBinary",
+                "value": "0",
+                "key": "volume"
+            },
+            {
+                "Description": "Mute status (0 = not muted / 1 = muted)",
+                "type": "infoBinary",
+                "value": "0",
+                "key": "mute"
+            },
+            {
+                "Description": "Current track duration (in seconds)",
+                "type": "infoBinary",
+                "value": "0",
+                "key": "duration"
+            },
+            {
+                "Description": "Current track title",
+                "type": "infoBinary",
+                "value": "0",
+                "key": "title"
+            },
+            {
+                "Description": "Current track album",
+                "type": "infoBinary",
+                "value": "0",
+                "key": "album"
+            },
+            {
+                "Description": "Current track artist",
+                "type": "infoBinary",
+                "value": "0",
+                "key": "artist"
+            },
+            {
+                "Description": "URL to current track thumbnail image",
+                "type": "infoBinary",
+                "value": "0",
+                "key": "thumbnail"
+            },
+            {
+                "Description": "Current position in track (in seconds)",
+                "type": "infoNumeric",
+                "value": "0",
+                "key": "position"
+            }
+        ],
+        "actions": {}
     }
 }
