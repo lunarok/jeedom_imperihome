@@ -767,7 +767,7 @@
             },
             {
                 "Description": "Volume level (0 to 100)",
-                "type": "infoBinary",
+                "type": "infoNumeric",
                 "value": "0",
                 "key": "volume"
             },
@@ -779,7 +779,7 @@
             },
             {
                 "Description": "Current track duration (in seconds)",
-                "type": "infoBinary",
+                "type": "infoNumeric",
                 "value": "0",
                 "key": "duration"
             },
@@ -791,25 +791,25 @@
             },
             {
                 "Description": "Current track title",
-                "type": "infoBinary",
+                "type": "infoString",
                 "value": "0",
                 "key": "title"
             },
             {
                 "Description": "Current track album",
-                "type": "infoBinary",
+                "type": "infoString",
                 "value": "0",
                 "key": "album"
             },
             {
                 "Description": "Current track artist",
-                "type": "infoBinary",
+                "type": "infoString",
                 "value": "0",
                 "key": "artist"
             },
             {
                 "Description": "URL to current track thumbnail image",
-                "type": "infoBinary",
+                "type": "infoString",
                 "value": "0",
                 "key": "thumbnail"
             }
