@@ -207,9 +207,6 @@ class imperihome {
 			$cmd->imperihomeAction($_action, $_value);
 			return array("success" => true, "errormsg" => "");
 		}
-		if (method_exists($cmd, 'imperihomeAction')) {
-			return $cmd->imperihomeAction($_action, $_value);
-		}
 		if ($_action == 'setChoice') {
 			if (!is_object($cmd)) {
 				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
