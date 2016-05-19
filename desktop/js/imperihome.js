@@ -15,8 +15,12 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
- loadConf();
+loadConf();
 
+jwerty.key('ctrl+s', function (e) {
+    e.preventDefault();
+    $(".bt_saveISSConfig").click();
+});
 
  $('.bt_saveISSConfig').on('click',function(){
     var imperihome = {};

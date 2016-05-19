@@ -331,6 +331,9 @@ class imperihome {
 			if ($param['key'] == 'lasttrip') {
 				$param['value'] = ($cmd->getType() == 'info') ? '#valueDate' . $cmd->getId() . '#' : 0;
 			}
+			if ($cmdType == 'DevSwitch' && $param['key'] == 'pulseable' && $cmd->getType() == 'action') {
+				$param['value'] = 1;
+			}
 			if (($cmdType == 'DevSwitch' || $cmdType == 'DevRGBLight' || $cmdType == 'DevDimmer') && $param['key'] == 'energy') {
 				$param['value'] = '';
 				foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
@@ -350,19 +353,6 @@ class imperihome {
 						$param['value'] = '#' . $info->getId() . '#';
 						$param['graphable'] = false;
 						break;
-					}
-				}
-			}
-			if ($cmd->getEqType() == 'presence' && $param['key'] == 'choices') {
-				$param['value'] = '';
-				foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
-					$lId = $action->getLogicalId();
-					if (($lId == 'Present') or ($lId == 'Absent') or ($lId == 'Nuit') or ($lId == 'Travail') or ($lId == 'Vacances')) {
-						if ($param['value'] == '') {
-							$param['value'] = $action->getName();
-						} else {
-							$param['value'] .= ',' . $action->getName();
-						}
 					}
 				}
 			}
@@ -406,17 +396,6 @@ class imperihome {
 			$info_device = $cmd->imperihomeGenerate($ISSStructure);
 			return $info_device['type'];
 		}
-		switch ($cmd->getEqType()) {
-			case "presence":
-				return 'DevMultiSwitch';
-			case "camera":
-				return 'DevCamera';
-			case 'Store':
-				return 'DevShutter';
-			case 'ipx800_relai':
-			case 'ipx800_bouton':
-				return 'DevSwitch';
-		}
 
 		switch ($cmd->getDisplay('generic_type')) {
 			case "LIGHT_STATE":
@@ -426,10 +405,8 @@ class imperihome {
 					}
 				}
 				return 'DevSwitch';
-
 			case "LIGHT_COLOR":
 				return 'DevRGBLight';
-
 			case "ENERGY_STATE":
 				foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
 					if ($action->getDisplay('generic_type') == 'ENERGY_SLIDER') {
@@ -494,37 +471,6 @@ class imperihome {
 				return 'DevWind';
 			case "SHOCK":
 				return 'DevMotion';
-		}
-
-		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'door') !== false) {
-			return 'DevDoor';
-		}
-		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'baie') !== false) {
-			return 'DevDoor';
-		}
-		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'window') !== false) {
-			return 'DevDoor';
-		}
-		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'porte_garage') !== false) {
-			return 'DevDoor';
-		}
-		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'presence') !== false) {
-			return 'DevMotion';
-		}
-		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'store') !== false) {
-			return 'DevShutter';
-		}
-		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'fire') !== false) {
-			return 'DevSmoke';
-		}
-		if (strpos(strtolower($cmd->getTemplate('dashboard')), 'light') !== false) {
-			return 'DevDimmer';
-		}
-		if ($cmd->getSubType() == 'binary' && strtolower($cmd->getName()) == 'co') {
-			return 'DevCO2Alert';
-		}
-		if ($cmd->getSubType() == 'binary' && (strpos(strtolower($cmd->getName()), __('fumée', __FILE__)) !== false || strpos(strtolower($cmd->getName()), __('smoke', __FILE__)) !== false)) {
-			return 'DevSmoke';
 		}
 		if (strpos(strtolower($cmd->getName()), __('humidité', __FILE__)) !== false) {
 			$issConfig = imperihome::getIssConfig();
@@ -594,16 +540,8 @@ class imperihome {
 				}
 				return 'DevGenericSensor';
 			case 'binary':
-				if (count(cmd::byValue($cmd->getId(), 'action')) == 0) {
-					return 'DevGenericSensor';
-				}
-				return 'DevSwitch';
+				return 'DevGenericSensor';
 
-		}
-		foreach ($eqlogic->getCmd() as $cmd) {
-			if ($cmd->getSubtype() == 'color') {
-				return 'DevRGBLight';
-			}
 		}
 		if ($cmd->getType() == 'action') {
 			return 'DevSwitch';

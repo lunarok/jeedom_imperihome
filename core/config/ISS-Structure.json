@@ -791,27 +791,39 @@
             },
             {
                 "Description": "Current track title",
-                "type": "infoString",
+                "type": "infoText",
                 "value": "0",
                 "key": "title"
             },
             {
                 "Description": "Current track album",
-                "type": "infoString",
+                "type": "infoText",
                 "value": "0",
                 "key": "album"
             },
             {
                 "Description": "Current track artist",
-                "type": "infoString",
+                "type": "infoText",
                 "value": "0",
                 "key": "artist"
             },
             {
                 "Description": "URL to current track thumbnail image",
-                "type": "infoString",
+                "type": "infoText",
                 "value": "0",
                 "key": "thumbnail"
+            }
+        ],
+        "actions": {}
+    },
+    "DevPlaylist": {
+        "Description": "Audio/Video player",
+        "params": [
+            {
+                "Description": "String representation of json encoded playlist items list.",
+                "type": "infoText",
+                "value": "0",
+                "key": "Choices"
             }
         ],
         "actions": {}

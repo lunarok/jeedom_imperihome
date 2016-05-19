@@ -3,21 +3,27 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 ?>
-<a class="btn btn-success pull-right bt_saveISSConfig" id=""><i class="fa fa-floppy-o"></i> Sauvegarder</a><br>
-<br>
-<table class="table table-bordered table-condensed tablesorter" id="cmdList">
-	<thead>
-		<tr>
-			<th>{{Objet}}</th>
-			<th>{{Equipement}}</th>
-			<th>{{Type}}</th>
-			<th>{{Commande}}</th>
-			<th>{{Transmettre}}</th>
-			<th>{{Type Imperihome}}</th>
-		</tr>
-	</thead>
-	<tbody>
-		<?php
+<a class="btn btn-success pull-right bt_saveISSConfig"><i class="fa fa-floppy-o"></i> Sauvegarder</a><br>
+<ul class="nav nav-tabs" role="tablist">
+	<li role="presentation" class="active"><a href="#device" aria-controls="home" role="tab" data-toggle="tab">{{Equipement}}</a></li>
+	<li role="presentation"><a href="#scene" aria-controls="home" role="tab" data-toggle="tab">{{Scénario}}</a></li>
+</ul>
+
+<div class="tab-content">
+	<div role="tabpanel" class="tab-pane active" id="device">
+		<table class="table table-bordered table-condensed tablesorter">
+			<thead>
+				<tr>
+					<th>{{Objet}}</th>
+					<th>{{Equipement}}</th>
+					<th>{{Type}}</th>
+					<th>{{Commande}}</th>
+					<th>{{Transmettre}}</th>
+					<th>{{Type Imperihome}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
 $ISSStructure = imperihome::getIssStructure();
 foreach (eqLogic::all() as $eqLogic) {
 	if ($eqLogic->getIsEnable() == 0) {
@@ -71,7 +77,23 @@ foreach (eqLogic::all() as $eqLogic) {
 		echo '</tr>';
 	}
 }
-
+?>
+			</tbody>
+		</table>
+	</div>
+	<div role="tabpanel" class="tab-pane" id="scene">
+		<table class="table table-bordered table-condensed tablesorter">
+			<thead>
+				<tr>
+					<th>{{Objet}}</th>
+					<th>{{Equipement}}</th>
+					<th>{{Type}}</th>
+					<th>{{Transmettre}}</th>
+					<th>{{Type Imperihome}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
 foreach (scenario::all() as $scenario) {
 	$object = $scenario->getObject();
 	echo '<tr class="imperihomeScenario" data-scenario_id="' . $scenario->getId() . '">';
@@ -87,9 +109,8 @@ foreach (scenario::all() as $scenario) {
 	echo '</td>';
 	echo '<td> {{Scénario}}';
 	echo '</td>';
-	echo '<td></td>';
 	echo '<td>';
-	echo '<input type="checkbox" class="imperihomeAttr" data-size="small" data-l1key="scenario_transmit" />';
+	echo '<input type="checkbox" class="imperihomeAttr" data-l1key="scenario_transmit" />';
 	echo '</td>';
 	echo '<td>';
 	echo ' <span class="label label-info" style="font-size : 1em;">DevScene</span>';
@@ -97,8 +118,9 @@ foreach (scenario::all() as $scenario) {
 	echo '</tr>';
 }
 ?>
-	</tbody>
-</table>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <?php include_file('desktop', 'imperihome', 'js', 'imperihome');?>
