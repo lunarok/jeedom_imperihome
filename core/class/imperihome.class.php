@@ -396,7 +396,7 @@ class imperihome {
 			$info_device = $cmd->imperihomeGenerate($ISSStructure);
 			return $info_device['type'];
 		}
-
+		$issConfig = imperihome::getIssConfig();
 		switch ($cmd->getDisplay('generic_type')) {
 			case "LIGHT_STATE":
 				foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
@@ -437,6 +437,13 @@ class imperihome {
 			case "CONSUMPTION":
 				return 'DevElectricity';
 			case "TEMPERATURE":
+				foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
+					if ($info->getDisplay('generic_type') == 'HUMIDITY') {
+						if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
+							return 'DevTempHygro';
+						}
+					}
+				}
 				return 'DevTemperature';
 			case "BRIGHTNESS":
 				return 'DevLuminosity';
@@ -449,6 +456,13 @@ class imperihome {
 			case "FLOOD":
 				return 'DevFlood';
 			case "HUMIDITY":
+				foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
+					if ($info->getDisplay('generic_type') == 'TEMPERATURE') {
+						if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
+							return 'DevTempHygro';
+						}
+					}
+				}
 				return 'DevHygrometry';
 			case "UV":
 				return 'DevUV';
@@ -473,7 +487,6 @@ class imperihome {
 				return 'DevMotion';
 		}
 		if (strpos(strtolower($cmd->getName()), __('humidité', __FILE__)) !== false) {
-			$issConfig = imperihome::getIssConfig();
 			foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
 				if ($info->getUnite() == '°C') {
 					if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
