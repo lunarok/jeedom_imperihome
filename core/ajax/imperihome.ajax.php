@@ -16,7 +16,6 @@
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
 
-header('Content-Type: application/json');
 try {
 	require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
@@ -25,6 +24,8 @@ try {
 	if (!isConnect('admin')) {
 		throw new Exception('401 Unauthorized');
 	}
+
+	ajax::init();
 
 	if (init('action') == 'saveISSConfig') {
 		imperihome::setIssConfig(json_decode(init('config'), true));
