@@ -199,7 +199,7 @@ class imperihome {
 			if (!is_object($scenario)) {
 				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
 			}
-			$scenario->launch(false, 'imperihome', __('Lancement provoque par Imperihome ', __FILE__));
+			$scenario->launch('imperihome', __('Lancement provoque par Imperihome ', __FILE__));
 			return array("success" => true, "errormsg" => "");
 		}
 		$cmd = cmd::byId($_cmd_id);
