@@ -629,7 +629,7 @@ class imperihome extends eqLogic {
 		$page->setEqLogic_id($this->getId());
 		$page->save();
 		$tts = $this->getCmd(null, 'tts');
-		if (!is_object($alluser)) {
+		if (!is_object($tts)) {
 			$tts = new telegramCmd();
 			$tts->setLogicalId('tts');
 			$tts->setIsVisible(1);
