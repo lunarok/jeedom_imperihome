@@ -1,20 +1,20 @@
 <?php
 
 /* This file is part of Jeedom.
- *
- * Jeedom is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Jeedom is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
- */
+*
+* Jeedom is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* Jeedom is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 /* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
@@ -399,92 +399,92 @@ class imperihome {
 		$issConfig = imperihome::getIssConfig();
 		switch ($cmd->getDisplay('generic_type')) {
 			case "LIGHT_STATE":
-				foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
-					if ($action->getDisplay('generic_type') == 'LIGHT_SLIDER') {
-						return 'DevDimmer';
-					}
+			foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
+				if ($action->getDisplay('generic_type') == 'LIGHT_SLIDER') {
+					return 'DevDimmer';
 				}
-				return 'DevSwitch';
+			}
+			return 'DevSwitch';
 			case "LIGHT_COLOR":
-				return 'DevRGBLight';
+			return 'DevRGBLight';
 			case "ENERGY_STATE":
-				foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
-					if ($action->getDisplay('generic_type') == 'ENERGY_SLIDER') {
-						return 'DevDimmer';
-					}
+			foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
+				if ($action->getDisplay('generic_type') == 'ENERGY_SLIDER') {
+					return 'DevDimmer';
 				}
-				return 'DevSwitch';return 'DevSwitch';
+			}
+			return 'DevSwitch';return 'DevSwitch';
 			case "FLAP_STATE":
 			case "FLAP_BSO_STATE":
-				return 'DevShutter';
+			return 'DevShutter';
 			case "HEATING_STATE":
-				return 'DevSwitch';
+			return 'DevSwitch';
 			case "LOCK_STATE":
-				return 'DevLock';
+			return 'DevLock';
 			case "SIREN_STATE":
-				return 'DevSwitch';
+			return 'DevSwitch';
 			case "THERMOSTAT_STATE":
-				return 'DevThermostat';
+			return 'DevThermostat';
 			case "MODE_STATE":
-				return 'DevMultiSwitch';
+			return 'DevMultiSwitch';
 			case "ALARM_STATE":
 			case "ALARM_ENABLE_STATE":
-				return 'DevSwitch';
+			return 'DevSwitch';
 			case "ALARM_MODE":
-				return 'DevMultiSwitch';
+			return 'DevMultiSwitch';
 			case "POWER":
-				return 'DevElectricity';
+			return 'DevElectricity';
 			case "CONSUMPTION":
-				return 'DevElectricity';
+			return 'DevElectricity';
 			case "TEMPERATURE":
-				foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
-					if ($info->getDisplay('generic_type') == 'HUMIDITY') {
-						if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
-							return 'DevTempHygro';
-						}
+			foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
+				if ($info->getDisplay('generic_type') == 'HUMIDITY') {
+					if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
+						return 'DevTempHygro';
 					}
 				}
-				return 'DevTemperature';
+			}
+			return 'DevTemperature';
 			case "BRIGHTNESS":
-				return 'DevLuminosity';
+			return 'DevLuminosity';
 			case "PRESENCE":
-				return 'DevMotion';
+			return 'DevMotion';
 			case "BATTERY":
-				return 'DevGenericSensor';
+			return 'DevGenericSensor';
 			case "SMOKE":
-				return 'DevSmoke';
+			return 'DevSmoke';
 			case "FLOOD":
-				return 'DevFlood';
+			return 'DevFlood';
 			case "HUMIDITY":
-				foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
-					if ($info->getDisplay('generic_type') == 'TEMPERATURE') {
-						if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
-							return 'DevTempHygro';
-						}
+			foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
+				if ($info->getDisplay('generic_type') == 'TEMPERATURE') {
+					if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
+						return 'DevTempHygro';
 					}
 				}
-				return 'DevHygrometry';
+			}
+			return 'DevHygrometry';
 			case "UV":
-				return 'DevUV';
+			return 'DevUV';
 			case "OPENING":
-				return 'DevDoor';
+			return 'DevDoor';
 			case "SABOTAGE":
-				return 'DevDoor';
+			return 'DevDoor';
 			case "CO2":
-				return 'DevCO2';
+			return 'DevCO2';
 			case "VOLTAGE":
-				return 'DevElectricity';
+			return 'DevElectricity';
 			case "NOISE":
-				return 'DevNoise';
+			return 'DevNoise';
 			case "PRESSURE":
-				return 'DevPressure';
+			return 'DevPressure';
 			case "RAIN_CURRENT":
 			case "RAIN_TOTAL":
-				return 'DevRain';
+			return 'DevRain';
 			case "WIND_SPEED":
-				return 'DevWind';
+			return 'DevWind';
 			case "SHOCK":
-				return 'DevMotion';
+			return 'DevMotion';
 		}
 		if (strpos(strtolower($cmd->getName()), __('humidité', __FILE__)) !== false) {
 			foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
@@ -508,52 +508,52 @@ class imperihome {
 
 		switch ($cmd->getSubtype()) {
 			case 'numeric':
-				switch (strtolower($cmd->getUnite())) {
-					case '°c':
-						$issConfig = imperihome::getIssConfig();
-						foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
-							if (strpos(strtolower($info->getName()), __('humidité', __FILE__)) !== false) {
-								if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
-									return 'DevTempHygro';
-								}
-							}
+			switch (strtolower($cmd->getUnite())) {
+				case '°c':
+				$issConfig = imperihome::getIssConfig();
+				foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
+					if (strpos(strtolower($info->getName()), __('humidité', __FILE__)) !== false) {
+						if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
+							return 'DevTempHygro';
 						}
-						return 'DevTemperature';
-					case '%':
-						if (count(cmd::byValue($cmd->getId(), 'action')) == 0) {
-							return 'DevGenericSensor';
-						}
-						return 'DevDimmer';
-					case 'pa':
-					case 'hpa':
-					case 'bar':
-						return 'DevPressure';
-					case '% rh':
-						return 'DevHygrometry';
-					case 'db':
-						return 'DevNoise';
-					case 'km/h':
-						return 'DevWind';
-					case 'mm/h':
-						return 'DevRain';
-					case 'mm':
-						return 'DevRain';
-					case 'm3':
-						return 'DevFlood';
-					case 'ppm':
-						return 'DevCO2';
-					case 'lux':
-						return 'DevLuminosity';
-					case 'w':
-					case 'kwh':
-					case 'a':
-					case 'v':
-					case 'w/min':
-						return 'DevElectricity';
+					}
 				}
-				return 'DevGenericSensor';
+				return 'DevTemperature';
+				case '%':
+				if (count(cmd::byValue($cmd->getId(), 'action')) == 0) {
+					return 'DevGenericSensor';
+				}
+				return 'DevDimmer';
+				case 'pa':
+				case 'hpa':
+				case 'bar':
+				return 'DevPressure';
+				case '% rh':
+				return 'DevHygrometry';
+				case 'db':
+				return 'DevNoise';
+				case 'km/h':
+				return 'DevWind';
+				case 'mm/h':
+				return 'DevRain';
+				case 'mm':
+				return 'DevRain';
+				case 'm3':
+				return 'DevFlood';
+				case 'ppm':
+				return 'DevCO2';
+				case 'lux':
+				return 'DevLuminosity';
+				case 'w':
+				case 'kwh':
+				case 'a':
+				case 'v':
+				case 'w/min':
+				return 'DevElectricity';
+			}
+			return 'DevGenericSensor';
 			case 'binary':
-				return 'DevGenericSensor';
+			return 'DevGenericSensor';
 
 		}
 		if ($cmd->getType() == 'action') {
@@ -605,5 +605,94 @@ class imperihome {
 		}
 	}
 
-/*     * **********************Getteur Setteur*************************** */
+	public function postSave() {
+    $reco = $this->getCmd(null, 'reco');
+		if (!is_object($reco)) {
+			$reco = new telegramCmd();
+			$reco->setLogicalId('reco');
+			$reco->setIsVisible(0);
+			$reco->setName(__('Reconnaissance Vocale', __FILE__));
+		}
+		$reco->setType('action');
+		$reco->setSubType('other');
+		$reco->setEqLogic_id($this->getId());
+		$reco->save();
+		$page = $this->getCmd(null, 'page');
+		if (!is_object($page)) {
+			$page = new telegramCmd();
+			$page->setLogicalId('page');
+			$page->setIsVisible(0);
+			$page->setName(__('Ouvrir Page', __FILE__));
+		}
+		$page->setType('action');
+		$page->setSubType('message');
+		$page->setEqLogic_id($this->getId());
+		$page->save();
+		$tts = $this->getCmd(null, 'tts');
+		if (!is_object($alluser)) {
+			$tts = new telegramCmd();
+			$tts->setLogicalId('tts');
+			$tts->setIsVisible(1);
+			$tts->setName(__('TTS', __FILE__));
+			$tts->setEqLogic_id($this->getId());
+		}
+		$tts->setType('action');
+		$tts->setSubType('message');
+		$tts->setEqLogic_id($this->getId());
+		$tts->save();
+  }
+
+}
+
+class imperihomeCmd extends cmd {
+	public function preSave() {
+		if ($this->getSubtype() == 'message') {
+			$this->setDisplay('title_disable', 1);
+		}
+	}
+
+	public static function cleanSMS($_message) {
+  	$caracteres = array(
+      'À' => 'a', 'Á' => 'a', 'Â' => 'a', 'Ä' => 'a', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ä' => 'a', '@' => 'a',
+      'È' => 'e', 'É' => 'e', 'Ê' => 'e', 'Ë' => 'e', 'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', '€' => 'e',
+      'Ì' => 'i', 'Í' => 'i', 'Î' => 'i', 'Ï' => 'i', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i',
+      'Ò' => 'o', 'Ó' => 'o', 'Ô' => 'o', 'Ö' => 'o', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'ö' => 'o',
+      'Ù' => 'u', 'Ú' => 'u', 'Û' => 'u', 'Ü' => 'u', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ü' => 'u', 'µ' => 'u',
+      'Œ' => 'oe', 'œ' => 'oe', ' ' => '+',
+      '$' => 's');
+  	return preg_replace('#[^A-Za-z0-9 \n\.\'=\*:]+#', '', strtr($_message, $caracteres));
+	}
+
+	public function execute($_options = null) {
+		if ($_options['message'] == '' ) {
+			throw new Exception(__('Le message et le sujet ne peuvent être vide', __FILE__));
+		}
+		$imperihome = $this->getEqLogic();
+		$imperihome_ip = $imperihome->getConfiguration('addr');
+		if ($this->getLogicalId() == "tts") {
+			$message = imperihome::cleanSMS(trim($_options['message']), true);
+			$url = 'http://' . $imperihome_ip . '/api/rest/speech/tts?text=' . $message;
+		}
+		if ($Imperihome_Action == 'reco') {
+			$url = 'http://' . $imperihome_ip . '/api/rest/speech/launchreco';
+
+		}
+		if ($Imperihome_Action ==  'page') {
+			$message = trim($_options['message']);
+			$url = 'http://' . $imperihome_ip . '/api/rest/dashboard/gotopage?pageIdx=' . $message;
+		}
+
+		curl_setopt_array($ch = curl_init(), array(
+			CURLOPT_URL => $url,
+			//CURLOPT_POSTFIELDS => array(
+			//    "Name" => $this->getConfiguration('name'),
+			//    "ImpAction" =>  $this->getConfiguration('ImpAction'),
+			//    "Param" => $_options['Param'] ,
+			//     ),
+			CURLOPT_SAFE_UPLOAD => true,
+		));
+		curl_exec($ch);
+		curl_close($ch);
+	}
+
 }
