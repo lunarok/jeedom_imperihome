@@ -27,14 +27,11 @@ if (!isConnect('admin')) {
 			<tbody>
 				<?php
 				$ISSStructure = imperihome::getIssStructure();
-				foreach (eqLogic::all() as $eqLogic) {
+				foreach (eqLogic::byCategory('energy') as $eqLogic) {
 					if ($eqLogic->getIsEnable() == 0) {
 						continue;
 					}
 					$object = $eqLogic->getObject();
-					if (is_object($object) && $object->getIsVisible() == 0) {
-						continue;
-					}
 					$firstLine = true;
 					$cmds = $eqLogic->getCmd('info');
 					$count = 0;
