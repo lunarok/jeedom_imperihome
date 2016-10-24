@@ -19,7 +19,7 @@
 /* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
-class imperihome {
+class imperihome extends eqLogic {
 	public static function getIssStructure() {
 		return json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
 	}
