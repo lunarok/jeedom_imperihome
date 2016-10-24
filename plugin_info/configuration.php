@@ -24,20 +24,39 @@ if (!isConnect()) {
 ?>
 <form class="form-horizontal">
     <fieldset>
-    	<legend>Lien de l'API ISS à indiquer dans ImperiHome</legend>
+    	<legend>{{Lien de l'API ISS à indiquer dans ImperiHome}}</legend>
     	<div class="form-group">
-            <label class="col-lg-4 control-label">Interne: </label>
+            <label class="col-lg-4 control-label">{{Interne}} : </label>
             <div class="col-lg-8">
             <?php
 				echo network::getNetworkAccess('internal') . "/plugins/imperihome/core/php/imperihome.php?_url=/" . config::byKey('api') . "/";
 			?></div>
         </div>
         <div class="form-group">
-            <label class="col-lg-4 control-label">Externe: </label>
+            <label class="col-lg-4 control-label">{{Externe}} : </label>
             <div class="col-lg-8">
             <?php
 				echo network::getNetworkAccess('external') . "/plugins/imperihome/core/php/imperihome.php?_url=/" . config::byKey('api') . "/";
 			?></div>
         </div>
-    </fieldset>
+				</fieldset>
+				<fieldset>
+		    	<legend>{{Configuration pour ImperiHome}}</legend>
+				<div class="form-group">
+	            <label class="col-lg-4 control-label">{{Contenu ISS}} : </label>
+	            <div class="col-lg-8">
+								<a class="btn btn-primary" onclick="loadModal()"><i class="fa fa-spinner"></i> {{Configuration}}</a>
+							</div>
+	        </div>
+	    </fieldset>
 </form>
+
+<script>
+function loadModal() {
+  var nodeId = $('#mac').text();
+  $('#md_modal2').dialog({
+    title: "Configuration ISS"
+  });
+  $('#md_modal2').load('index.php?v=d&plugin=imperihome&modal=imperihome').dialog('open');
+}
+</script>

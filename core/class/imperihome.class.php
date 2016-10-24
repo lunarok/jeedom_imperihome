@@ -20,16 +20,16 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class imperihome {
-	/*     * *************************Attributs****************************** */
-
-	/*     * ***********************Methode static*************************** */
-
 	public static function getIssStructure() {
 		return json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
 	}
 
 	public static function getIssConfig() {
-		return json_decode(file_get_contents(dirname(__FILE__) . "/../../data/ISSConfig.json"), true);
+		if (!file_exists(dirname(__FILE__) . '/../../data/ISSConfig.json')) {
+			return json_encode(json_decode("{}"));
+		} else {
+			return json_decode(file_get_contents(dirname(__FILE__) . "/../../data/ISSConfig.json"), true);
+		}
 	}
 
 	public static function setIssConfig($_content = '') {
