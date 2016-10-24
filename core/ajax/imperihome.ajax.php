@@ -37,6 +37,10 @@ try {
 		ajax::success(imperihome::getIssConfig());
 	}
 
+	if (init('action') == 'getISSStructure') {
+	ajax::success(json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true));
+	}
+
 	if (init('action') == 'loadAdvancedDeviceISSConfig') {
 		$deviceId = init('deviceId');
 		$cache = cache::byKey('issAdvancedConfig');
