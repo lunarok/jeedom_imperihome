@@ -19,7 +19,7 @@
 /* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
-class imperihome extends eqLogic {
+class imperihome {
 	public static function getIssStructure() {
 		return json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
 	}
@@ -643,7 +643,7 @@ class imperihome extends eqLogic {
   }
 
 }
-
+/*
 class imperihomeCmd extends cmd {
 	public function preSave() {
 		if ($this->getSubtype() == 'message') {
@@ -695,4 +695,4 @@ class imperihomeCmd extends cmd {
 		curl_close($ch);
 	}
 
-}
+}*/
