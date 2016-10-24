@@ -36,7 +36,7 @@ try {
 	if (init('action') == 'loadISSConfig') {
 		ajax::success(imperihome::getIssConfig());
 	}
-	
+
 	if (init('action') == 'loadAdvancedDeviceISSConfig') {
 		$deviceId = init('deviceId');
 		$cache = cache::byKey('issAdvancedConfig');
@@ -134,7 +134,7 @@ try {
 					$cache->setValue(json_encode($issAdvancedConfig));
 					$cache->setLifetime(0);
 					$cache->save();
-					iss::generateISSTemplate();
+					imperihome::generateISSTemplate();
 					ajax::success();
 				}
 
@@ -153,7 +153,7 @@ try {
 							$cache->setValue(json_encode($issAdvancedConfig));
 							$cache->setLifetime(0);
 							$cache->save();
-							iss::generateISSTemplate();
+							imperihome::generateISSTemplate();
 							ajax::success();
 						}else{
 							throw new Exception(__('Aucun équipement correspondant à cet ID trouvé pour le supprimer: : ', __FILE__) . init('deviceId'));
