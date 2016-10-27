@@ -605,12 +605,11 @@ class imperihome extends eqLogic {
 		}
 	}
 
-	public function postSave() {
+	public function postUpdate() {
     $reco = $this->getCmd(null, 'reco');
 		if (!is_object($reco)) {
 			$reco = new telegramCmd();
 			$reco->setLogicalId('reco');
-			$reco->setIsVisible(0);
 			$reco->setName(__('Reconnaissance Vocale', __FILE__));
 		}
 		$reco->setType('action');
@@ -621,7 +620,6 @@ class imperihome extends eqLogic {
 		if (!is_object($page)) {
 			$page = new telegramCmd();
 			$page->setLogicalId('page');
-			$page->setIsVisible(0);
 			$page->setName(__('Ouvrir Page', __FILE__));
 		}
 		$page->setType('action');
@@ -632,7 +630,6 @@ class imperihome extends eqLogic {
 		if (!is_object($tts)) {
 			$tts = new telegramCmd();
 			$tts->setLogicalId('tts');
-			$tts->setIsVisible(1);
 			$tts->setName(__('TTS', __FILE__));
 			$tts->setEqLogic_id($this->getId());
 		}
@@ -670,14 +667,14 @@ class imperihomeCmd extends cmd {
 		$imperihome = $this->getEqLogic();
 		$imperihome_ip = $imperihome->getConfiguration('addr');
 		if ($this->getLogicalId() == "tts") {
-			$message = imperihome::cleanSMS(trim($_options['message']), true);
+			$message = imperihomeCmd::cleanSMS(trim($_options['message']), true);
 			$url = 'http://' . $imperihome_ip . '/api/rest/speech/tts?text=' . $message;
 		}
-		if ($Imperihome_Action == 'reco') {
+		if ($this->getLogicalId() == 'reco') {
 			$url = 'http://' . $imperihome_ip . '/api/rest/speech/launchreco';
 
 		}
-		if ($Imperihome_Action ==  'page') {
+		if ($this->getLogicalId() ==  'page') {
 			$message = trim($_options['message']);
 			$url = 'http://' . $imperihome_ip . '/api/rest/dashboard/gotopage?pageIdx=' . $message;
 		}
