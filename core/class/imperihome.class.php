@@ -661,9 +661,6 @@ class imperihomeCmd extends cmd {
 	}
 
 	public function execute($_options = null) {
-		if ($_options['message'] == '' ) {
-			throw new Exception(__('Le message et le sujet ne peuvent être vide', __FILE__));
-		}
 		$imperihome = $this->getEqLogic();
 		$imperihome_ip = $imperihome->getConfiguration('addr');
 		if ($this->getLogicalId() == "tts") {
