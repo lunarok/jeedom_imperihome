@@ -608,7 +608,7 @@ class imperihome extends eqLogic {
 	public function postUpdate() {
     $reco = $this->getCmd(null, 'reco');
 		if (!is_object($reco)) {
-			$reco = new telegramCmd();
+			$reco = new imperihomeCmd();
 			$reco->setLogicalId('reco');
 			$reco->setName(__('Reconnaissance Vocale', __FILE__));
 		}
@@ -618,7 +618,7 @@ class imperihome extends eqLogic {
 		$reco->save();
 		$page = $this->getCmd(null, 'page');
 		if (!is_object($page)) {
-			$page = new telegramCmd();
+			$page = new imperihomeCmd();
 			$page->setLogicalId('page');
 			$page->setName(__('Ouvrir Page', __FILE__));
 		}
@@ -628,7 +628,7 @@ class imperihome extends eqLogic {
 		$page->save();
 		$tts = $this->getCmd(null, 'tts');
 		if (!is_object($tts)) {
-			$tts = new telegramCmd();
+			$tts = new imperihomeCmd();
 			$tts->setLogicalId('tts');
 			$tts->setName(__('TTS', __FILE__));
 			$tts->setEqLogic_id($this->getId());
