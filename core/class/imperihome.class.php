@@ -109,7 +109,7 @@ class imperihome extends eqLogic {
 			} else {
 				$info_device = array(
 					"id" => $cmd->getId(),
-					"name" => ($cmd->getName() == __('Etat', __FILE__)) ? $eqLogic->getName() : $cmd->getName(),
+					"name" => ($cmd->getName() == __('Etat', __FILE__)) ? $eqLogic->getName() : $eqLogic->getName().' - '.$cmd->getName(),
 					"room" => (is_object($object)) ? $object->getId() : 99999,
 					"type" => self::convertType($cmd, $ISSStructure),
 					'params' => array(),
@@ -250,6 +250,8 @@ class imperihome extends eqLogic {
 			return array("success" => true, "errormsg" => "");
 		}
 		$actions = cmd::byValue($_cmd_id, 'action');
+        $actions2 = $cmd->getEqLogic()->getCmd('action');
+        $actions = array_merge($actions, $actions2);
 		if (count($actions) == 0) {
 			$actions = $cmd->getEqLogic()->getCmd('action');
 		}
