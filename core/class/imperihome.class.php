@@ -36,7 +36,7 @@ class imperihome extends eqLogic {
         if (!file_exists(dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json')) {
 			$return = json_decode(json_encode("{}"));
 		} else {
-			$return = json_decode(file_get_contents(dirname(__FILE__) . "/../../data/ISSConfig.json"));
+			$return = json_decode(file_get_contents(dirname(__FILE__) . "/../../data/ISSAdvancedConfig.json"));
 		}
 	}
 
@@ -142,33 +142,35 @@ class imperihome extends eqLogic {
 		}
 
         $issAdvancedConfig = imperihome::getIssAdvancedConfig();
-		foreach ($issAdvancedConfig as $device_id => $device) {
-			$cmd = cmd::byId($device_id);
-			if (!is_object($cmd)) {
-				continue;
-			}
-			$eqLogic = $cmd->getEqLogic();
-			if (!is_object($eqLogic)) {
-				continue;
-			}
-			$object = $eqLogic->getObject();
-			$info_device = array(
-				"id" => 'manual' . $cmd->getId(),
-				"name" => $eqLogic->getName() . '-' . $cmd->getName(),
-				"room" => (is_object($object)) ? $object->getId() : 99999,
-				"type" => $device['type'],
-				'params' => array(),
-			);
+        if (!empty($issAdvancedConfig)) {
+    		foreach ($issAdvancedConfig as $device_id => $device) {
+    			$cmd = cmd::byId($device_id);
+    			if (!is_object($cmd)) {
+    				continue;
+    			}
+    			$eqLogic = $cmd->getEqLogic();
+    			if (!is_object($eqLogic)) {
+    				continue;
+    			}
+    			$object = $eqLogic->getObject();
+    			$info_device = array(
+    				"id" => 'manual' . $cmd->getId(),
+    				"name" => $eqLogic->getName() . '-' . $cmd->getName(),
+    				"room" => (is_object($object)) ? $object->getId() : 99999,
+    				"type" => $device['type'],
+    				'params' => array(),
+    			);
 
-			foreach ($ISSStructure[$device['type']]['params'] as $param) {
-				if ((array_key_exists('key', $param)) and (array_key_exists($param['key'], $device['params'])) and (array_key_exists('value', $device['params'][$param['key']]))) {
-					$param['value'] = $device['params'][$param['key']]['value'];
-				}
-				$info_device['params'][] = $param;
-			}
+    			foreach ($ISSStructure[$device['type']]['params'] as $param) {
+    				if ((array_key_exists('key', $param)) and (array_key_exists($param['key'], $device['params'])) and (array_key_exists('value', $device['params'][$param['key']]))) {
+    					$param['value'] = $device['params'][$param['key']]['value'];
+    				}
+    				$info_device['params'][] = $param;
+    			}
 
-			$template['devices'][] = $info_device;
-		}
+    			$template['devices'][] = $info_device;
+    		}
+        }
 
 		$cache = new cache();
 		$cache->setKey('issTemplate');
