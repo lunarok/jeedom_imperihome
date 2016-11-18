@@ -47,7 +47,7 @@ class imperihome extends eqLogic {
 		return file_put_contents(dirname(__FILE__) . "/../../data/ISSConfig.json", json_encode($_content));
 	}
 
-    public static function setIssAdvancedConfig($content = ''){
+    public static function setIssAdvancedConfig($_content = ''){
         if (!file_exists(dirname(__FILE__) . '/../../data')) {
             mkdir(dirname(__FILE__) . '/../../data');
         }
