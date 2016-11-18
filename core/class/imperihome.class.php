@@ -33,16 +33,16 @@ class imperihome extends eqLogic {
 	}
 
     public static function getIssAdvancedConfig($decodeJson = false){
-		$return = file_get_contents(dirname(__FILE__) . "/../../data/ISSAdvancedConfig.json");
-		if ($return === false) {
-			return json_encode(json_decode("{}"));
-		}else{
-			if($decodeJson){
-				return json_decode($return, true);
-			}else{
-				return $return;
-			}
+        if (!file_exists(dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json')) {
+			$return = json_encode(json_decode("{}"));
+		} else {
+			$return = file_get_contents(dirname(__FILE__) . "/../../data/ISSConfig.json");
 		}
+        if($decodeJson){
+            return json_decode($return, true);
+        }else{
+            return $return;
+        }
 	}
 
 	public static function setIssConfig($_content = '') {
