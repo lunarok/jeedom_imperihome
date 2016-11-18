@@ -43,9 +43,7 @@ try {
 
     if (init('action') == 'loadAdvancedDeviceISSConfig') {
         $deviceId = init('deviceId');
-
-        $issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
-
+        $issAdvancedConfig = imperihome::getIssAdvancedConfig();
         if(array_key_exists($deviceId, $issAdvancedConfig)){
             $cmd = cmd::byId($deviceId);
             if(is_object($cmd)){
@@ -103,7 +101,7 @@ try {
     }
 
     if (init('action') == 'loadAdvancedISSConfig') {
-        $issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
+        $issAdvancedConfig = imperihome::getIssAdvancedConfig();
 
         foreach ($issAdvancedConfig as $cmd_id => $value) {
             $cmd = cmd::byId($cmd_id);
@@ -119,7 +117,7 @@ try {
 
     if (init('action') == 'saveAdvancedDevice') {
 		$device = json_decode(init('config'), true);
-		$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
+		$issAdvancedConfig = imperihome::getIssAdvancedConfig();
 		$issAdvancedConfig[$device['id']] = $device;
 
 		imperihome::setIssAdvancedConfig($issAdvancedConfig);
@@ -127,24 +125,24 @@ try {
 		ajax::success();
 	}
 
-        if (init('action') == 'deleteAdvancedDevice') {
-            $deviceId = init('deviceId');
-    		$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
+    if (init('action') == 'deleteAdvancedDevice') {
+        $deviceId = init('deviceId');
+		$issAdvancedConfig = imperihome::getIssAdvancedConfig();
 
-            if(array_key_exists($deviceId, $issAdvancedConfig)){
-                unset($issAdvancedConfig[$deviceId]);
-                imperihome::setIssAdvancedConfig($issAdvancedConfig);
-                imperihome::generateISSTemplate();
-                ajax::success();
-            }else{
-                throw new Exception(__('Aucun équipement correspondant à cet ID trouvé pour le supprimer: : ', __FILE__) . init('deviceId'));
-            }
-            }
-
-            throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
-
-        } catch (Exception $e) {
-            ajax::error(displayExeption($e), $e->getCode());
+        if(array_key_exists($deviceId, $issAdvancedConfig)){
+            unset($issAdvancedConfig[$deviceId]);
+            imperihome::setIssAdvancedConfig($issAdvancedConfig);
+            imperihome::generateISSTemplate();
+            ajax::success();
+        }else{
+            throw new Exception(__('Aucun équipement correspondant à cet ID trouvé pour le supprimer: : ', __FILE__) . init('deviceId'));
         }
+    }
 
-        ?>
+    throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
+
+    } catch (Exception $e) {
+        ajax::error(displayExeption($e), $e->getCode());
+    }
+
+?>
