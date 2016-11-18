@@ -26,7 +26,7 @@ class imperihome extends eqLogic {
 
 	public static function getIssConfig() {
 		if (!file_exists(dirname(__FILE__) . '/../../data/ISSConfig.json')) {
-			return json_encode(json_decode("{}"));
+			return json_decode(json_encode("{}"));
 		} else {
 			return json_decode(file_get_contents(dirname(__FILE__) . "/../../data/ISSConfig.json"), true);
 		}
@@ -34,7 +34,7 @@ class imperihome extends eqLogic {
 
     public static function getIssAdvancedConfig(){
         if (!file_exists(dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json')) {
-			$return = json_encode(json_decode("{}"));
+			$return = json_decode(json_encode("{}"));
 		} else {
 			$return = json_decode(file_get_contents(dirname(__FILE__) . "/../../data/ISSConfig.json"));
 		}
