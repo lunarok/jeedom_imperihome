@@ -44,7 +44,7 @@ try {
     if (init('action') == 'loadAdvancedDeviceISSConfig') {
         $deviceId = init('deviceId');
         $issAdvancedConfig = imperihome::getIssAdvancedConfig();
-        if(array_key_exists($deviceId, $issAdvancedConfig)){
+        if(array_key_exists($deviceId, $issAdvancedConfig) && !empty($issAdvancedConfig)){
             $cmd = cmd::byId($deviceId);
             if(is_object($cmd)){
                 $issAdvancedConfig[$deviceId]['humanName'] = $cmd->getHumanName();
@@ -103,14 +103,12 @@ try {
     if (init('action') == 'loadAdvancedISSConfig') {
         $issAdvancedConfig = imperihome::getIssAdvancedConfig();
 
-        if (!empty($issAdvancedConfig)) {
-            foreach ($issAdvancedConfig as $cmd_id => $value) {
-                $cmd = cmd::byId($cmd_id);
-                if(is_object($cmd)){
-                    $issAdvancedConfig[$cmd_id]['humanName'] = $cmd->getHumanName();
-                }else{
-                    $issAdvancedConfig[$cmd_id]['humanName'] = "Cmd support inconnue";
-                }
+        foreach ($issAdvancedConfig as $cmd_id => $value) {
+            $cmd = cmd::byId($cmd_id);
+            if(is_object($cmd)){
+                $issAdvancedConfig[$cmd_id]['humanName'] = $cmd->getHumanName();
+            }else{
+                $issAdvancedConfig[$cmd_id]['humanName'] = "Cmd support inconnue";
             }
         }
 
