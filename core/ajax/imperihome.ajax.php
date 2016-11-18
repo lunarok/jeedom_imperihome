@@ -103,12 +103,14 @@ try {
     if (init('action') == 'loadAdvancedISSConfig') {
         $issAdvancedConfig = imperihome::getIssAdvancedConfig();
 
-        foreach ($issAdvancedConfig as $cmd_id => $value) {
-            $cmd = cmd::byId($cmd_id);
-            if(is_object($cmd)){
-                $issAdvancedConfig[$cmd_id]['humanName'] = $cmd->getHumanName();
-            }else{
-                $issAdvancedConfig[$cmd_id]['humanName'] = "Cmd support inconnue";
+        if (!empty($issAdvancedConfig)) {
+            foreach ($issAdvancedConfig as $cmd_id => $value) {
+                $cmd = cmd::byId($cmd_id);
+                if(is_object($cmd)){
+                    $issAdvancedConfig[$cmd_id]['humanName'] = $cmd->getHumanName();
+                }else{
+                    $issAdvancedConfig[$cmd_id]['humanName'] = "Cmd support inconnue";
+                }
             }
         }
 
