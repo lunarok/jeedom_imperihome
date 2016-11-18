@@ -44,7 +44,7 @@ try {
     if (init('action') == 'loadAdvancedDeviceISSConfig') {
         $deviceId = init('deviceId');
         $issAdvancedConfig = imperihome::getIssAdvancedConfig();
-        if(array_key_exists($deviceId, $issAdvancedConfig) && !empty($issAdvancedConfig)){
+        if(array_key_exists($deviceId, $issAdvancedConfig)){
             $cmd = cmd::byId($deviceId);
             if(is_object($cmd)){
                 $issAdvancedConfig[$deviceId]['humanName'] = $cmd->getHumanName();
