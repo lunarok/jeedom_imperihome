@@ -8,7 +8,6 @@ if (!isConnect('admin')) {
 	<li role="presentation" class="active"><a href="#device" aria-controls="home" role="tab" data-toggle="tab">{{Equipement}}</a></li>
 	<li role="presentation"><a href="#scene" aria-controls="home" role="tab" data-toggle="tab">{{Scénario}}</a></li>
 	<li role="presentation" class="expertModeVisible"><a href="#advanced" role="tab" data-toggle="tab">{{Mode avancé}}</a></li>
-	<li role="presentation" class="expertModeVisible"><a href="#brute" role="tab" data-toggle="tab">{{Config Brute}}</a></li>
 </ul>
 
 <div class="tab-content">
@@ -137,41 +136,6 @@ if (!isConnect('admin')) {
 			</tbody>
 		</table>
 	</div>
-
-	<div role="tabpanel" class="tab-pane" id="brute">
-		<br>
-		<b>Attention: cet onglet n'est pas mis à jour aprés avoir sauvegardé une modification. Pour mettre à jour aprés avoir fait une modification dans votre configuration, veuillez rafraichir la page.</b><br>
-		<br>
-		<div class="form-group">
-			<label class="col-sm-2 control-label">issConfig</label>
-			<div class="col-sm-10" style="overflow: scroll; height: 190px; background-color: #EEEEEE;">
-				<?php
-				$cache = cache::byKey('issConfig');
-				echo $cache->getValue('{}');
-					?>
-				</div>
-			</div>
-			<br><br>
-			<div class="form-group">
-				<label class="col-sm-2 control-label">issAdvancedConfig</label>
-				<div class="col-sm-10" style="overflow: scroll; height: 190px; background-color: #EEEEEE;">
-					<?php
-					$cache = cache::byKey('issAdvancedConfig');
-					echo $cache->getValue('{}');
-						?>
-					</div>
-				</div>
-				<br><br>
-				<div class="form-group">
-					<label class="col-sm-2 control-label">issTemplate</label>
-					<div class="col-sm-10" style="overflow: scroll; height: 190px; background-color: #EEEEEE;">
-						<?php
-						$cache = cache::byKey('issTemplate');
-						echo $cache->getValue('{}');
-							?>
-						</div>
-					</div>
-				</div>
 
 			</div>
 
