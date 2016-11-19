@@ -32,16 +32,11 @@ class imperihome extends eqLogic {
 		}
 	}
 
-    public static function getIssAdvancedConfig($decodeJson = false){
+    public static function getIssAdvancedConfig(){
         if (!file_exists(dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json')) {
 			return false;
 		} else {
-            $return = file_get_contents(dirname(__FILE__) . "/../../data/ISSAdvancedConfig.json");
-            if($decodeJson){
-				return json_decode($return, true);
-			}else{
-				return $return;
-			}
+			return json_decode(file_get_contents(dirname(__FILE__) . "/../../data/ISSAdvancedConfig.json"), true);
 		}
 	}
 
@@ -146,7 +141,7 @@ class imperihome extends eqLogic {
 			$template['devices'][] = $info_device;
 		}
 
-        $issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
+        $issAdvancedConfig = imperihome::getIssAdvancedConfig();
 		foreach ($issAdvancedConfig as $device_id => $device) {
 			$cmd = cmd::byId($device_id);
 			if (!is_object($cmd)) {
@@ -260,7 +255,7 @@ class imperihome extends eqLogic {
 
 			log::add('imperihome', 'debug', 'Type manuelle: id=' . $_cmd_id);
 
-			$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
+			$issAdvancedConfig = imperihome::getIssAdvancedConfig();
 
 			$action = $issAdvancedConfig[$_cmd_id]['actions'][$_action];
 			if ($action['type'] == 'item') {

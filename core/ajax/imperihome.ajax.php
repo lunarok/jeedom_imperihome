@@ -44,7 +44,7 @@ try {
     if (init('action') == 'loadAdvancedDeviceISSConfig') {
 		$deviceId = init('deviceId');
 
-		$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
+		$issAdvancedConfig = imperihome::getIssAdvancedConfig();
 
 		if(array_key_exists($deviceId, $issAdvancedConfig)){
 			$cmd = cmd::byId($deviceId);
@@ -103,7 +103,7 @@ try {
 	}
 
 	if (init('action') == 'loadAdvancedISSConfig') {
-		$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
+		$issAdvancedConfig = imperihome::getIssAdvancedConfig();
 
 		foreach ($issAdvancedConfig as $cmd_id => $value) {
 			$cmd = cmd::byId($cmd_id);
@@ -119,7 +119,7 @@ try {
 
 	if (init('action') == 'saveAdvancedDevice') {
 		$device = json_decode(init('config'), true);
-		$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
+		$issAdvancedConfig = imperihome::getIssAdvancedConfig();
 		$issAdvancedConfig[$device['id']] = $device;
 
 		imperihome::setIssAdvancedConfig($issAdvancedConfig);
@@ -129,7 +129,7 @@ try {
 
 	if (init('action') == 'deleteAdvancedDevice') {
 		$deviceId = init('deviceId');
-		$issAdvancedConfig = imperihome::getIssAdvancedConfig(true);
+		$issAdvancedConfig = imperihome::getIssAdvancedConfig();
 
 		if(array_key_exists($deviceId, $issAdvancedConfig)){
 			unset($issAdvancedConfig[$deviceId]);
