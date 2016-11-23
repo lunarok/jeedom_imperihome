@@ -20,6 +20,19 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class imperihome extends eqLogic {
+    public static function migrateConfig() {
+		if (!file_exists(dirname(__FILE__) . '/../../data/ISSConfig.json')) {
+            if (file_exists(dirname(__FILE__) . '/../config/ISSConfig.json')) {
+                copy(dirname(__FILE__) . '/../config/ISSConfig.json', dirname(__FILE__) . '/../../data/ISSConfig.json');
+    		}
+		}
+        if (!file_exists(dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json')) {
+            if (file_exists(dirname(__FILE__) . '/../config/ISSAdvancedConfig.json')) {
+    			copy(dirname(__FILE__) . '/../config/ISSAdvancedConfig.json', dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json');
+    		}
+		}
+	}
+
 	public static function getIssStructure() {
 		return json_decode(file_get_contents(dirname(__FILE__) . "/../config/ISS-Structure.json"), true);
 	}
