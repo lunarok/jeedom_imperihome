@@ -1,0 +1,12 @@
+[panel,primary]
+.Ou trouver le lien à renseigner dans ImperiHome ?
+--
+Le lien de l'API a configurer dans Imperihome est donné dans la page de configuration.
+--
+
+[panel,primary]
+.L'équipement disponible dans Imperihome n'est pas du bon type
+--
+La configuration automatique utilise les types génériques qui sont paramétrables sur les commandes.
+La configuration automatique n'a pas fonctionné, il faut passer par le mode manuel: cf doc.
+--
