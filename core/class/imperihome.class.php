@@ -791,11 +791,32 @@ class imperihome extends eqLogic {
 		$page->setSubType('message');
 		$page->setEqLogic_id($this->getId());
 		$page->save();
+        $page = $this->getCmd(null, 'wakeup');
+		if (!is_object($page)) {
+			$page = new imperihomeCmd();
+			$page->setLogicalId('wakeup');
+			$page->setName(__('Réveiller', __FILE__));
+		}
+		$page->setType('action');
+		$page->setSubType('other');
+		$page->setEqLogic_id($this->getId());
+		$page->save();
 		$tts = $this->getCmd(null, 'tts');
 		if (!is_object($tts)) {
 			$tts = new imperihomeCmd();
 			$tts->setLogicalId('tts');
 			$tts->setName(__('TTS', __FILE__));
+			$tts->setEqLogic_id($this->getId());
+		}
+		$tts->setType('action');
+		$tts->setSubType('message');
+		$tts->setEqLogic_id($this->getId());
+		$tts->save();
+        $tts = $this->getCmd(null, 'camera');
+		if (!is_object($tts)) {
+			$tts = new imperihomeCmd();
+			$tts->setLogicalId('camera');
+			$tts->setName(__('Ouvrir Camera', __FILE__));
 			$tts->setEqLogic_id($this->getId());
 		}
 		$tts->setType('action');
@@ -809,7 +830,11 @@ class imperihome extends eqLogic {
 class imperihomeCmd extends cmd {
 	public function preSave() {
 		if ($this->getSubtype() == 'message') {
-			$this->setDisplay('title_disable', 1);
+            if ($this->getLogicalId() == "tts") {
+                $this->setDisplay('title_disable', 0);
+            } else {
+                $this->setDisplay('title_disable', 1);
+            }
 		}
 	}
 
@@ -831,14 +856,25 @@ class imperihomeCmd extends cmd {
 		if ($this->getLogicalId() == "tts") {
 			$message = imperihomeCmd::cleanSMS(trim($_options['message']), true);
 			$url = 'http://' . $imperihome_ip . '/api/rest/speech/tts?text=' . $message;
+            if ($_options['message'] != '' && is_numeric($_options['message'])) {
+                $url .= '&vol=' . trim($_options['message']);
+            }
 		}
 		if ($this->getLogicalId() == 'reco') {
 			$url = 'http://' . $imperihome_ip . '/api/rest/speech/launchreco';
 
 		}
+        if ($this->getLogicalId() == 'wakeup') {
+			$url = 'http://' . $imperihome_ip . '/api/rest/dashboard/wakeup';
+
+		}
 		if ($this->getLogicalId() ==  'page') {
 			$message = trim($_options['message']);
 			$url = 'http://' . $imperihome_ip . '/api/rest/dashboard/gotopage?pageIdx=' . $message;
+		}
+        if ($this->getLogicalId() ==  'camera') {
+			$message = trim($_options['message']);
+			$url = 'http://' . $imperihome_ip . '/api/rest/camera/view?devid=' . $message;
 		}
 
 		curl_setopt_array($ch = curl_init(), array(
