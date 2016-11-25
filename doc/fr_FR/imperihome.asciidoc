@@ -1,0 +1,17 @@
+=== Controler un Imperihome via API
+
+Il est possible de créer des équipements qui représentent des clients Imperihome, cela permet de les controler par api
+
+Il est nécessaire de saisir l'adresse IP (avec le port) en configuration
+
+Ensuite les commandes suivantes seront disponibles :
+
+  - Lancer une page : ouvre une page sur l'imperihome, il faut saisir l'ID de la page dans le message
+
+  - Lancer une camera : ouvre une caméra en plein écran, il faut saisir l'ID de la caméra dans le message
+
+  - Lancer la reconnaissance vocale : fait passer Imperihome en reconnaissance Vocale
+
+  - Lire un message TTS : lit le message envoyé, si un titre est saisi il doit être numérique de 0 à 100 et sera le volume en %
+
+  - Réveiller : permet de réveiller la tablette/téléphone d'imperihome
