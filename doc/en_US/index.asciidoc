@@ -13,5 +13,9 @@ include::configuration.asciidoc[]
 include::ISS.asciidoc[]
 
 '''
+== Controle Imperihome
+include::imperihome.asciidoc[]
+
+'''
 == FAQ
 include::faq.asciidoc[]
