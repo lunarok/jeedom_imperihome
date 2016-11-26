@@ -20,11 +20,11 @@ ob_start();
 require_once dirname(__FILE__) . "/../../../../core/php/core.inc.php";
 $args = explode("/", $_GET['_url']);
 
-if ($args[1] != config::byKey('api') || config::byKey('api') == '') {
-	connection::failed();
-	echo 'Clef API non valide, vous n\'etes pas autorisé à effectuer cette action (jeeApi)';
-	die();
+if (!jeedom::apiAccess($args[1], 'imperihome')) {
+   echo __('Clef API non valide, vous n\'êtes pas autorisé à effectuer cette action (imperihome)', __FILE__);
+   die();
 }
+
 if ($args[2] == 'devices') {
 	if (!isset($args[3])) {
 		echo imperihome::devices();

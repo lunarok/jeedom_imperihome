@@ -29,14 +29,14 @@ if (!isConnect()) {
             <label class="col-lg-4 control-label">{{Interne}} : </label>
             <div class="col-lg-8">
             <?php
-				echo network::getNetworkAccess('internal') . "/plugins/imperihome/core/php/imperihome.php?_url=/" . config::byKey('api') . "/";
+				echo network::getNetworkAccess('internal') . "/plugins/imperihome/core/php/imperihome.php?_url=/" . jeedom::getApiKey('imperihome') . "/";
 			?></div>
         </div>
         <div class="form-group">
             <label class="col-lg-4 control-label">{{Externe}} : </label>
             <div class="col-lg-8">
             <?php
-				echo network::getNetworkAccess('external') . "/plugins/imperihome/core/php/imperihome.php?_url=/" . config::byKey('api') . "/";
+				echo network::getNetworkAccess('external') . "/plugins/imperihome/core/php/imperihome.php?_url=/" . jeedom::getApiKey('imperihome') . "/";
 			?></div>
         </div>
 				</fieldset>
