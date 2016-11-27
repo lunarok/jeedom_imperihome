@@ -1,19 +1,19 @@
 = Imperihome
 
 '''
-== Description
+== Beschreibung
 include::description.asciidoc[]
 
 '''
-== Configuration
+== Konfiguration
 include::configuration.asciidoc[]
 
 '''
-== Détection automatique
+== Automatische Erkennung
 include::ISS.asciidoc[]
 
 '''
-== Controle Imperihome
+== Imperihome Kontrolle
 include::imperihome.asciidoc[]
 
 '''
