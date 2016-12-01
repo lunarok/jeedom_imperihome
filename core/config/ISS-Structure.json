@@ -814,7 +814,40 @@
                 "key": "thumbnail"
             }
         ],
-        "actions": {}
+        "actions": {
+            "setposition": {
+                "type": "item",
+                "equivalent": "position;Positionnement"
+            },
+            "setvolume": {
+                "type": "direct",
+                "equivalent": "volume;Volume"
+            },
+            "play": {
+                "type": "direct",
+                "equivalent": ""
+            },
+            "pause": {
+                "type": "direct",
+                "equivalent": ""
+            },
+            "next": {
+                "type": "direct",
+                "equivalent": ""
+            },
+            "previous": {
+                "type": "direct",
+                "equivalent": ""
+            },
+            "stop": {
+                "type": "direct",
+                "equivalent": ""
+            },
+            "mute": {
+                "type": "direct",
+                "equivalent": ""
+            }
+        }
     },
     "DevPlaylist": {
         "Description": "Audio/Video player",
