@@ -417,15 +417,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table des matières</div>
 <ul class="sectlevel1">
 <li><a href="#_description">1. Description</a></li>
-<li><a href="#_configuration">2. Configuration</a>
-<ul class="sectlevel2">
-<li><a href="#_plugin">2.1. Plugin</a></li>
-<li><a href="#_configuration_d_imperihome">2.2. Configuration d&#8217;Imperihome</a></li>
-<li><a href="#_sélection_des_équipements_à_transmettre">2.3. Sélection des équipements à transmettre</a></li>
-<li><a href="#_détermination_automatique_du_type_d_équipement">2.4. Détermination automatique du type d&#8217;équipement</a></li>
-<li><a href="#_détermination_manuel_du_type_d_équipement">2.5. Détermination manuel du type d&#8217;équipement</a></li>
-</ul>
-</li>
+<li><a href="#_configuration">2. Configuration</a></li>
 <li><a href="#_détection_automatique">3. Détection automatique</a>
 <ul class="sectlevel2">
 <li><a href="#_explication">3.1. Explication</a></li>
@@ -485,157 +477,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="_configuration">2. Configuration</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_plugin">2.1. Plugin</h3>
 <div class="paragraph">
-<p>L&#8217;activation du plugin nécessite un pré-requis: avoir renseigné la configuration réseau dans le menu Général &#8594; Administration &#8594; Configuration.</p>
-</div>
-<div class="paragraph">
-<p>Celle-ci permet en effet au plugin de déterminer le chemin d&#8217;accès de l&#8217;API ISS qu&#8217;il faudra renseigner dans Imperihome.</p>
-</div>
-<div class="paragraph">
-<p>Une fois le plugin activé (menu Général &#8594; Plugins &#8594; Imperihome), une section "Configuration" apparait.</p>
-</div>
-<div class="paragraph">
-<p>A ce moment là, le plugin détermine automatiquement l&#8217;adresse à renseigner dans Imperihome:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/plugin_config.jpg" alt="Configuration du plugin">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_configuration_d_imperihome">2.2. Configuration d&#8217;Imperihome</h3>
-<div class="paragraph">
-<p>Sous imperihome, aller dans Paramètres &#8594; Mes Systèmes, puis Ajouter un système. Sélectionner "Imperihome Standard System", puis rentrer l&#8217;URL donnée par le plugin dans "URL de Base API Locale".</p>
-</div>
-<div class="paragraph">
-<p>Si vous souhaitez accéder depuis l&#8217;exterieur, configurer également l&#8217;URL Externe en l&#8217;adaptant à votre installation.</p>
-</div>
-<div class="paragraph">
-<p>Cliquer sur suivant et terminer. Si aucun équipement ne s&#8217;affiche, c&#8217;est normal pour le moment, il faut aller sélectionner quels équipements vous souhaitez remonter vers Imperihome.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_sélection_des_équipements_à_transmettre">2.3. Sélection des équipements à transmettre</h3>
-<div class="paragraph">
-<p>Rendez-vous dans la page Plugins &#8594; Imperihome, puis dans l&#8217;onglet "Configuration ISS".</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/ISSConfig.jpg" alt="Configuration du plugin">
-</div>
-</div>
-<div class="paragraph">
-<p>Vous pouvez ici sélectionner les équipements à transmettre, et visualiser le type d&#8217;équipement automatiquement détecté.</p>
-</div>
-<div class="paragraph">
-<p>Une fois les équipements sélectionnés, cliquer sur "Sauvegarder". Sous Imperihome, il se peut que l&#8217;équipement ne remonte pas immédiatement. Pour forcer la mise à jour, cliquer sur la double fléche rotative en haut à droite de l&#8217;écran sous Imperihome.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_détermination_automatique_du_type_d_équipement">2.4. Détermination automatique du type d&#8217;équipement</h3>
-<div class="paragraph">
-<p>Dans le mesure du possible, le plugin essaie de reconnaitre les équipements et de leur donner un type "Imperihome" adapté.
-En automatique, le plugin transforme les commandes de type "info" en un équipement.</p>
-</div>
-<div class="paragraph">
-<p>Si on prend en exemple une prise de courant télécommandée et qui remonte les informations de consommation, celle-ci aura deux commandes de type "info": Etat et Conso.</p>
-</div>
-<div class="paragraph">
-<p>Le plugin va alors créer 2 équipements: un de type "devSwitch" (pour Etat) et l&#8217;autre de type "devElectricity" pour Conso.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_détermination_manuel_du_type_d_équipement">2.5. Détermination manuel du type d&#8217;équipement</h3>
-<div class="paragraph">
-<p>!! Attention: modifier le type d&#8217;un équipement alors que celui-ci est configuré dans Imperihome peut faire planter l&#8217;application.</p>
-</div>
-<div class="paragraph">
-<p>!! Je vous recommande de supprimer l&#8217;équipement dans Imperihome avant de modifier son type dans Jeedom.</p>
-</div>
-<div class="paragraph">
-<p>Pour accéder au mode avancé, il faut activer le Mode Expert de Jeedom.
-Un onglet "Mode avancé" est alors disponible.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/ISSAdvancedConfig.jpg" alt="Configuration du plugin">
-</div>
-</div>
-<div class="paragraph">
-<p>Vous retrouvez ici les équipements configurés manuellement.</p>
-</div>
-<div class="paragraph">
-<p>Vous pouvez les modifier ou supprimer, ou en créer un nouveau.</p>
-</div>
-<div class="paragraph">
-<p>Lorsque vous cliquer sur "Ajouter un équipement" ou Modifier, la fenêtre qui s&#8217;ouvre permet de configurer l&#8217;équipement.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/ISSEqAdvancedConfig1.jpg" alt="Configuration du plugin">
-</div>
-</div>
-<div class="paragraph">
-<p>Il faut alors configurer la commande support: celle-ci correspond au nom de l&#8217;équipement qui s&#8217;affichera sur Imperihome.</p>
-</div>
-<div class="paragraph">
-<p>Ensuite, il faut sélectionner le type d&#8217;équipement (<a href="https://imperihome.zendesk.com/hc/en-us/articles/202088308-ImperiHome-Standard-System-API-definition">se reporter à la doc Imperihome</a>).</p>
-</div>
-<div class="paragraph">
-<p>Ensuite, vous pouvez configurer chaque paramétre et action.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/ISSEqAdvancedConfig2.jpg" alt="Configuration du plugin">
-</div>
-</div>
-<div class="paragraph">
-<p>Pour les paramètres, il faut soit rentrer manuellement une valeur, soit sélectionner une commande de type Info.</p>
-</div>
-<div class="paragraph">
-<p>Pour les actions, il faut nécessairement sélectionner une commande de type Action.</p>
-</div>
-<div class="paragraph">
-<p>Prenons l&#8217;exemple d&#8217;une prise télécommandée. Disons que sous Jeedom, elle possède deux commandes Info (Etat et Consommation) et deux commandes Action (Allumer et Eteindre).</p>
-</div>
-<div class="paragraph">
-<p>Il faudra alors selectionner le type "Standard On/Off switch".</p>
-</div>
-<div class="ulist">
-<div class="title">Puis:</div>
-<ul>
-<li>
-<p>paramètre Status: selectionner la commande Etat</p>
-</li>
-<li>
-<p>paramètre Energy: selectionner la commande Consommation</p>
-</li>
-<li>
-<p>action setStatus:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>pour le 0: selectionner la commande Eteindre</p>
-</li>
-<li>
-<p>pour le 1: selectionner la commande Allumer</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Sauvegarder la configuration, puis réactualiser la liste des équipements sous Imperihome.</p>
-</div>
-<div class="paragraph">
-<p>Il y a une subtilité pour le type MultiSwitch et son action SetChoice. Si une commande est renseignée, alors elle sera appelée en lui passant comme paramètre la valeur sélectionnée dans Imperihome. Si aucune commande n&#8217;est renseignée, alors le plugin recherchera une commange ayant comme nom la valeur sélectrionnée dans Imperihome au sein du même équipement que la commande support.</p>
+<p>include::configuration.AsciiDoc]</p>
 </div>
 <hr>
-</div>
 </div>
 </div>
 <div class="sect1">

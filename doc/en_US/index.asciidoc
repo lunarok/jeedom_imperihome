@@ -6,7 +6,7 @@ include::description.asciidoc[]
 
 '''
 == Configuration
-include::configuration.asciidoc[]
+include::configuration.AsciiDoc]
 
 '''
 == Détection automatique

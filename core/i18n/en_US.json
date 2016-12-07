@@ -3,16 +3,16 @@
         "Plugin permettant la communication avec le logiciel ImperiHome (API ISS)": "Plugin permettant la communication avec le logiciel ImperiHome (API ISS)"
     },
     "plugins\/imperihome\/core\/class\/imperihome.class.php": {
-        "Aucun": "Aucun",
-        "humidité": "humidité",
+        "Aucun": "None",
+        "humidité": "humidity",
         "uv": "uv",
-        "etat": "etat",
-        "fumée": "fumée",
+        "etat": "State",
+        "fumée": "smoke",
         "smoke": "smoke",
-        "fenêtre": "fenêtre",
-        "fenetre": "fenetre",
-        "porte": "porte",
-        "Etat": "Etat",
+        "fenêtre": "window",
+        "fenetre": "window",
+        "porte": "Door",
+        "Etat": "State",
         "Lancement provoque par Imperihome ": "Lancement provoque par Imperihome "
     },
     "plugins\/imperihome\/desktop\/php\/imperihome.php": {
