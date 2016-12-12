@@ -298,8 +298,11 @@ class imperihome extends eqLogic {
 				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
 			}
 
-			if (($_action == 'setChoice') and ($actionCmdId == '')) {
-				$cmd = cmd::byId($_cmd_id);
+//         if (($_action == 'setChoice') and ($actionCmdId == '')) {
+         	if (($_action == 'setChoice') and ($actionCmdId != $_cmd_id)) {
+		       log::add('imperihome', 'debug', 'Commande actionCmdId : ' . $actionCmdId);
+		       log::add('imperihome', 'debug', 'Commande _cmd_id : ' . $_cmd_id);				
+			$cmd = cmd::byId($_cmd_id);
 				if (!is_object($cmd)) {
 					return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
 				}
@@ -309,7 +312,7 @@ class imperihome extends eqLogic {
 					$action->execCmd();
 					log::add('imperihome', 'debug', 'Type setChoice: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 				}
-				return array("success" => true, "errormsg" => "");
+				//return array("success" => true, "errormsg" => "");
 			}
 
 			log::add('imperihome', 'debug', 'Type manuelle: ActionId=' . $actionCmdId);
