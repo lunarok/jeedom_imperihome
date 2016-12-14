@@ -1,4 +1,4 @@
-=== Explication
+=== Explanation
 
 Le système de détection automatique se base sur un certains nombre de critère afin de déterminer le type le plus adapté à Imperihome.
 
