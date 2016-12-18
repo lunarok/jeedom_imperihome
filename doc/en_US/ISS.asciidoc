@@ -28,13 +28,13 @@ Ci-dessous, vous trouverez les différents critères pour pouvoir avoir une dét
 --
 
 [panel,primary]
-.Serrure [DevLock]
+.Lock [DevLock]
 --
 Pas de détection automatique sur ce type. Utiliser le mode avancé.
 --
 
 [panel,primary]
-.Lampe RGB [DevRGBLight]
+.RGB Bulb [DevRGBLight]
 --
 .Conditions:
 * Il existe au moins une commande de type Couleur dans l'équipement
@@ -112,7 +112,7 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 --
 
 [panel,primary]
-.Détecteur de mouvement [DevMotion]
+.Motion sensor [DevMotion]
 --
 .Conditions:
 * Le widget de la commande est "Presence"
@@ -129,35 +129,35 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 --
 
 [panel,primary]
-.Capteur de pression [DevPressure]
+.Pressure sensor [DevPressure]
 --
 .Conditions:
 * La commande est de type Numeric et a comme unité ""
 --
 
 [panel,primary]
-.Capteur de pluie [DevRain]
+.Rain sensor [DevRain]
 --
 .Conditions:
 * La commande est de type Numeric et a comme unité "mm/h" ou "mm"
 --
 
 [panel,primary]
-.Détecteur de fumée [DevSmoke]
+.Smoke sensor [DevSmoke]
 --
 .Conditions:
 * Le widget de la commande est "Fire"
 --
 
 [panel,primary]
-.Capteur de température [DevTemperature]
+.Temperature sensor [DevTemperature]
 --
 .Conditions:
 * La commande est de type Numeric et a comme unité "°C"
 --
 
 [panel,primary]
-.Capteur de température et humidité [DevTempHygro]
+.Temperature and moisture sensor[DevTempHygro]
 --
 .Conditions:
 * Le nom de la commande contient "Humidité"
@@ -167,7 +167,7 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 
 
 
-.OU
+.OR
 * La commande a comme unité "°C"
 
 .et
@@ -175,28 +175,28 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 --
 
 [panel,primary]
-.Capteur d'UV [DevUV]
+.UV sensor [DevUV]
 --
 .Conditions:
 * Le nom de la commande contient "UV"
 --
 
 [panel,primary]
-.Capteur de vent [DevWind]
+.Wind sensor [DevWind]
 --
 .Conditions:
 * La commande est de type Numeric et a comme unité "km/h"
 --
 
-==== Scénarios
+==== Scenarii
 [panel,primary]
-.Scénario [DevScene]
+.Scenario [DevScene]
 --
 .Conditions:
-* Il s'agit d'un scénario
+* it is a scenario
 --
 
-==== Autres
+==== Other
 [panel,primary]
 .Equipement générique [DevGenericSensor]
 --
@@ -211,7 +211,7 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 --
 
 [panel,primary]
-.Caméra [DevCamera]
+.Camera [DevCamera]
 --
 .Conditions:
 * La commande est liée au plugin Caméra
