@@ -1,4 +1,4 @@
-.Le plugin Imperihome permet:
+.The Imperihome plugin allows:
  * la mise à disposition d'une API "ISS" pour Imperihome (récupération des données de JeeDom et demandes d'actions)
  * l'utilisation de l'API Control d'Imperihome pour intéragir avec le logiciel Imperihome installé sur un périphérique (non intégré à l'heure actuelle)
 

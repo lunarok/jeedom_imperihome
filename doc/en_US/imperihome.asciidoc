@@ -1,4 +1,4 @@
-=== Controler un Imperihome via API
+=== Control an Imperihome via API
 
 Il est possible de créer des équipements qui représentent des clients Imperihome, cela permet de les controler par api
 
