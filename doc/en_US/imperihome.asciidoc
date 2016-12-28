@@ -1,6 +1,6 @@
 === Control an Imperihome via API
 
-Il est possible de créer des équipements qui représentent des clients Imperihome, cela permet de les controler par api
+It is possible to create equipment that represent Imperihome clients, this allows control by api
 
 Il est nécessaire de saisir l'adresse IP (avec le port) en configuration
 

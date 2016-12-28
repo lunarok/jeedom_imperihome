@@ -1,5 +1,5 @@
 === Plugin
-L'activation du plugin nécessite un pré-requis: avoir renseigné la configuration réseau dans le menu Général -> Administration -> Configuration.
+The activation of the plugin requires a prerequisite: having filled the network configuration in the General -> Administration -> Configuration menu.
 
 Celle-ci permet en effet au plugin de déterminer le chemin d'accès de l'API ISS qu'il faudra renseigner dans Imperihome.
 

@@ -1,6 +1,6 @@
 === Explanation
 
-Le système de détection automatique se base sur un certains nombre de critère afin de déterminer le type le plus adapté à Imperihome.
+The automatic detection system is based on a number of criteria to determine the best suited to Imperihome type.
 
 Ci-dessous, vous trouverez les différents critères pour pouvoir avoir une détection optimale.
 

@@ -1,5 +1,5 @@
 [panel,primary]
-.Ou trouver le lien à renseigner dans ImperiHome ?
+. Where to find the link to fill in ImperiHome?
 --
 Le lien de l'API a configurer dans Imperihome est donné dans la page de configuration.
 --
