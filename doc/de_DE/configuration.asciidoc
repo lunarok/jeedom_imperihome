@@ -9,7 +9,7 @@ A ce moment là, le plugin détermine automatiquement l'adresse à renseigner da
 
 image::../images/plugin_config.jpg[Configuration du plugin]
 
-=== Configuration d'Imperihome
+=== Imperihome Konfiguration
 Sous imperihome, aller dans Paramètres -> Mes Systèmes, puis Ajouter un système. Sélectionner "Imperihome Standard System", puis rentrer l'URL donnée par le plugin dans "URL de Base API Locale".
 
 Si vous souhaitez accéder depuis l'exterieur, configurer également l'URL Externe en l'adaptant à votre installation.

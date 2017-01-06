@@ -188,7 +188,7 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 * La commande est de type Numeric et a comme unité "km/h"
 --
 
-==== Scénarios
+==== Szenarien
 [panel,primary]
 .Scénario [DevScene]
 --
@@ -196,7 +196,7 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 * Il s'agit d'un scénario
 --
 
-==== Autres
+==== Andere
 [panel,primary]
 .Equipement générique [DevGenericSensor]
 --
