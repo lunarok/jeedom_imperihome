@@ -431,7 +431,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_explication">3.1. Explication</a></li>
 <li><a href="#_définition_des_critères">3.2. Définition des critères</a>
 <ul class="sectlevel3">
-<li><a href="#_actionneurs">3.2.1. Actionneurs</a></li>
+<li><a href="#_aktoren">3.2.1. Aktoren</a></li>
 <li><a href="#_détecteurs_et_capteurs">3.2.2. Détecteurs et Capteurs</a></li>
 <li><a href="#_szenarien">3.2.3. Szenarien</a></li>
 <li><a href="#_andere">3.2.4. Andere</a></li>
@@ -653,11 +653,11 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="sect2">
 <h3 id="_définition_des_critères">3.2. Définition des critères</h3>
 <div class="sect3">
-<h4 id="_actionneurs">3.2.1. Actionneurs</h4>
+<h4 id="_aktoren">3.2.1. Aktoren</h4>
 <div class="openblock panel">
 <div class="title">Interrupteur [DevSwitch]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est de type Binaire et il y a des commandes de type Action dans l&#8217;équipement</p>
@@ -677,7 +677,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Variateur de lumière [DevDimmer]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>Le widget de la commande est "Light"</p>
@@ -704,7 +704,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Lampe RGB [DevRGBLight]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>Il existe au moins une commande de type Couleur dans l&#8217;équipement</p>
@@ -716,7 +716,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Volet [DevShutter]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est liée au plugin Store</p>
@@ -738,7 +738,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Capteur de CO2 [DevCO2]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>Le type de la commande est "Binaire" et le nom de la commande contient "Fumée" ou "Smoke"</p>
@@ -758,7 +758,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Détecteur de CO2 [DevCO2Alert]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>Le type de la commande est "Binaire"</p>
@@ -766,7 +766,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 </ul>
 </div>
 <div class="ulist">
-<div class="title">et</div>
+<div class="title">und</div>
 <ul>
 <li>
 <p>Le nom de la commande est "Co"</p>
@@ -778,7 +778,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Détecteur d&#8217;ouverture [DevDoor]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>Le widget de la commande est "Door", "Baie", "Window" ou "Porte_garage"</p>
@@ -798,7 +798,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Compteur d&#8217;énergie [DevElectricity]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est de type Numeric et a comme unité "w" ou "kwh"</p>
@@ -810,7 +810,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Compteur d&#8217;eau [DevFlood]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est de type Numeric et a comme unité "m3"</p>
@@ -822,7 +822,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Capteur d&#8217;humidité [DevHygrometry]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>Le nom de la commande contient "Humidité"</p>
@@ -834,7 +834,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Capteur de luminosité [DevLuminosity]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est de type Numeric et a comme unité "lux"</p>
@@ -846,7 +846,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Détecteur de mouvement [DevMotion]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>Le widget de la commande est "Presence"</p>
@@ -866,7 +866,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Capteur de bruit [DevNoise]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est de type Numeric et a comme unité "dB"</p>
@@ -878,7 +878,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Capteur de pression [DevPressure]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est de type Numeric et a comme unité ""</p>
@@ -890,7 +890,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Capteur de pluie [DevRain]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est de type Numeric et a comme unité "mm/h" ou "mm"</p>
@@ -902,7 +902,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Détecteur de fumée [DevSmoke]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>Le widget de la commande est "Fire"</p>
@@ -914,7 +914,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Capteur de température [DevTemperature]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est de type Numeric et a comme unité "°C"</p>
@@ -926,7 +926,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Capteur de température et humidité [DevTempHygro]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>Le nom de la commande contient "Humidité"</p>
@@ -934,7 +934,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 </ul>
 </div>
 <div class="ulist">
-<div class="title">et</div>
+<div class="title">und</div>
 <ul>
 <li>
 <p>Une commande du même équipement a comme unité "°C", et est indiquée comme "A Transmettre"</p>
@@ -950,7 +950,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 </ul>
 </div>
 <div class="ulist">
-<div class="title">et</div>
+<div class="title">und</div>
 <ul>
 <li>
 <p>Une commande du même équipement a comme nom "Humidité", et est indiquée comme "A Transmettre"</p>
@@ -962,7 +962,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Capteur d&#8217;UV [DevUV]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>Le nom de la commande contient "UV"</p>
@@ -974,7 +974,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Capteur de vent [DevWind]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est de type Numeric et a comme unité "km/h"</p>
@@ -989,7 +989,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Scénario [DevScene]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>Il s&#8217;agit d&#8217;un scénario</p>
@@ -1004,7 +1004,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Equipement générique [DevGenericSensor]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est de type Numeric, a comme unité "%" et il n&#8217;y a pas de commandes de type Action dans l&#8217;équipement</p>
@@ -1032,7 +1032,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Caméra [DevCamera]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est liée au plugin Caméra</p>
@@ -1044,7 +1044,7 @@ Un onglet "Mode avancé" est alors disponible.</p>
 <div class="openblock panel">
 <div class="title">Selecteur de choix [DevMultiSwitch]</div><div class="content">
 <div class="ulist">
-<div class="title">Conditions:</div>
+<div class="title">Bedingungen:</div>
 <ul>
 <li>
 <p>La commande est liée au plugin Présence</p>

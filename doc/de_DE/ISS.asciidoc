@@ -6,11 +6,11 @@ Ci-dessous, vous trouverez les différents critères pour pouvoir avoir une dét
 
 === Définition des critères
 
-==== Actionneurs
+==== Aktoren
 [panel,primary]
 .Interrupteur [DevSwitch]
 --
-.Conditions:
+.Bedingungen:
 * La commande est de type Binaire et il y a des commandes de type Action dans l'équipement
 
 .ou
@@ -20,7 +20,7 @@ Ci-dessous, vous trouverez les différents critères pour pouvoir avoir une dét
 [panel,primary]
 .Variateur de lumière [DevDimmer]
 --
-.Conditions:
+.Bedingungen:
 * Le widget de la commande est "Light"
 
 .ou
@@ -36,14 +36,14 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 [panel,primary]
 .Lampe RGB [DevRGBLight]
 --
-.Conditions:
+.Bedingungen:
 * Il existe au moins une commande de type Couleur dans l'équipement
 --
 
 [panel,primary]
 .Volet [DevShutter]
 --
-.Conditions:
+.Bedingungen:
 * La commande est liée au plugin Store
 
 .ou
@@ -56,7 +56,7 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 [panel,primary]
 .Capteur de CO2 [DevCO2]
 --
-.Conditions:
+.Bedingungen:
 * Le type de la commande est "Binaire" et le nom de la commande contient "Fumée" ou "Smoke"
 
 .ou
@@ -66,17 +66,17 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 [panel,primary]
 .Détecteur de CO2 [DevCO2Alert]
 --
-.Conditions:
+.Bedingungen:
 * Le type de la commande est "Binaire"
 
-.et
+.und
 * Le nom de la commande est "Co"
 --
 
 [panel,primary]
 .Détecteur d'ouverture [DevDoor]
 --
-.Conditions:
+.Bedingungen:
 * Le widget de la commande est "Door", "Baie", "Window" ou "Porte_garage"
 
 .ou
@@ -86,35 +86,35 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 [panel,primary]
 .Compteur d'énergie [DevElectricity]
 --
-.Conditions:
+.Bedingungen:
 * La commande est de type Numeric et a comme unité "w" ou "kwh"
 --
 
 [panel,primary]
 .Compteur d'eau [DevFlood]
 --
-.Conditions:
+.Bedingungen:
 * La commande est de type Numeric et a comme unité "m3"
 --
 
 [panel,primary]
 .Capteur d'humidité [DevHygrometry]
 --
-.Conditions:
+.Bedingungen:
 * Le nom de la commande contient "Humidité"
 --
 
 [panel,primary]
 .Capteur de luminosité [DevLuminosity]
 --
-.Conditions:
+.Bedingungen:
 * La commande est de type Numeric et a comme unité "lux"
 --
 
 [panel,primary]
 .Détecteur de mouvement [DevMotion]
 --
-.Conditions:
+.Bedingungen:
 * Le widget de la commande est "Presence"
 
 .ou
@@ -124,45 +124,45 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 [panel,primary]
 .Capteur de bruit [DevNoise]
 --
-.Conditions:
+.Bedingungen:
 * La commande est de type Numeric et a comme unité "dB"
 --
 
 [panel,primary]
 .Capteur de pression [DevPressure]
 --
-.Conditions:
+.Bedingungen:
 * La commande est de type Numeric et a comme unité ""
 --
 
 [panel,primary]
 .Capteur de pluie [DevRain]
 --
-.Conditions:
+.Bedingungen:
 * La commande est de type Numeric et a comme unité "mm/h" ou "mm"
 --
 
 [panel,primary]
 .Détecteur de fumée [DevSmoke]
 --
-.Conditions:
+.Bedingungen:
 * Le widget de la commande est "Fire"
 --
 
 [panel,primary]
 .Capteur de température [DevTemperature]
 --
-.Conditions:
+.Bedingungen:
 * La commande est de type Numeric et a comme unité "°C"
 --
 
 [panel,primary]
 .Capteur de température et humidité [DevTempHygro]
 --
-.Conditions:
+.Bedingungen:
 * Le nom de la commande contient "Humidité"
 
-.et
+.und
 * Une commande du même équipement a comme unité "°C", et est indiquée comme "A Transmettre"
 
 
@@ -170,21 +170,21 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 .OU
 * La commande a comme unité "°C"
 
-.et
+.und
 * Une commande du même équipement a comme nom "Humidité", et est indiquée comme "A Transmettre"
 --
 
 [panel,primary]
 .Capteur d'UV [DevUV]
 --
-.Conditions:
+.Bedingungen:
 * Le nom de la commande contient "UV"
 --
 
 [panel,primary]
 .Capteur de vent [DevWind]
 --
-.Conditions:
+.Bedingungen:
 * La commande est de type Numeric et a comme unité "km/h"
 --
 
@@ -192,7 +192,7 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 [panel,primary]
 .Scénario [DevScene]
 --
-.Conditions:
+.Bedingungen:
 * Il s'agit d'un scénario
 --
 
@@ -200,7 +200,7 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 [panel,primary]
 .Equipement générique [DevGenericSensor]
 --
-.Conditions:
+.Bedingungen:
 * La commande est de type Numeric, a comme unité "%" et il n'y a pas de commandes de type Action dans l'équipement
 
 .ou
@@ -213,14 +213,14 @@ Pas de détection automatique sur ce type. Utiliser le mode avancé.
 [panel,primary]
 .Caméra [DevCamera]
 --
-.Conditions:
+.Bedingungen:
 * La commande est liée au plugin Caméra
 --
 
 [panel,primary]
 .Selecteur de choix [DevMultiSwitch]
 --
-.Conditions:
+.Bedingungen:
 * La commande est liée au plugin Présence
 
 .ou
