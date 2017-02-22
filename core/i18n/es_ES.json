@@ -1,42 +1,42 @@
 {
     "plugins\/imperihome\/plugin_info\/info.xml": {
-        "Plugin permettant la communication avec le logiciel ImperiHome (API ISS)": "Plugin permettant la communication avec le logiciel ImperiHome (API ISS)"
+        "Plugin permettant la communication avec le logiciel ImperiHome (API ISS)": "Plugin que permite la comunicación con el software ImperiHome (API ISS)"
     },
     "plugins\/imperihome\/core\/class\/imperihome.class.php": {
-        "Aucun": "Aucun",
-        "humidité": "humidité",
+        "Aucun": "Ninguno",
+        "humidité": "Humedad",
         "uv": "uv",
-        "etat": "etat",
-        "fumée": "fumée",
-        "smoke": "smoke",
-        "fenêtre": "fenêtre",
-        "fenetre": "fenetre",
-        "porte": "porte",
-        "Etat": "Etat",
-        "Lancement provoque par Imperihome ": "Lancement provoque par Imperihome "
+        "etat": "Estado",
+        "fumée": "humo",
+        "smoke": "humo",
+        "fenêtre": "Ventana",
+        "fenetre": "ventana",
+        "porte": "Puerta",
+        "Etat": "Estado",
+        "Lancement provoque par Imperihome ": "Lanzamiento provocado por Imperihome"
     },
     "plugins\/imperihome\/desktop\/php\/imperihome.php": {
-        "Aucun": "Aucun",
-        "Configuration ISS": "Configuration ISS",
-        "Mode avancé": "Mode avancé",
-        "Configuration brute": "Configuration brute",
-        "Objet": "Objet",
-        "Equipement": "Equipement",
-        "Type": "Type",
-        "Commande": "Commande",
-        "Transmettre": "Transmettre",
-        "Type Imperihome": "Type Imperihome",
-        "Scénario": "Scénario",
-        "Action": "Action"
+        "Aucun": "Ninguno",
+        "Configuration ISS": "Configuración ISS",
+        "Mode avancé": "Modo avanzado",
+        "Configuration brute": "Configuración bruta",
+        "Objet": "Objeto",
+        "Equipement": "Dispositivo",
+        "Type": "Tipo",
+        "Commande": "Comando",
+        "Transmettre": "Transmitir",
+        "Type Imperihome": "Tipo Imperihome",
+        "Scénario": "Escenario",
+        "Action": "Acción"
     },
     "plugins\/imperihome\/desktop\/js\/imperihome.js": {
-        "Sauvegarde réalisée avec succès": "Sauvegarde réalisée avec succès",
-        "Mode avancé ISS": "Mode avancé ISS",
-        "Suppression réalisée avec succès": "Suppression réalisée avec succès"
+        "Sauvegarde réalisée avec succès": "Salvado realizado con éxito",
+        "Mode avancé ISS": "Modo avanzado ISS",
+        "Suppression réalisée avec succès": "Eliminación realizada con éxito"
     },
     "plugins\/imperihome\/desktop\/modal\/config.eqISS.php": {
-        "Sauvegarde réalisée avec succès": "Sauvegarde réalisée avec succès",
-        "Non": "Non",
-        "Oui": "Oui"
+        "Sauvegarde réalisée avec succès": "Salvado realizado con éxito",
+        "Non": "No",
+        "Oui": "Sí"
     }
 }
