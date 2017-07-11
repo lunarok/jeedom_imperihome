@@ -401,8 +401,7 @@ class imperihome extends eqLogic {
 
 				if ($action->getSubtype() == 'slider') {
 					if ($_action == 'setLevel') {
-						$_value = ($action->getConfiguration('maxValue', 100) - $action->getConfiguration('minValue', 0)) * ($_value / 100) + $action->getConfiguration('minValue', 0);
-						$action->execCmd(array('slider' => $_value));
+                                                $_value = (int)(($action->getConfiguration('maxValue', 100) - $action->getConfiguration('minValue', 0)) * ($_value / 100) + $action->getConfiguration('minValue', 0));						$action->execCmd(array('slider' => $_value));
 						log::add('imperihome', 'debug', 'Type setLevel: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName() . ' Val=' . $_value);
 						return;
 					}
