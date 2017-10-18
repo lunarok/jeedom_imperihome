@@ -858,8 +858,8 @@ class imperihomeCmd extends cmd {
 		if ($this->getLogicalId() == "tts") {
 			$message = imperihomeCmd::cleanSMS(trim($_options['message']), true);
 			$url = 'http://' . $imperihome_ip . '/api/rest/speech/tts?text=' . $message;
-            if ($_options['message'] != '' && is_numeric($_options['message'])) {
-                $url .= '&vol=' . trim($_options['message']);
+            if ($_options['title'] != '' && is_numeric($_options['title'])) {
+                $url .= '&vol=' . trim($_options['title']);
             }
 		}
 		if ($this->getLogicalId() == 'reco') {
