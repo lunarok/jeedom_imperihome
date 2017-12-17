@@ -8,5 +8,5 @@ Le lien de l'API a configurer dans Imperihome est donné dans la page de configu
 .L'équipement disponible dans Imperihome n'est pas du bon type
 --
 La configuration automatique utilise les types génériques qui sont paramétrables sur les commandes.
-La configuration automatique n'a pas fonctionné, il faut passer par le mode manuel: cf doc.
+Die automatische Konfiguration hat nicht funktioniert, Sie müssen den manuellen Modus durchlaufen : siehe Dok.
 --

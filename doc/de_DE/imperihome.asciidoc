@@ -2,7 +2,7 @@
 
 Il est possible de créer des équipements qui représentent des clients Imperihome, cela permet de les controler par api
 
-Il est nécessaire de saisir l'adresse IP (avec le port) en configuration
+Es ist notwendig, die IP-Adresse (mit dem Port) in der Konfiguration einzugeben
 
 Ensuite les commandes suivantes seront disponibles :
 
