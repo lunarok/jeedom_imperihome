@@ -20,16 +20,16 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class imperihome extends eqLogic {
-    public static function migrateConfig() {
+	public static function migrateConfig() {
 		if (!file_exists(dirname(__FILE__) . '/../../data/ISSConfig.json')) {
-            if (file_exists(dirname(__FILE__) . '/../config/ISSConfig.json')) {
-                copy(dirname(__FILE__) . '/../config/ISSConfig.json', dirname(__FILE__) . '/../../data/ISSConfig.json');
-    		}
+            		if (file_exists(dirname(__FILE__) . '/../config/ISSConfig.json')) {
+                		copy(dirname(__FILE__) . '/../config/ISSConfig.json', dirname(__FILE__) . '/../../data/ISSConfig.json');
+    			}
 		}
-        if (!file_exists(dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json')) {
-            if (file_exists(dirname(__FILE__) . '/../config/ISSAdvancedConfig.json')) {
-    			copy(dirname(__FILE__) . '/../config/ISSAdvancedConfig.json', dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json');
-    		}
+        	if (!file_exists(dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json')) {
+            		if (file_exists(dirname(__FILE__) . '/../config/ISSAdvancedConfig.json')) {
+    				copy(dirname(__FILE__) . '/../config/ISSAdvancedConfig.json', dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json');
+    			}
 		}
 	}
 
@@ -45,9 +45,9 @@ class imperihome extends eqLogic {
 		}
 	}
 
-    public static function getIssAdvancedConfig(){
-        if (!file_exists(dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json')) {
-            $return = array();
+    	public static function getIssAdvancedConfig(){
+        	if (!file_exists(dirname(__FILE__) . '/../../data/ISSAdvancedConfig.json')) {
+            		$return = array();
 			return $return;
 		} else {
 			return json_decode(file_get_contents(dirname(__FILE__) . "/../../data/ISSAdvancedConfig.json"), true);
@@ -61,11 +61,11 @@ class imperihome extends eqLogic {
 		return file_put_contents(dirname(__FILE__) . "/../../data/ISSConfig.json", json_encode($_content));
 	}
 
-    public static function setIssAdvancedConfig($_content = ''){
-        if (!file_exists(dirname(__FILE__) . '/../../data')) {
-            mkdir(dirname(__FILE__) . '/../../data');
-        }
-        return file_put_contents(dirname(__FILE__) . "/../../data/ISSAdvancedConfig.json", json_encode($_content));
+    	public static function setIssAdvancedConfig($_content = ''){
+        	if (!file_exists(dirname(__FILE__) . '/../../data')) {
+            		mkdir(dirname(__FILE__) . '/../../data');
+       		}
+        	return file_put_contents(dirname(__FILE__) . "/../../data/ISSAdvancedConfig.json", json_encode($_content));
 	}
 
 	public static function getIssTemplate($_decode = false) {
@@ -155,7 +155,7 @@ class imperihome extends eqLogic {
 			$template['devices'][] = $info_device;
 		}
 
-        $issAdvancedConfig = imperihome::getIssAdvancedConfig();
+        	$issAdvancedConfig = imperihome::getIssAdvancedConfig();
 		foreach ($issAdvancedConfig as $device_id => $device) {
 			$cmd = cmd::byId($device_id);
 			if (!is_object($cmd)) {
@@ -252,7 +252,7 @@ class imperihome extends eqLogic {
 		return json_encode($return);
 	}
 
-    public static function action($_cmd_id, $_action, $_value = '') {
+    	public static function action($_cmd_id, $_action, $_value = '') {
 		log::add('imperihome', 'debug', 'Reception d\'une action "' . $_action . '(' . $_value . ')" sur ' . $_cmd_id);
 
 		if ($_action == 'launchScene' && strpos($_cmd_id, 'scenario') !== false) {
@@ -298,11 +298,11 @@ class imperihome extends eqLogic {
 				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
 			}
 
-//         if (($_action == 'setChoice') and ($actionCmdId == '')) {
-         	if (($_action == 'setChoice') and ($actionCmdId != $_cmd_id)) {
-		       log::add('imperihome', 'debug', 'Commande actionCmdId : ' . $actionCmdId);
-		       log::add('imperihome', 'debug', 'Commande _cmd_id : ' . $_cmd_id);				
-			$cmd = cmd::byId($_cmd_id);
+//         		if (($_action == 'setChoice') and ($actionCmdId == '')) {
+			if ((($_action == 'setChoice') or ($_action == 'setMode')) and ($actionCmdId != $_cmd_id)) {
+		       		log::add('imperihome', 'debug', 'Commande actionCmdId : ' . $actionCmdId);
+		     	  	log::add('imperihome', 'debug', 'Commande _cmd_id : ' . $_cmd_id);				
+				$cmd = cmd::byId($_cmd_id);
 				if (!is_object($cmd)) {
 					return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
 				}
@@ -310,7 +310,7 @@ class imperihome extends eqLogic {
 				$action = cmd::byEqLogicIdCmdName($eqlogic->getId(), $_value);
 				if (is_object($action)) {
 					$action->execCmd();
-					log::add('imperihome', 'debug', 'Type setChoice: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
+					log::add('imperihome', 'debug', 'Type ' . $_action . ': execution de la cmd id=' . $action->getId() . ' - ' . $action->getName());
 				}
 				//return array("success" => true, "errormsg" => "");
 			}
@@ -318,6 +318,7 @@ class imperihome extends eqLogic {
 			log::add('imperihome', 'debug', 'Type manuelle: ActionId=' . $actionCmdId);
 
 			$cmd = cmd::byId($actionCmdId);
+
 			if (!is_object($cmd)) {
 				log::add('imperihome', 'debug', 'Commande introuvable');
 				return array("success" => false, "errormsg" => __('Commande inconnue', __FILE__));
@@ -330,9 +331,11 @@ class imperihome extends eqLogic {
 			}
 
 			if ($cmd->getSubtype() == 'slider') {
-				$_value = ($cmd->getConfiguration('maxValue', 100) - $cmd->getConfiguration('minValue', 0)) * ($_value / 100) + $cmd->getConfiguration('minValue', 0);
+				if ($_action != 'setSetPoint') {
+					$_value = ($cmd->getConfiguration('maxValue', 100) - $cmd->getConfiguration('minValue', 0)) * ($_value / 100) + $cmd->getConfiguration('minValue', 0);
+				}
 				$cmd->execCmd(array('slider' => $_value));
-				log::add('imperihome', 'debug', 'Action Slider éxécutée, value = ' . $_value);
+				log::add('imperihome', 'debug', 'Action ' . $_action . ' éxécutée, value = ' . $_value);
 				return array("success" => true, "errormsg" => "");
 			}
 
@@ -401,7 +404,8 @@ class imperihome extends eqLogic {
 
 				if ($action->getSubtype() == 'slider') {
 					if ($_action == 'setLevel') {
-                                                $_value = (int)(($action->getConfiguration('maxValue', 100) - $action->getConfiguration('minValue', 0)) * ($_value / 100) + $action->getConfiguration('minValue', 0));						$action->execCmd(array('slider' => $_value));
+						$_value = ($action->getConfiguration('maxValue', 100) - $action->getConfiguration('minValue', 0)) * ($_value / 100) + $action->getConfiguration('minValue', 0);
+						$action->execCmd(array('slider' => $_value));
 						log::add('imperihome', 'debug', 'Type setLevel: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName() . ' Val=' . $_value);
 						return;
 					}
@@ -773,7 +777,7 @@ class imperihome extends eqLogic {
 	}
 
 	public function postUpdate() {
-    $reco = $this->getCmd(null, 'reco');
+    		$reco = $this->getCmd(null, 'reco');
 		if (!is_object($reco)) {
 			$reco = new imperihomeCmd();
 			$reco->setLogicalId('reco');
@@ -793,7 +797,7 @@ class imperihome extends eqLogic {
 		$page->setSubType('message');
 		$page->setEqLogic_id($this->getId());
 		$page->save();
-        $page = $this->getCmd(null, 'wakeup');
+        	$page = $this->getCmd(null, 'wakeup');
 		if (!is_object($page)) {
 			$page = new imperihomeCmd();
 			$page->setLogicalId('wakeup');
@@ -814,7 +818,7 @@ class imperihome extends eqLogic {
 		$tts->setSubType('message');
 		$tts->setEqLogic_id($this->getId());
 		$tts->save();
-        $tts = $this->getCmd(null, 'camera');
+        	$tts = $this->getCmd(null, 'camera');
 		if (!is_object($tts)) {
 			$tts = new imperihomeCmd();
 			$tts->setLogicalId('camera');
@@ -832,11 +836,11 @@ class imperihome extends eqLogic {
 class imperihomeCmd extends cmd {
 	public function preSave() {
 		if ($this->getSubtype() == 'message') {
-            if ($this->getLogicalId() == "tts") {
-                $this->setDisplay('title_disable', 0);
-            } else {
-                $this->setDisplay('title_disable', 1);
-            }
+            		if ($this->getLogicalId() == "tts") {
+                		$this->setDisplay('title_disable', 0);
+            		} else {
+                		$this->setDisplay('title_disable', 1);
+            		}
 		}
 	}
 
@@ -858,23 +862,21 @@ class imperihomeCmd extends cmd {
 		if ($this->getLogicalId() == "tts") {
 			$message = imperihomeCmd::cleanSMS(trim($_options['message']), true);
 			$url = 'http://' . $imperihome_ip . '/api/rest/speech/tts?text=' . $message;
-            if ($_options['title'] != '' && is_numeric($_options['title'])) {
-                $url .= '&vol=' . trim($_options['title']);
-            }
+            		if ($_options['message'] != '' && is_numeric($_options['message'])) {
+                		$url .= '&vol=' . trim($_options['message']);
+            		}
 		}
 		if ($this->getLogicalId() == 'reco') {
 			$url = 'http://' . $imperihome_ip . '/api/rest/speech/launchreco';
-
 		}
-        if ($this->getLogicalId() == 'wakeup') {
+        	if ($this->getLogicalId() == 'wakeup') {
 			$url = 'http://' . $imperihome_ip . '/api/rest/dashboard/wakeup';
-
 		}
 		if ($this->getLogicalId() ==  'page') {
 			$message = trim($_options['message']);
 			$url = 'http://' . $imperihome_ip . '/api/rest/dashboard/gotopage?pageIdx=' . $message;
 		}
-        if ($this->getLogicalId() ==  'camera') {
+       		if ($this->getLogicalId() ==  'camera') {
 			$message = trim($_options['message']);
 			$url = 'http://' . $imperihome_ip . '/api/rest/camera/view?devid=' . $message;
 		}
@@ -891,5 +893,4 @@ class imperihomeCmd extends cmd {
 		curl_exec($ch);
 		curl_close($ch);
 	}
-
 }
