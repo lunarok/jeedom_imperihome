@@ -7,7 +7,7 @@ if (!isConnect('admin')) {
 <ul class="nav nav-tabs" role="tablist">
 	<li role="presentation" class="active"><a href="#device" aria-controls="home" role="tab" data-toggle="tab">{{Equipement}}</a></li>
 	<li role="presentation"><a href="#scene" aria-controls="home" role="tab" data-toggle="tab">{{Scénario}}</a></li>
-	<li role="presentation" class="expertModeVisible"><a href="#advanced" role="tab" data-toggle="tab">{{Mode avancé}}</a></li>
+	<li role="presentation"><a href="#advanced" role="tab" data-toggle="tab">{{Mode avancé}}</a></li>
 </ul>
 
 <div class="tab-content">
