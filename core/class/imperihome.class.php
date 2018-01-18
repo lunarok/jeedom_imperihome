@@ -211,12 +211,14 @@ class imperihome extends eqLogic {
 					$device['params'][5]['value'] = str_replace(array('#', '"'), '', $device['params'][5]['value']);
 					if (strlen($device['params'][5]['value']) == 6) {
 						$device['params'][5]['value'] = 'FF' . $device['params'][5]['value'];
-					}
-					if (strlen($device['params'][5]['value']) == 8) {
-						$device['params'][5]['value'] = 'FF' . substr($device['params'][5]['value'], 0, 6);
-					}
-					if (strlen($device['params'][5]['value']) == 10) {
-						$device['params'][5]['value'] = 'FF' . substr($device['params'][5]['value'], 0, 6);
+					} else {
+						if (strlen($device['params'][5]['value']) == 8) {
+							$device['params'][5]['value'] = 'FF' . substr($device['params'][5]['value'], 0, 6);
+						} else {
+							if (strlen($device['params'][5]['value']) == 10) {
+								$device['params'][5]['value'] = 'FF' . substr($device['params'][5]['value'], 0, 6);
+							}
+						}
 					}
 					continue;
 				}
