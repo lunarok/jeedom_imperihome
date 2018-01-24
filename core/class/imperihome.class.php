@@ -207,7 +207,7 @@ class imperihome extends eqLogic {
 		if (is_array($return['devices'])) {
 			foreach ($return['devices'] as &$device) {
 				if ($device['type'] == 'DevRGBLight') {
-					$device['params'][0]['value'] = ($device['params'][0]['value'] != '#000000' && $device['params'][0]['value'] != '#00000000' && $device['params'][0]['value'] != '#0000000000') ? 1 : 0;
+					$device['params'][0]['value'] = ($device['params'][0]['value'] != '#000000' && $device['params'][0]['value'] != '#00000000' && $device['params'][0]['value'] != '#0000000000' && $device['params'][0]['value'] != 0) ? 1 : 0;
 					$device['params'][5]['value'] = str_replace(array('#', '"'), '', $device['params'][5]['value']);
 					if (strlen($device['params'][5]['value']) == 6) {
 						$device['params'][5]['value'] = 'FF' . $device['params'][5]['value'];
@@ -334,7 +334,7 @@ class imperihome extends eqLogic {
 
 			if ($cmd->getSubtype() == 'slider') {
 				if ($_action != 'setSetPoint') {
-					$_value = ($cmd->getConfiguration('maxValue', 100) - $cmd->getConfiguration('minValue', 0)) * ($_value / 100) + $cmd->getConfiguration('minValue', 0);
+					$_value = intval(($cmd->getConfiguration('maxValue', 100) - $cmd->getConfiguration('minValue', 0)) * ($_value / 100) + $cmd->getConfiguration('minValue', 0));
 				}
 				$cmd->execCmd(array('slider' => $_value));
 				log::add('imperihome', 'debug', 'Action ' . $_action . ' éxécutée, value = ' . $_value);
@@ -406,7 +406,7 @@ class imperihome extends eqLogic {
 
 				if ($action->getSubtype() == 'slider') {
 					if ($_action == 'setLevel') {
-						$_value = ($action->getConfiguration('maxValue', 100) - $action->getConfiguration('minValue', 0)) * ($_value / 100) + $action->getConfiguration('minValue', 0);
+						$_value = intval(($action->getConfiguration('maxValue', 100) - $action->getConfiguration('minValue', 0)) * ($_value / 100) + $action->getConfiguration('minValue', 0));
 						$action->execCmd(array('slider' => $_value));
 						log::add('imperihome', 'debug', 'Type setLevel: execution de la cmd id=' . $action->getId() . ' - ' . $action->getName() . ' Val=' . $_value);
 						return;
