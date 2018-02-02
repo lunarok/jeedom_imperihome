@@ -23,6 +23,9 @@ function imperihome_install() {
 
 function imperihome_update() {
     imperihome::migrateConfig();
+    if (file_exists(./.htaccess)) {
+        unlink(./.htaccess);
+    }
 }
 
 function imperihome_remove() {
