@@ -846,26 +846,20 @@ class imperihomeCmd extends cmd {
 		}
 	}
 
-	public static function cleanSMS($_message) {
-  	$caracteres = array(
-      'À' => 'a', 'Á' => 'a', 'Â' => 'a', 'Ä' => 'a', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ä' => 'a', '@' => 'a',
-      'È' => 'e', 'É' => 'e', 'Ê' => 'e', 'Ë' => 'e', 'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', '€' => 'e',
-      'Ì' => 'i', 'Í' => 'i', 'Î' => 'i', 'Ï' => 'i', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i',
-      'Ò' => 'o', 'Ó' => 'o', 'Ô' => 'o', 'Ö' => 'o', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'ö' => 'o',
-      'Ù' => 'u', 'Ú' => 'u', 'Û' => 'u', 'Ü' => 'u', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ü' => 'u', 'µ' => 'u',
-      'Œ' => 'oe', 'œ' => 'oe', ' ' => '+',
-      '$' => 's');
-  	return preg_replace('#[^A-Za-z0-9 \n\.\'=\*:]+#', '', strtr($_message, $caracteres));
+	public function CleanString($Text) 
+	{		
+			$Text = str_replace("'","%27",str_replace(" ","%20",preg_replace('/\s{2,}/', ' ',$Text)));
+		return $Text;
 	}
 
 	public function execute($_options = null) {
 		$imperihome = $this->getEqLogic();
 		$imperihome_ip = $imperihome->getConfiguration('addr');
 		if ($this->getLogicalId() == "tts") {
-			$message = imperihomeCmd::cleanSMS(trim($_options['message']), true);
+			$message = imperihomeCmd::CleanString(strip_tags(trim($_options['message'])));
 			$url = 'http://' . $imperihome_ip . '/api/rest/speech/tts?text=' . $message;
-            		if ($_options['message'] != '' && is_numeric($_options['message'])) {
-                		$url .= '&vol=' . trim($_options['message']);
+            		if ($_options['title'] != '' && is_numeric($_options['title'])) {
+                		$url .= '&vol=' . trim($_options['title']);
             		}
 		}
 		if ($this->getLogicalId() == 'reco') {
