@@ -4,5 +4,7 @@
 	"licence" : "AGPL",
 	"author" : "lunarok",
 	"require" : "2.4",
-	"category" : "automation protocol"
+	"category" : "automation protocol",
+  "changelog" : "https://lunarok.github.io/jeedom_docs/plugins/imperihome/changelog.html",
+  "documentation" : "https://lunarok.github.io/jeedom_docs/plugins/imperihome/"
 }
