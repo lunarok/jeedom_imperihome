@@ -74,7 +74,7 @@
             },
             {
                 "Description": "Energy value (number)",
-                "unit": "Watts",
+                "unit": "W",
                 "type": "infoNumeric",
                 "value": "",
                 "key": "energy"
@@ -370,7 +370,7 @@
         "params": [
             {
                 "Description": "Current consumption",
-                "unit": "Watts",
+                "unit": "W",
                 "graphable": "false",
                 "type": "infoNumeric",
                 "value": "0",
@@ -538,7 +538,7 @@
             },
             {
                 "Description": "Energy value (number)",
-                "unit": "Watts",
+                "unit": "W",
                 "type": "infoNumeric",
                 "value": "0",
                 "key": "energy"
@@ -684,7 +684,7 @@
             },
             {
                 "Description": "Energy value (number)",
-                "unit": "Watts",
+                "unit": "W",
                 "type": "infoNumeric",
                 "value": "0",
                 "key": "energy"
