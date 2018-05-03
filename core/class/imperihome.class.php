@@ -564,7 +564,7 @@ class imperihome extends eqLogic {
 			return $info_device['type'];
 		}
 		$issConfig = imperihome::getIssConfig();
-		switch ($cmd->getDisplay('generic_type')) {
+		switch ($cmd->getGeneric_Type()) {
 			case "LIGHT_STATE":
 			foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
 				if ($action->getDisplay('generic_type') == 'LIGHT_SLIDER') {
@@ -576,11 +576,11 @@ class imperihome extends eqLogic {
 			return 'DevRGBLight';
 			case "ENERGY_STATE":
 			foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
-				if ($action->getDisplay('generic_type') == 'ENERGY_SLIDER') {
+				if ($action->getGeneric_Type() == 'ENERGY_SLIDER') {
 					return 'DevDimmer';
 				}
 			}
-			return 'DevSwitch';return 'DevSwitch';
+			return 'DevSwitch';
 			case "FLAP_STATE":
 			case "FLAP_BSO_STATE":
 			return 'DevShutter';
@@ -605,7 +605,7 @@ class imperihome extends eqLogic {
 			return 'DevElectricity';
 			case "TEMPERATURE":
 			foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
-				if ($info->getDisplay('generic_type') == 'HUMIDITY') {
+				if ($info->getGeneric_Type() == 'HUMIDITY') {
 					if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
 						return 'DevTempHygro';
 					}
@@ -624,7 +624,7 @@ class imperihome extends eqLogic {
 			return 'DevFlood';
 			case "HUMIDITY":
 			foreach ($cmd->getEqLogic()->getCmd('info') as $info) {
-				if ($info->getDisplay('generic_type') == 'TEMPERATURE') {
+				if ($info->getGeneric_Type() == 'TEMPERATURE') {
 					if (isset($issConfig[$info->getId()]) && $issConfig[$info->getId()]['cmd_transmit'] == 1) {
 						return 'DevTempHygro';
 					}
