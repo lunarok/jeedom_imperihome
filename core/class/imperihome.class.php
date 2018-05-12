@@ -567,7 +567,7 @@ class imperihome extends eqLogic {
 		switch ($cmd->getGeneric_Type()) {
 			case "LIGHT_STATE":
 			foreach ($cmd->getEqLogic()->getCmd('action') as $action) {
-				if ($action->getDisplay('generic_type') == 'LIGHT_SLIDER') {
+				if ($action->getGeneric_Type() == 'LIGHT_SLIDER') {
 					return 'DevDimmer';
 				}
 			}
