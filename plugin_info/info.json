@@ -1,10 +1,13 @@
 {
 	"id" : "imperihome",
 	"name" : "ImperiHome",
+	"description" : "Permet d'utiliser Jeedom avec les applis mobiles Imperihome. Compatible avec les versions Android et IOS, nécessite l'installation d'Imperihome via le Google Play Store ou l'AppStore, en version gratuite ou payante.",
 	"licence" : "AGPL",
 	"author" : "lunarok",
 	"require" : "2.4",
 	"category" : "automation protocol",
+	"language" : ["fr_FR","en_US"],
+	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile"],
   "changelog" : "https://lunarok.github.io/jeedom_docs/plugins/imperihome/changelog.html",
   "documentation" : "https://lunarok.github.io/jeedom_docs/plugins/imperihome/"
 }
