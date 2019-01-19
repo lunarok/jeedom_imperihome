@@ -5,7 +5,7 @@
 	"licence" : "AGPL",
 	"author" : "lunarok",
 	"require" : "2.4",
-	"category" : "automation protocol",
+	"category" : "home automation protocol",
 	"language" : ["fr_FR","en_US"],
 	"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile"],
   "changelog" : "https://lunarok.github.io/jeedom_docs/plugins/imperihome/changelog.html",
