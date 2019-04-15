@@ -3,7 +3,7 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 ?>
-<a class="btn btn-success pull-right bt_saveISSConfig"><i class="fa fa-floppy-o"></i> Sauvegarder</a><br>
+<a class="btn btn-success pull-right bt_saveISSConfig"><i class="fas fa-floppy-o"></i> Sauvegarder</a><br>
 <ul class="nav nav-tabs" role="tablist">
 	<li role="presentation" class="active"><a href="#device" aria-controls="home" role="tab" data-toggle="tab">{{Equipement}}</a></li>
 	<li role="presentation"><a href="#scene" aria-controls="home" role="tab" data-toggle="tab">{{Scénario}}</a></li>
@@ -122,7 +122,7 @@ if (!isConnect('admin')) {
 
 	<div role="tabpanel" class="tab-pane" id="advanced">
 		<br/>
-		<a class="btn btn-warning pull-right bt_newAdvancedDevice" id=""><i class="fa fa-plus-circle"></i> Ajouter un équipement</a>
+		<a class="btn btn-warning pull-right bt_newAdvancedDevice" id=""><i class="fas fa-plus-circle"></i> Ajouter un équipement</a>
 		<br><br>
 		<table class="table table-bordered table-condensed tablesorter" id="cmdListAdvanced">
 			<thead>

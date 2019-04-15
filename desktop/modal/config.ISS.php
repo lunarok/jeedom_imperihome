@@ -32,10 +32,10 @@ if (!isConnect('admin')) {
             </select>
         </div>
         <div class="col-sm-1">
-            <a id="eqUpdateISS" class="btn btn-primary btn"><i class="fa fa-forward"></i>Actualiser</a>
+            <a id="eqUpdateISS" class="btn btn-primary btn"><i class="fas fa-forward"></i>Actualiser</a>
         </div>
         <div class="col-sm-1">
-            <a id="eqSave" class="btn btn-success btn"><i class="fa fa-check-circle"></i>Sauvegarder</a>
+            <a id="eqSave" class="btn btn-success btn"><i class="fas fa-check-circle"></i>Sauvegarder</a>
         </div>
     </div>
 </fieldset>
@@ -450,7 +450,7 @@ if (!isConnect('admin')) {
 
                 td = '<input class="form-control" style="width: 10%; display : inline-block;" id="cmd' + param.key + 'Id" value="' + param.cmdId + '" disabled>';
                 td += '<input class="form-control" id="cmd' + param.key + '" placeholder="Commande Info associée" style="width: 80%; display : inline-block;" value="' + param.cmdHumanName + '" disabled>';
-                td += '<a class="btn btn-default cursor listEquipementInfo" data-input="cmd' + param.key + '"><i class="fa fa-list-alt "></i></a>';
+                td += '<a class="btn btn-default cursor listEquipementInfo" data-input="cmd' + param.key + '"><i class="fas fa-list-alt "></i></a>';
 
                 $('#devParamConf' + param.key).html(td);
             break;
@@ -493,7 +493,7 @@ if (!isConnect('admin')) {
             }
             td  = '            Commande à appeler: <input class="form-control" style="width: 10%; display : inline-block;" id="cmd' + action.key + value + 'Id" value="' + action.options[value].cmdId + '" disabled>';
             td += '            <input class="form-control" id="cmd' + action.key + value + '" placeholder="Commande Action associée" style="width: 50%; display : inline-block;" value="' + action.options[value].cmdHumanName + '" disabled>';
-            td += '            <a class="btn btn-default cursor listEquipementAction" data-input="cmd' + action.key + value + '"><i class="fa fa-list-alt "></i></a><br>';
+            td += '            <a class="btn btn-default cursor listEquipementAction" data-input="cmd' + action.key + value + '"><i class="fas fa-list-alt "></i></a><br>';
             td += '            Paramètre optionnel: <input class="form-control" id="cmdParam' + action.key + value + '" placeholder="Paramètre optionnel" style="width: 60%; display : inline-block;" value="' + action.options[value].cmdParam + '">';
         }else{
             if(action.options.cmdId == null){
@@ -506,7 +506,7 @@ if (!isConnect('admin')) {
             }
             td  = '            Commande à appeler: <input class="form-control" style="width: 10%; display : inline-block;" id="cmd' + action.key + 'Id" value="' + action.options.cmdId + '" disabled>';
             td += '            <input class="form-control" id="cmd' + action.key + '" placeholder="Commande Action associée" style="width: 50%; display : inline-block;" value="' + action.options.cmdHumanName + '" disabled>';
-            td += '            <a class="btn btn-default cursor listEquipementAction" data-input="cmd' + action.key + '"><i class="fa fa-list-alt "></i></a>';
+            td += '            <a class="btn btn-default cursor listEquipementAction" data-input="cmd' + action.key + '"><i class="fas fa-list-alt "></i></a>';
         }
 
         $('#devActionConf' + action.key + value).html(td)

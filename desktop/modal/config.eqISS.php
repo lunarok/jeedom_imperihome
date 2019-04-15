@@ -23,11 +23,11 @@ sendVarToJS('ISSeqId', init('ISSeqId'));
 ?>
 <div id="div_ISSAlert"></div>
 
-<legend>Commande support <a id="eqSave" class="btn btn-success btn-xs pull-right "><i class="fa fa-check-circle"> </i> Sauvegarder</a></legend>
+<legend>Commande support <a id="eqSave" class="btn btn-success btn-xs pull-right "><i class="fas fa-check-circle"> </i> Sauvegarder</a></legend>
 <div>
     <input class="form-control" style="width: 10%; display : inline-block;" id="cmdSupportId" disabled>
     <input class="form-control" id="cmdSupportHumanName" placeholder="Commande Info associée" style="width: 80%; display : inline-block;" disabled>
-    <a class="btn btn-default cursor listEquipement" data-input="cmdSupport"><i class="fa fa-list-alt "></i></a>
+    <a class="btn btn-default cursor listEquipement" data-input="cmdSupport"><i class="fas fa-list-alt "></i></a>
 </div>
 <br>
 <legend>Type ISS</legend>
@@ -252,7 +252,7 @@ function loadParameters(eqType){
             case "infoColor":
                 td = '<input class="form-control" style="width: 10%; display : inline-block;" id="cmd' + param.key + 'Id" disabled> ' ;
                 td += '<input class="form-control" id="cmd' + param.key + '" placeholder="Commande Info associée" style="width: 80%; display : inline-block;" disabled> ';
-                td += '<a class="btn btn-default cursor listEquipementInfo" data-input="cmd' + param.key + '"><i class="fa fa-list-alt "></i></a> ';
+                td += '<a class="btn btn-default cursor listEquipementInfo" data-input="cmd' + param.key + '"><i class="fas fa-list-alt "></i></a> ';
             break;
 
             case "optionBinary":
@@ -303,7 +303,7 @@ function loadActions(eqType){
                 tr += '    <td>';
                 tr +=  '           <input class="form-control" style="width: 10%; display : inline-block;" id="cmd' + key + optkey + 'Id" disabled> ';
                 tr += '            <input class="form-control" id="cmd' + key + optkey + '" placeholder="Commande Action associée" style="width: 80%; display : inline-block;" disabled> ';
-                tr += '            <a class="btn btn-default cursor listEquipementAction" data-input="cmd' + key + optkey + '"><i class="fa fa-list-alt "></i></a><br>';
+                tr += '            <a class="btn btn-default cursor listEquipementAction" data-input="cmd' + key + optkey + '"><i class="fas fa-list-alt "></i></a><br>';
                 tr += '     </td>';
                 tr += '</tr>';
 
@@ -316,7 +316,7 @@ function loadActions(eqType){
             tr += '    <td>';
             tr += '            <input class="form-control" style="width: 10%; display : inline-block;" id="cmd' + key + 'Id" disabled> ';
             tr += '            <input class="form-control" id="cmd' + key + '" placeholder="Commande Action associée" style="width: 80%; display : inline-block;" disabled> ';
-            tr += '            <a class="btn btn-default cursor listEquipementAction" data-input="cmd' + key + '"><i class="fa fa-list-alt "></i></a>';
+            tr += '            <a class="btn btn-default cursor listEquipementAction" data-input="cmd' + key + '"><i class="fas fa-list-alt "></i></a>';
             tr += '     </td>';
             tr += '</tr>';
 

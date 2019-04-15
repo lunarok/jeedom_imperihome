@@ -45,7 +45,7 @@ if (!isConnect()) {
 				<div class="form-group">
 	            <label class="col-lg-4 control-label">{{Contenu ISS}} : </label>
 	            <div class="col-lg-8">
-								<a class="btn btn-primary" onclick="loadModal()"><i class="fa fa-spinner"></i> {{Configuration}}</a>
+								<a class="btn btn-primary" onclick="loadModal()"><i class="fas fa-spinner"></i> {{Configuration}}</a>
 							</div>
 	        </div>
 	    </fieldset>
